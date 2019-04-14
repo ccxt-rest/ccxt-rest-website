@@ -21,9 +21,9 @@ headingLevel: 2
 
 Base URLs:
 
-* <a href="http://localhost:10010/">http://localhost:10010/</a>
+* <a href="http://localhost:3000/">http://localhost:3000/</a>
 
-* <a href="https://localhost:10010/">https://localhost:10010/</a>
+* <a href="https://localhost:3000/">https://localhost:3000/</a>
 
 Email: <a href="mailto:franz@see.net.ph">Support</a> 
 License: <a href="https://github.com/franz-see/ccxt-rest/blob/master/LICENSE.txt">MIT</a>
@@ -38,7 +38,7 @@ License: <a href="https://github.com/franz-see/ccxt-rest/blob/master/LICENSE.txt
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchanges \
+curl -X GET http://localhost:3000/exchanges \
   -H 'Accept: application/json'
 
 ```
@@ -59,7 +59,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchanges", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchanges", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -70,7 +70,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchanges");
+URL obj = new URL("http://localhost:3000/exchanges");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -93,7 +93,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchanges',
+  url: 'http://localhost:3000/exchanges',
   method: 'get',
 
   headers: headers,
@@ -110,7 +110,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchanges', params={
+r = requests.get('http://localhost:3000/exchanges', params={
 
 }, headers = headers)
 
@@ -126,7 +126,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchanges',
+result = RestClient.get 'http://localhost:3000/exchanges',
   params: {
   }, headers: headers
 
@@ -168,7 +168,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName} \
+curl -X GET http://localhost:3000/exchange/{exchangeName} \
   -H 'Accept: application/json'
 
 ```
@@ -189,7 +189,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -200,7 +200,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -223,7 +223,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}',
+  url: 'http://localhost:3000/exchange/{exchangeName}',
   method: 'get',
 
   headers: headers,
@@ -240,7 +240,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}', params={
 
 }, headers = headers)
 
@@ -256,7 +256,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}',
   params: {
   }, headers: headers
 
@@ -304,7 +304,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X POST http://localhost:10010/exchange/{exchangeName} \
+curl -X POST http://localhost:3000/exchange/{exchangeName} \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
@@ -327,7 +327,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://localhost:10010/exchange/{exchangeName}", data)
+    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -338,7 +338,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -362,7 +362,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}',
+  url: 'http://localhost:3000/exchange/{exchangeName}',
   method: 'post',
 
   headers: headers,
@@ -380,7 +380,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.post('http://localhost:10010/exchange/{exchangeName}', params={
+r = requests.post('http://localhost:3000/exchange/{exchangeName}', params={
 
 }, headers = headers)
 
@@ -397,7 +397,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.post 'http://localhost:10010/exchange/{exchangeName}',
+result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}',
   params: {
   }, headers: headers
 
@@ -499,7 +499,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId} \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId} \
   -H 'Accept: application/json'
 
 ```
@@ -520,7 +520,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -531,7 +531,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -554,7 +554,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
   method: 'get',
 
   headers: headers,
@@ -571,7 +571,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}', params={
 
 }, headers = headers)
 
@@ -587,7 +587,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
   params: {
   }, headers: headers
 
@@ -674,7 +674,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X DELETE http://localhost:10010/exchange/{exchangeName}/{exchangeId} \
+curl -X DELETE http://localhost:3000/exchange/{exchangeName}/{exchangeId} \
   -H 'Accept: application/json'
 
 ```
@@ -695,7 +695,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}", data)
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -706,7 +706,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -729,7 +729,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
   method: 'delete',
 
   headers: headers,
@@ -746,7 +746,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.delete('http://localhost:10010/exchange/{exchangeName}/{exchangeId}', params={
+r = requests.delete('http://localhost:3000/exchange/{exchangeName}/{exchangeId}', params={
 
 }, headers = headers)
 
@@ -762,7 +762,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.delete 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}',
+result = RestClient.delete 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
   params: {
   }, headers: headers
 
@@ -849,7 +849,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/markets \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets \
   -H 'Accept: application/json'
 
 ```
@@ -870,7 +870,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/markets", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -881,7 +881,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/markets");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -904,7 +904,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/markets',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets',
   method: 'get',
 
   headers: headers,
@@ -921,7 +921,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/markets', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets', params={
 
 }, headers = headers)
 
@@ -937,7 +937,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/markets',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets',
   params: {
   }, headers: headers
 
@@ -1007,7 +1007,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orderBook?symbol=string \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook?symbol=string \
   -H 'Accept: application/json'
 
 ```
@@ -1028,7 +1028,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orderBook", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1039,7 +1039,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orderBook?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1062,7 +1062,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orderBook',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1079,7 +1079,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orderBook', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1095,7 +1095,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orderBook',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1136,7 +1136,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z"
+  "datetime": "2019-04-14T05:31:09Z"
 }
 ```
 
@@ -1158,7 +1158,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/l2OrderBook?symbol=string \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook?symbol=string \
   -H 'Accept: application/json'
 
 ```
@@ -1179,7 +1179,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/l2OrderBook", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1190,7 +1190,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/l2OrderBook?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1213,7 +1213,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/l2OrderBook',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1230,7 +1230,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/l2OrderBook', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1246,7 +1246,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/l2OrderBook',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1287,7 +1287,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z"
+  "datetime": "2019-04-14T05:31:09Z"
 }
 ```
 
@@ -1309,7 +1309,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades?symbol=string \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades?symbol=string \
   -H 'Accept: application/json'
 
 ```
@@ -1330,7 +1330,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1341,7 +1341,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1364,7 +1364,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1381,7 +1381,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1397,7 +1397,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1454,7 +1454,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/ticker?symbol=string \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker?symbol=string \
   -H 'Accept: application/json'
 
 ```
@@ -1475,7 +1475,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/ticker", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1486,7 +1486,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/ticker?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1509,7 +1509,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/ticker',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1526,7 +1526,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/ticker', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1542,7 +1542,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/ticker',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1571,7 +1571,7 @@ Get the ticker of the exchange referenced by the exchangeName and exchangeId
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1603,7 +1603,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/balances \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances \
   -H 'Accept: application/json'
 
 ```
@@ -1624,7 +1624,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/balances", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1635,7 +1635,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/balances");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1658,7 +1658,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/balances',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances',
   method: 'get',
 
   headers: headers,
@@ -1675,7 +1675,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/balances', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances', params={
 
 }, headers = headers)
 
@@ -1691,7 +1691,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/balances',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances',
   params: {
   }, headers: headers
 
@@ -1746,7 +1746,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders \
   -H 'Accept: application/json'
 
 ```
@@ -1767,7 +1767,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1778,7 +1778,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1801,7 +1801,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders',
   method: 'get',
 
   headers: headers,
@@ -1818,7 +1818,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders', params={
 
 }, headers = headers)
 
@@ -1834,7 +1834,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders',
   params: {
   }, headers: headers
 
@@ -1864,7 +1864,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -1896,7 +1896,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/open \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open \
   -H 'Accept: application/json'
 
 ```
@@ -1917,7 +1917,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/open", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1928,7 +1928,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/open");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1951,7 +1951,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/open',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open',
   method: 'get',
 
   headers: headers,
@@ -1968,7 +1968,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/open', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open', params={
 
 }, headers = headers)
 
@@ -1984,7 +1984,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/open',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open',
   params: {
   }, headers: headers
 
@@ -2014,7 +2014,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2046,7 +2046,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/closed \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed \
   -H 'Accept: application/json'
 
 ```
@@ -2067,7 +2067,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/closed", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2078,7 +2078,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/closed");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2101,7 +2101,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/closed',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed',
   method: 'get',
 
   headers: headers,
@@ -2118,7 +2118,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/closed', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed', params={
 
 }, headers = headers)
 
@@ -2134,7 +2134,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/orders/closed',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed',
   params: {
   }, headers: headers
 
@@ -2164,7 +2164,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2196,7 +2196,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades/mine \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine \
   -H 'Accept: application/json'
 
 ```
@@ -2217,7 +2217,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades/mine", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2228,7 +2228,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades/mine");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2251,7 +2251,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades/mine',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine',
   method: 'get',
 
   headers: headers,
@@ -2268,7 +2268,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades/mine', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine', params={
 
 }, headers = headers)
 
@@ -2284,7 +2284,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/trades/mine',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine',
   params: {
   }, headers: headers
 
@@ -2340,7 +2340,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X POST http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order \
+curl -X POST http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
@@ -2363,7 +2363,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order", data)
+    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2374,7 +2374,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -2398,7 +2398,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order',
   method: 'post',
 
   headers: headers,
@@ -2416,7 +2416,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.post('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order', params={
+r = requests.post('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order', params={
 
 }, headers = headers)
 
@@ -2433,7 +2433,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.post 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order',
+result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order',
   params: {
   }, headers: headers
 
@@ -2487,7 +2487,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2519,7 +2519,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId} \
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId} \
   -H 'Accept: application/json'
 
 ```
@@ -2540,7 +2540,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2551,7 +2551,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2574,7 +2574,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
   method: 'get',
 
   headers: headers,
@@ -2591,7 +2591,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.get('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}', params={
 
 }, headers = headers)
 
@@ -2607,7 +2607,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.get 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
   params: {
   }, headers: headers
 
@@ -2636,7 +2636,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2668,7 +2668,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X DELETE http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId} \
+curl -X DELETE http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId} \
   -H 'Accept: application/json'
 
 ```
@@ -2689,7 +2689,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}", data)
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2700,7 +2700,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -2723,7 +2723,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
   method: 'delete',
 
   headers: headers,
@@ -2740,7 +2740,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.delete('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}', params={
+r = requests.delete('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}', params={
 
 }, headers = headers)
 
@@ -2756,7 +2756,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.delete 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+result = RestClient.delete 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
   params: {
   }, headers: headers
 
@@ -2785,7 +2785,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2817,7 +2817,7 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X POST http://localhost:10010/exchange/{exchangeName}/{exchangeId}/_/{methodName} \
+curl -X POST http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName} \
   -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
@@ -2840,7 +2840,7 @@ func main() {
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://localhost:10010/exchange/{exchangeName}/{exchangeId}/_/{methodName}", data)
+    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2851,7 +2851,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:10010/exchange/{exchangeName}/{exchangeId}/_/{methodName}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -2875,7 +2875,7 @@ var headers = {
 };
 
 $.ajax({
-  url: 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/_/{methodName}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}',
   method: 'post',
 
   headers: headers,
@@ -2893,7 +2893,7 @@ headers = {
   'Accept': 'application/json'
 }
 
-r = requests.post('http://localhost:10010/exchange/{exchangeName}/{exchangeId}/_/{methodName}', params={
+r = requests.post('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}', params={
 
 }, headers = headers)
 
@@ -2910,7 +2910,7 @@ headers = {
   'Accept' => 'application/json'
 }
 
-result = RestClient.post 'http://localhost:10010/exchange/{exchangeName}/{exchangeId}/_/{methodName}',
+result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}',
   params: {
   }, headers: headers
 
@@ -3422,7 +3422,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z"
+  "datetime": "2019-04-14T05:31:09Z"
 }
 
 ```
@@ -3499,7 +3499,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3589,7 +3589,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T04:54:43Z",
+  "datetime": "2019-04-14T05:31:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
