@@ -2,13 +2,11 @@
 title: CCXT REST
 language_tabs:
   - shell: Shell
-  - dart: Dart
   - go: Go
   - java: Java
   - javascript: Javascript
   - python: Python
   - ruby: Ruby
-  - rust: Rust
 toc_footers: []
 includes: []
 search: true
@@ -1138,7 +1136,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z"
+  "datetime": "2019-04-14T04:49:44Z"
 }
 ```
 
@@ -1289,7 +1287,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z"
+  "datetime": "2019-04-14T04:49:44Z"
 }
 ```
 
@@ -1573,7 +1571,7 @@ Get the ticker of the exchange referenced by the exchangeName and exchangeId
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1866,7 +1864,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2016,7 +2014,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2166,7 +2164,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2489,7 +2487,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2638,7 +2636,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2787,7 +2785,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3424,7 +3422,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z"
+  "datetime": "2019-04-14T04:49:44Z"
 }
 
 ```
@@ -3501,7 +3499,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3591,7 +3589,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T03:40:14Z",
+  "datetime": "2019-04-14T04:49:44Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
