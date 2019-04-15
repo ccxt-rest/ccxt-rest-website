@@ -25,7 +25,7 @@ Base URLs:
 
 * <a href="https://localhost:3000/">https://localhost:3000/</a>
 
-Email: <a href="mailto:franz@see.net.ph">Support</a> 
+Email: <a href="mailto:hello@adroit.ph">Adroit</a> Web: <a href="https://adroit.ph/ccxt-rest-contact-us/">Adroit</a> 
 License: <a href="https://github.com/franz-see/ccxt-rest/blob/master/LICENSE.txt">MIT</a>
 
 <h1 id="ccxt-rest-default">Default</h1>
@@ -144,7 +144,141 @@ List all support exchanges by this server
 
 ```json
 [
-  "string"
+  "_1btcxe",
+  "acx",
+  "allcoin",
+  "anxpro",
+  "anybits",
+  "bcex",
+  "bequant",
+  "bibox",
+  "bigone",
+  "binance",
+  "binanceje",
+  "bit2c",
+  "bitbank",
+  "bitbay",
+  "bitfinex",
+  "bitfinex2",
+  "bitflyer",
+  "bitforex",
+  "bithumb",
+  "bitibu",
+  "bitkk",
+  "bitlish",
+  "bitmarket",
+  "bitmex",
+  "bitsane",
+  "bitso",
+  "bitstamp",
+  "bitstamp1",
+  "bittrex",
+  "bitz",
+  "bl3p",
+  "bleutrade",
+  "braziliex",
+  "btcalpha",
+  "btcbox",
+  "btcchina",
+  "btcexchange",
+  "btcmarkets",
+  "btctradeim",
+  "btctradeua",
+  "btcturk",
+  "buda",
+  "bxinth",
+  "ccex",
+  "cex",
+  "chbtc",
+  "chilebit",
+  "cobinhood",
+  "coinbase",
+  "coinbaseprime",
+  "coinbasepro",
+  "coincheck",
+  "coinegg",
+  "coinex",
+  "coinexchange",
+  "coinfalcon",
+  "coinfloor",
+  "coingi",
+  "coinmarketcap",
+  "coinmate",
+  "coinnest",
+  "coinone",
+  "coinspot",
+  "cointiger",
+  "coolcoin",
+  "coss",
+  "crex24",
+  "crypton",
+  "cryptopia",
+  "deribit",
+  "dsx",
+  "ethfinex",
+  "exmo",
+  "exx",
+  "fcoin",
+  "fcoinjp",
+  "flowbtc",
+  "foxbit",
+  "fybse",
+  "fybsg",
+  "gateio",
+  "gdax",
+  "gemini",
+  "getbtc",
+  "hadax",
+  "hitbtc",
+  "hitbtc2",
+  "huobipro",
+  "huobiru",
+  "ice3x",
+  "independentreserve",
+  "indodax",
+  "itbit",
+  "jubi",
+  "kkex",
+  "kraken",
+  "kucoin",
+  "kucoin2",
+  "kuna",
+  "lakebtc",
+  "lbank",
+  "liqui",
+  "liquid",
+  "livecoin",
+  "luno",
+  "lykke",
+  "mandala",
+  "mercado",
+  "mixcoins",
+  "negociecoins",
+  "nova",
+  "okcoincny",
+  "okcoinusd",
+  "okex",
+  "paymium",
+  "poloniex",
+  "quadrigacx",
+  "rightbtc",
+  "southxchange",
+  "stronghold",
+  "surbitcoin",
+  "theocean",
+  "therock",
+  "tidebit",
+  "tidex",
+  "uex",
+  "upbit",
+  "urdubit",
+  "vaultoro",
+  "vbtc",
+  "virwox",
+  "xbtce",
+  "yobit",
+  "zaif",
+  "zb"
 ]
 ```
 
@@ -280,7 +414,9 @@ List all exchange instance ids for this exchange
 
 ```json
 [
-  "string"
+  "myBitsoInstance",
+  "myBinanceInstance",
+  "someRandomNameIGaveToAnInstance"
 ]
 ```
 
@@ -426,10 +562,17 @@ Creates an instance of the exchange
 |---|---|---|---|---|
 |exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
 |body|body|object|false|The exchange to create.|
-|» id|body|string|true|none|
-|» apiKey|body|string|false|none|
-|» secret|body|string|false|none|
-|» enableRateLimit|body|boolean|false|none|
+|» id|body|string|true|The unique identifier for this exchange. This would be used as the 'exchangeId' of the other API calls|
+|» apiKey|body|string|false|The API key you got from the exchange itself. This with the secret is what will allow you to access the exchange|
+|» secret|body|string|false|The Secret key you got from the exchange itself. This with the apiKey is what will allow you to access the exchange|
+|» enableRateLimit|body|boolean|false|Whether to enable the built in rate limiter or not. The built in rate limiter is an approximation of the actual exchange's limit. To have a more accurate rate limiting, set this to false and implement the rate limiter on your client|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|» enableRateLimit|true|
+|» enableRateLimit|false|
 
 > Example responses
 
@@ -443,7 +586,7 @@ Creates an instance of the exchange
     "string"
   ],
   "rateLimit": 0,
-  "twofa": true,
+  "twofa": false,
   "has": {
     "CORS": "true",
     "publicAPI": "true",
@@ -486,6 +629,7 @@ Creates an instance of the exchange
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -618,7 +762,7 @@ Get the exchange details given the exchangeName and exchangeId
     "string"
   ],
   "rateLimit": 0,
-  "twofa": true,
+  "twofa": false,
   "has": {
     "CORS": "true",
     "publicAPI": "true",
@@ -793,7 +937,7 @@ Delete the exchange details referenced by the exchangeName and exchangeId
     "string"
   ],
   "rateLimit": 0,
-  "twofa": true,
+  "twofa": false,
   "has": {
     "CORS": "true",
     "publicAPI": "true",
@@ -1136,7 +1280,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z"
+  "datetime": "2019-04-15T01:07:54Z"
 }
 ```
 
@@ -1287,7 +1431,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z"
+  "datetime": "2019-04-15T01:07:54Z"
 }
 ```
 
@@ -1571,7 +1715,7 @@ Get the ticker of the exchange referenced by the exchangeName and exchangeId
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1864,7 +2008,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2014,7 +2158,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2164,7 +2308,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2487,7 +2631,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2636,7 +2780,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2785,7 +2929,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3062,7 +3206,7 @@ This operation does not require authentication
     "string"
   ],
   "rateLimit": 0,
-  "twofa": true,
+  "twofa": false,
   "has": {
     "CORS": "true",
     "publicAPI": "true",
@@ -3105,13 +3249,22 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|name|string|true|none|none|
-|enableRateLimit|boolean|true|none|none|
-|countries|[string]|true|none|none|
-|rateLimit|number|false|none|none|
-|twofa|boolean|false|none|none|
-|has|[ExchangeHasCapabilities](#schemaexchangehascapabilities)|false|none|none|
-|urls|object|false|none|none|
+|name|string|true|none|The name of the exchange. When you created the exchange (via POST:/exchanges/{exhangeName}), the 'id' parameter there becomes the name here|
+|enableRateLimit|boolean|true|none|Whether to enable the built in rate limiter or not. The built in rate limiter is an approximation of the actual exchange's limit. To have a more accurate rate limiting, set this to false and implement the rate limiter on your client|
+|countries|[string]|true|none|The list of countries where this exchange is a member of|
+|rateLimit|integer|false|none|A request rate limit in milliseconds. Specifies the required minimal delay between two consequent HTTP requests to the same exchange. If enableRateLimit is set to false, this would be ignored.|
+|twofa|boolean|false|none|Whether to enable two factor authentication or not|
+|has|[ExchangeHasCapabilities](#schemaexchangehascapabilities)|false|none|List of capabilities this exchange has|
+|urls|object|false|none|Collection of URLs this exchange has|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|enableRateLimit|true|
+|enableRateLimit|false|
+|twofa|true|
+|twofa|false|
 
 <h2 id="tocSexchangehascapabilities">ExchangeHasCapabilities</h2>
 
@@ -3326,14 +3479,14 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string|true|none|none|
-|symbol|string|true|none|none|
-|base|string|true|none|none|
-|quote|string|true|none|none|
-|info|object|true|none|none|
-|lot|number|true|none|none|
-|limits|[Limits](#schemalimits)|true|none|none|
-|precision|[Precision](#schemaprecision)|true|none|none|
+|id|string|true|none|The unique identifier for this market|
+|symbol|string|true|none|A unified way of referencing this Market. When a symbol parameter is needed in one of the APIs, this iis where you will get it.|
+|base|string|true|none|The base currency. Given 'BTC/USD', the base is 'BTC'|
+|quote|string|true|none|The quote currency. Given 'BTC/USD', the quote is 'USD'|
+|info|object|true|none|Raw market response gotten from the exchange site's API|
+|lot|number|true|none|When placing an order, its amount must be divisible by this lot value|
+|limits|[Limits](#schemalimits)|true|none|The limits associated to this exchange|
+|precision|[Precision](#schemaprecision)|true|none|The precision of the values of this exchange|
 
 <h2 id="tocSlimits">Limits</h2>
 
@@ -3361,9 +3514,9 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|amount|[Limit](#schemalimit)|true|none|none|
-|price|[Limit](#schemalimit)|true|none|none|
-|cost|[Limit](#schemalimit)|true|none|none|
+|amount|[Limit](#schemalimit)|true|none|The mininum and maximum allowable amount when placing an order|
+|price|[Limit](#schemalimit)|true|none|The mininum and maximum allowable price when placing an order|
+|cost|[Limit](#schemalimit)|true|none|The mininum and maximum allowable cost when placing an order (note: cost is amount x price)|
 
 <h2 id="tocSlimit">Limit</h2>
 
@@ -3381,8 +3534,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|min|number|true|none|none|
-|max|number|true|none|none|
+|min|number|true|none|The minimum allowable value|
+|max|number|true|none|The maximum allowable value|
 
 <h2 id="tocSprecision">Precision</h2>
 
@@ -3400,8 +3553,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|amount|number|true|none|none|
-|price|number|true|none|none|
+|amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
+|price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
 
 <h2 id="tocSorderbookresponse">OrderBookResponse</h2>
 
@@ -3422,7 +3575,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z"
+  "datetime": "2019-04-15T01:07:54Z"
 }
 
 ```
@@ -3431,10 +3584,10 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|bids|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|none|
-|asks|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|none|
-|timestamp|number|false|none|none|
-|datetime|string(date-time)|false|none|none|
+|bids|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed buy orders|
+|asks|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed sell orders|
+|timestamp|number|false|none|The timestamp associated for this order book|
+|datetime|string(date-time)|false|none|The timestamp associated for this order book|
 
 <h2 id="tocSorderbooklevel">OrderBookLevel</h2>
 
@@ -3452,8 +3605,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|price|number|true|none|none|
-|amount|number|false|none|none|
+|price|number|true|none|The price being asked for. If this is a bid, then this is the amount the bidder is willing to buy. If this is a sell, then this is the amount the seller is willing to sell for.|
+|amount|number|false|none|The amount of units being sold.|
 
 <h2 id="tocStraderesponse">TradeResponse</h2>
 
@@ -3476,13 +3629,13 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string|false|none|none|
-|info|object|true|none|none|
-|timestamp|number(date-time)|false|none|none|
-|symbol|string|true|none|none|
-|side|string|true|none|none|
-|price|number|true|none|none|
-|amount|number|true|none|none|
+|id|string|false|none|The unique identifier of the exchange for this trade|
+|info|object|true|none|Raw trade response gotten from the exchange site's API|
+|timestamp|number(date-time)|false|none|The timestamp of this trade|
+|symbol|string|true|none|The currency pair of this trade|
+|side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|price|number|true|none|The price of this trade|
+|amount|number|true|none|The amount of this trade|
 
 #### Enumerated Values
 
@@ -3499,7 +3652,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3518,19 +3671,19 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|symbol|string|true|none|none|
-|timestamp|number|true|none|none|
-|datetime|string(date-time)|true|none|none|
-|high|number|true|none|none|
-|low|number|true|none|none|
-|bid|number|true|none|none|
-|ask|number|true|none|none|
-|vwap|number|true|none|none|
-|close|number|true|none|none|
-|last|number|true|none|none|
-|baseVolume|number|true|none|none|
-|quoteVolume|number|true|none|none|
-|info|object|true|none|none|
+|symbol|string|true|none|The currency pair of this tick|
+|timestamp|number|true|none|The timestamp of this tick|
+|datetime|string(date-time)|true|none|The datetime of this tick|
+|high|number|true|none|The higest price of this tick|
+|low|number|true|none|The lowest price of this tick|
+|bid|number|true|none|The current bid price of this tick|
+|ask|number|true|none|The current ask price of this tick|
+|vwap|number|true|none|The volume weighted average price of this tick|
+|close|number|true|none|The closing price of this tick|
+|last|number|true|none|The last price of this tick|
+|baseVolume|number|true|none|The volume of the base currency of this tick|
+|quoteVolume|number|true|none|The volume of the quote currency of this tick|
+|info|object|true|none|Raw ticker response gotten from the exchange site's API|
 
 <h2 id="tocSbalanceresponse">BalanceResponse</h2>
 
@@ -3555,8 +3708,8 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|info|object|true|none|none|
-|balances|[[BalanceInfo](#schemabalanceinfo)]|true|none|none|
+|info|object|true|none|Raw balance response gotten from the exchange site's API|
+|balances|[[BalanceInfo](#schemabalanceinfo)]|true|none|List of balances per currency that you own|
 
 <h2 id="tocSbalanceinfo">BalanceInfo</h2>
 
@@ -3576,10 +3729,10 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|currency|string|true|none|none|
-|free|number|true|none|none|
-|used|number|true|none|none|
-|total|number|true|none|none|
+|currency|string|true|none|The currency at which this balance refers to|
+|free|number|true|none|The amount of currency that is free to used|
+|used|number|true|none|The amount of currency that is currently used|
+|total|number|true|none|The total amount of currency (free + used)|
 
 <h2 id="tocSorderresponse">OrderResponse</h2>
 
@@ -3589,7 +3742,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-14T05:31:09Z",
+  "datetime": "2019-04-15T01:07:54Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3608,19 +3761,19 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string|true|none|none|
-|timestamp|number|false|none|none|
-|datetime|string(date-time)|false|none|none|
-|symbol|string|false|none|none|
-|type|string|false|none|none|
-|side|string|false|none|none|
-|price|number|false|none|none|
-|amount|number|false|none|none|
-|cost|number|false|none|none|
-|filled|number|false|none|none|
-|remaining|number|false|none|none|
-|status|string|false|none|none|
-|info|object|false|none|none|
+|id|string|true|none|The unique identifier of the exchange for this order|
+|timestamp|number|false|none|The timestamp of this order|
+|datetime|string(date-time)|false|none|The datetime of this order|
+|symbol|string|false|none|The currency pair of this order|
+|type|string|false|none|Wether this is a market order or a limit order|
+|side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|price|number|false|none|The price of this order|
+|amount|number|false|none|The amount of this order|
+|cost|number|false|none|The cost of this order (i.e. price x amount)|
+|filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
+|remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
+|status|string|false|none|The current status of this order|
+|info|object|false|none|Raw order response gotten from the exchange site's API|
 
 #### Enumerated Values
 
