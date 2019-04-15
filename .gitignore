@@ -22,3 +22,6 @@ build/
 _yardoc
 doc/
 .idea/
+
+# Project specific
+source/index.html.md
