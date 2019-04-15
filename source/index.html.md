@@ -28,7 +28,9 @@ Base URLs:
 Email: <a href="mailto:hello@adroit.ph">Adroit</a> Web: <a href="https://adroit.ph/ccxt-rest-contact-us/">Adroit</a> 
 License: <a href="https://github.com/franz-see/ccxt-rest/blob/master/LICENSE.txt">MIT</a>
 
-<h1 id="ccxt-rest-default">Default</h1>
+<h1 id="ccxt-rest-exchange-management-api">Exchange Management API</h1>
+
+APIs that manage creation / deletion / listing / etc of exchange instances
 
 ## list
 
@@ -985,6 +987,10 @@ Delete the exchange details referenced by the exchangeName and exchangeId
 This operation does not require authentication
 </aside>
 
+<h1 id="ccxt-rest-public-data-api">Public Data API</h1>
+
+APIs that retrieve public data (like ticker, order books, trades, etc)
+
 ## markets
 
 <a id="opIdmarkets"></a>
@@ -1250,7 +1256,7 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/orderBook`
 
-Get the markets of the exchange referenced by the exchangeName and exchangeId
+Get the order book of the exchange referenced by the exchangeName, exchangeId and symbol
 
 <h3 id="orderbook-parameters">Parameters</h3>
 
@@ -1280,7 +1286,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z"
+  "datetime": "2019-04-15T11:42:52Z"
 }
 ```
 
@@ -1401,7 +1407,7 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/l2OrderBook`
 
-Get the markets of the exchange referenced by the exchangeName and exchangeId
+Get the Level 2 Order Book of the exchange referenced by the exchangeName, exchangeId and symbol
 
 <h3 id="l2orderbook-parameters">Parameters</h3>
 
@@ -1431,7 +1437,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z"
+  "datetime": "2019-04-15T11:42:52Z"
 }
 ```
 
@@ -1552,7 +1558,7 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/trades`
 
-Get the trades of the exchange referenced by the exchangeName and exchangeId
+Get the trades of the exchange referenced by the exchangeName, exchangeId and symbol
 
 <h3 id="trades-parameters">Parameters</h3>
 
@@ -1697,7 +1703,7 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/ticker`
 
-Get the ticker of the exchange referenced by the exchangeName and exchangeId
+Get the ticker of the exchange referenced by the exchangeName, exchangeId and symbol
 
 <h3 id="ticker-parameters">Parameters</h3>
 
@@ -1715,7 +1721,7 @@ Get the ticker of the exchange referenced by the exchangeName and exchangeId
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1738,6 +1744,10 @@ Get the ticker of the exchange referenced by the exchangeName and exchangeId
 <aside class="success">
 This operation does not require authentication
 </aside>
+
+<h1 id="ccxt-rest-private-data-api">Private Data API</h1>
+
+APIs that retrieve private data (like your balances, your open orders, your closed orders, your trades, etc)
 
 ## balances
 
@@ -2008,7 +2018,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2158,7 +2168,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2308,7 +2318,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2631,7 +2641,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2780,7 +2790,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2929,7 +2939,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2952,6 +2962,10 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 <aside class="success">
 This operation does not require authentication
 </aside>
+
+<h1 id="ccxt-rest-experimental-api">Experimental API</h1>
+
+APIs that may be useful but are in experimental stage. Some of these APIs may potentially be removed in the future or be moved into one of the previous categories
 
 ## directCall
 
@@ -3064,7 +3078,7 @@ p JSON.parse(result)
 
 `POST /exchange/{exchangeName}/{exchangeId}/_/{methodName}`
 
-Get the balances of the exchange referenced by the exchangeName and exchangeId
+Invokes a ccxt javascript object's method call directly
 
 > Body parameter
 
@@ -3575,7 +3589,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z"
+  "datetime": "2019-04-15T11:42:52Z"
 }
 
 ```
@@ -3652,7 +3666,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3742,7 +3756,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-15T01:07:54Z",
+  "datetime": "2019-04-15T11:42:52Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
