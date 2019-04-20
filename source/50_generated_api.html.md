@@ -785,7 +785,7 @@ Get the exchange details given the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -961,7 +961,7 @@ Delete the exchange details referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1124,9 +1124,13 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[MarketResponse](#schemamarketresponse)|
-|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration requires api key and secret for this function|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1269,7 +1273,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z"
+  "datetime": "2019-04-20T12:27:55Z"
 }
 ```
 
@@ -1278,7 +1282,13 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderBookResponse](#schemaorderbookresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1421,7 +1431,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z"
+  "datetime": "2019-04-20T12:27:55Z"
 }
 ```
 
@@ -1430,7 +1440,13 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderBookResponse](#schemaorderbookresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1576,7 +1592,13 @@ Get the trades of the exchange referenced by the exchangeName, exchangeId and sy
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TradeResponse](#schematraderesponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1707,7 +1729,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1726,7 +1748,191 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TickerResponse](#schematickerresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
+
+<aside class="success">
+This operation does not require authentication
+</aside>
+
+## tickers
+
+<a id="opIdtickers"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers \
+  -H 'Accept: application/json'
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```javascript
+var headers = {
+  'Accept':'application/json'
+
+};
+
+$.ajax({
+  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers',
+  method: 'get',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+`GET /exchange/{exchangeName}/{exchangeId}/tickers`
+
+Get the tickers of the exchange referenced by the exchangeName, exchangeId and symbol
+
+<h3 id="tickers-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+
+> Example responses
+
+> 200 Response
+
+```json
+[
+  {
+    "symbol": "string",
+    "timestamp": 0,
+    "datetime": "2019-04-20T12:27:55Z",
+    "high": 0,
+    "low": 0,
+    "bid": 0,
+    "ask": 0,
+    "vwap": 0,
+    "close": 0,
+    "last": 0,
+    "baseVolume": 0,
+    "quoteVolume": 0,
+    "info": {}
+  }
+]
+```
+
+<h3 id="tickers-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
+
+<h3 id="tickers-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[TickerResponse](#schematickerresponse)]|false|none|none|
+|» symbol|string|true|none|The currency pair of this tick|
+|» timestamp|number|true|none|The timestamp of this tick|
+|» datetime|string(date-time)|true|none|The datetime of this tick|
+|» high|number|true|none|The higest price of this tick|
+|» low|number|true|none|The lowest price of this tick|
+|» bid|number|true|none|The current bid price of this tick|
+|» ask|number|true|none|The current ask price of this tick|
+|» vwap|number|true|none|The volume weighted average price of this tick|
+|» close|number|true|none|The closing price of this tick|
+|» last|number|true|none|The last price of this tick|
+|» baseVolume|number|true|none|The volume of the base currency of this tick|
+|» quoteVolume|number|true|none|The volume of the quote currency of this tick|
+|» info|object|true|none|Raw ticker response gotten from the exchange site's API|
 
 <aside class="success">
 This operation does not require authentication
@@ -1874,7 +2080,13 @@ Get the balances of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[BalanceResponse](#schemabalanceresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2006,7 +2218,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2025,8 +2237,13 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2158,7 +2375,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2177,7 +2394,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2309,7 +2526,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2328,7 +2545,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 
 <aside class="success">
@@ -2474,7 +2691,7 @@ Get my trades of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TradeResponse](#schematraderesponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 
 <aside class="success">
@@ -2636,7 +2853,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2655,7 +2872,13 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2786,7 +3009,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2805,7 +3028,13 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2936,7 +3165,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2955,7 +3184,13 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange complained about the parameters passed|None|
+|401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
+|598|Unknown|If the exchange integration could not be reached because of some network error|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -3102,7 +3337,7 @@ Invokes a ccxt javascript object's method call directly
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
 
 <h3 id="directcall-responseschema">Response Schema</h3>
 
@@ -3584,7 +3819,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z"
+  "datetime": "2019-04-20T12:27:55Z"
 }
 
 ```
@@ -3661,7 +3896,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3751,7 +3986,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T07:49:31Z",
+  "datetime": "2019-04-20T12:27:55Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
