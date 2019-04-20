@@ -402,6 +402,7 @@ List all exchange instance ids for this exchange
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 
 <h3 id="listids-responseschema">Response Schema</h3>
 
@@ -606,7 +607,9 @@ Creates an instance of the exchange
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|Error|None|
+|503|[Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4)|Support for exchange is currently broken|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -782,6 +785,7 @@ Get the exchange details given the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -957,6 +961,7 @@ Delete the exchange details referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1119,6 +1124,9 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[MarketResponse](#schemamarketresponse)|
+|403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration requires api key and secret for this function|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1261,7 +1269,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z"
+  "datetime": "2019-04-20T07:49:31Z"
 }
 ```
 
@@ -1270,6 +1278,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderBookResponse](#schemaorderbookresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1412,7 +1421,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z"
+  "datetime": "2019-04-20T07:49:31Z"
 }
 ```
 
@@ -1421,6 +1430,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderBookResponse](#schemaorderbookresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1566,6 +1576,7 @@ Get the trades of the exchange referenced by the exchangeName, exchangeId and sy
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TradeResponse](#schematraderesponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1696,7 +1707,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1715,6 +1726,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TickerResponse](#schematickerresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1862,6 +1874,7 @@ Get the balances of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[BalanceResponse](#schemabalanceresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -1993,7 +2006,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2012,6 +2025,8 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2143,7 +2158,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2162,6 +2177,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2293,7 +2309,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2312,6 +2328,8 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2456,6 +2474,8 @@ Get my trades of the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TradeResponse](#schematraderesponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
+|501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2616,7 +2636,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2635,6 +2655,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2765,7 +2786,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2784,6 +2805,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2914,7 +2936,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2933,6 +2955,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <aside class="success">
 This operation does not require authentication
@@ -2951,7 +2974,7 @@ APIs that may be useful but are in experimental stage. Some of these APIs may po
 ```shell
 # You can also use wget
 curl -X POST http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName} \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: text/plain' \
   -H 'Accept: application/json'
 
 ```
@@ -2967,7 +2990,7 @@ import (
 func main() {
 
     headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
+        "Content-Type": []string{"text/plain"},
         "Accept": []string{"application/json"},
         
     }
@@ -3002,7 +3025,7 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Content-Type':'application/json',
+  'Content-Type':'text/plain',
   'Accept':'application/json'
 
 };
@@ -3022,7 +3045,7 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Content-Type': 'application/json',
+  'Content-Type': 'text/plain',
   'Accept': 'application/json'
 }
 
@@ -3039,7 +3062,7 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Content-Type' => 'application/json',
+  'Content-Type' => 'text/plain',
   'Accept' => 'application/json'
 }
 
@@ -3056,10 +3079,6 @@ p JSON.parse(result)
 Invokes a ccxt javascript object's method call directly
 
 > Body parameter
-
-```json
-"string"
-```
 
 <h3 id="directcall-parameters">Parameters</h3>
 
@@ -3083,6 +3102,7 @@ Invokes a ccxt javascript object's method call directly
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchagne with that id does NOT exist|None|
 
 <h3 id="directcall-responseschema">Response Schema</h3>
 
@@ -3564,7 +3584,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z"
+  "datetime": "2019-04-20T07:49:31Z"
 }
 
 ```
@@ -3641,7 +3661,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3731,7 +3751,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-19T04:14:32Z",
+  "datetime": "2019-04-20T07:49:31Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
