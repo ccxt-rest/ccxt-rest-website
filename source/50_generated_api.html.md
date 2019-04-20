@@ -1081,7 +1081,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/markets`
 
-Get the markets of the exchange referenced by the exchangeName and exchangeId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the markets of the exchange referenced by the exchangeName and exchangeId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="markets-parameters">Parameters</h3>
 
@@ -1247,7 +1249,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/orderBook`
 
-Get the order book of the exchange referenced by the exchangeName, exchangeId and symbol. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the order book of the exchange referenced by the exchangeName, exchangeId and symbol. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="orderbook-parameters">Parameters</h3>
 
@@ -1277,7 +1281,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z"
+  "datetime": "2019-04-20T16:02:23Z"
 }
 ```
 
@@ -1405,7 +1409,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/l2OrderBook`
 
-Get the Level 2 Order Book of the exchange referenced by the exchangeName, exchangeId and symbol. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the Level 2 Order Book of the exchange referenced by the exchangeName, exchangeId and symbol. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="l2orderbook-parameters">Parameters</h3>
 
@@ -1435,7 +1441,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z"
+  "datetime": "2019-04-20T16:02:23Z"
 }
 ```
 
@@ -1563,7 +1569,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/trades`
 
-Get the trades of the exchange referenced by the exchangeName, exchangeId and symbol. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the trades of the exchange referenced by the exchangeName, exchangeId and symbol. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="trades-parameters">Parameters</h3>
 
@@ -1715,7 +1723,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/ticker`
 
-Get the ticker of the exchange referenced by the exchangeName, exchangeId and symbol. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the ticker of the exchange referenced by the exchangeName, exchangeId and symbol. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="ticker-parameters">Parameters</h3>
 
@@ -1733,7 +1743,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1870,7 +1880,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/tickers`
 
-Get the tickers of the exchange referenced by the exchangeName, exchangeId and symbol. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the tickers of the exchange referenced by the exchangeName, exchangeId and symbol. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="tickers-parameters">Parameters</h3>
 
@@ -1889,7 +1901,7 @@ Get the tickers of the exchange referenced by the exchangeName, exchangeId and s
   {
     "symbol": "string",
     "timestamp": 0,
-    "datetime": "2019-04-20T15:49:08Z",
+    "datetime": "2019-04-20T16:02:23Z",
     "high": 0,
     "low": 0,
     "bid": 0,
@@ -2052,7 +2064,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/balances`
 
-Get the balances of the exchange referenced by the exchangeName and exchangeId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the balances of the exchange referenced by the exchangeName and exchangeId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="balances-parameters">Parameters</h3>
 
@@ -2202,7 +2216,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/orders`
 
-Get the orders of the exchange referenced by the exchangeName and exchangeId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the orders of the exchange referenced by the exchangeName and exchangeId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="fetchorders-parameters">Parameters</h3>
 
@@ -2222,7 +2238,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId. Pa
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2359,7 +2375,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/orders/open`
 
-Get the open orders of the exchange referenced by the exchangeName and exchangeId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the open orders of the exchange referenced by the exchangeName and exchangeId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="fetchopenorders-parameters">Parameters</h3>
 
@@ -2379,7 +2397,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2516,7 +2534,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/orders/closed`
 
-Get the closed orders of the exchange referenced by the exchangeName and exchangeId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get the closed orders of the exchange referenced by the exchangeName and exchangeId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="fetchclosedorders-parameters">Parameters</h3>
 
@@ -2536,7 +2556,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -2673,7 +2693,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/trades/mine`
 
-Get my trades of the exchange referenced by the exchangeName and exchangeId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Get my trades of the exchange referenced by the exchangeName and exchangeId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="fetchmytrades-parameters">Parameters</h3>
 
@@ -2875,7 +2897,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3012,7 +3034,9 @@ p JSON.parse(result)
 
 `GET /exchange/{exchangeName}/{exchangeId}/order/{orderId}`
 
-Retrieves the informatoin of an order on the exchange referenced by the exchangeName, exchangeId and orderId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Retrieves the information of an order on the exchange referenced by the exchangeName, exchangeId and orderId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="fetchorder-parameters">Parameters</h3>
 
@@ -3031,7 +3055,7 @@ Retrieves the informatoin of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3168,7 +3192,9 @@ p JSON.parse(result)
 
 `DELETE /exchange/{exchangeName}/{exchangeId}/order/{orderId}`
 
-Cancel an open order on the exchange referenced by the exchangeName, exchangeId and orderId. Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.
+Cancel an open order on the exchange referenced by the exchangeName, exchangeId and orderId. 
+
+<br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
 <h3 id="cancelorder-parameters">Parameters</h3>
 
@@ -3187,7 +3213,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3847,7 +3873,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z"
+  "datetime": "2019-04-20T16:02:23Z"
 }
 
 ```
@@ -3924,7 +3950,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -4014,7 +4040,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T15:49:08Z",
+  "datetime": "2019-04-20T16:02:23Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
