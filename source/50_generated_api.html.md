@@ -1097,39 +1097,41 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId.
 > 200 Response
 
 ```json
-{
-  "id": "string",
-  "symbol": "string",
-  "base": "string",
-  "quote": "string",
-  "info": {},
-  "lot": 0,
-  "limits": {
-    "amount": {
-      "min": 0,
-      "max": 0
+[
+  {
+    "id": "string",
+    "symbol": "string",
+    "base": "string",
+    "quote": "string",
+    "info": {},
+    "lot": 0,
+    "limits": {
+      "amount": {
+        "min": 0,
+        "max": 0
+      },
+      "price": {
+        "min": 0,
+        "max": 0
+      },
+      "cost": {
+        "min": 0,
+        "max": 0
+      }
     },
-    "price": {
-      "min": 0,
-      "max": 0
-    },
-    "cost": {
-      "min": 0,
-      "max": 0
+    "precision": {
+      "amount": 0,
+      "price": 0
     }
-  },
-  "precision": {
-    "amount": 0,
-    "price": 0
   }
-}
+]
 ```
 
 <h3 id="markets-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[MarketResponse](#schemamarketresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -1137,6 +1139,29 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId.
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="markets-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[MarketResponse](#schemamarketresponse)]|false|none|none|
+|» id|string|true|none|The unique identifier for this market|
+|» symbol|string|true|none|A unified way of referencing this Market. When a symbol parameter is needed in one of the APIs, this iis where you will get it.|
+|» base|string|true|none|The base currency. Given 'BTC/USD', the base is 'BTC'|
+|» quote|string|true|none|The quote currency. Given 'BTC/USD', the quote is 'USD'|
+|» info|object|true|none|Raw market response gotten from the exchange site's API|
+|» lot|number|true|none|When placing an order, its amount must be divisible by this lot value|
+|» limits|object|true|none|none|
+|»» amount|object|true|none|none|
+|»»» min|number|true|none|The minimum allowable value|
+|»»» max|number|true|none|The maximum allowable value|
+|»» price|object|true|none|none|
+|»» cost|object|true|none|none|
+|» precision|object|true|none|none|
+|»» amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
+|»» price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
 
 <aside class="success">
 This operation does not require authentication
@@ -1267,29 +1292,31 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
 > 200 Response
 
 ```json
-{
-  "bids": [
-    {
-      "price": 0,
-      "amount": 0
-    }
-  ],
-  "asks": [
-    {
-      "price": 0,
-      "amount": 0
-    }
-  ],
-  "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z"
-}
+[
+  {
+    "bids": [
+      {
+        "price": 0,
+        "amount": 0
+      }
+    ],
+    "asks": [
+      {
+        "price": 0,
+        "amount": 0
+      }
+    ],
+    "timestamp": 0,
+    "datetime": "2019-04-22T11:15:56Z"
+  }
+]
 ```
 
 <h3 id="orderbook-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderBookResponse](#schemaorderbookresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -1297,6 +1324,20 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="orderbook-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[OrderBookResponse](#schemaorderbookresponse)]|false|none|none|
+|» bids|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed buy orders|
+|»» price|number|true|none|The price being asked for. If this is a bid, then this is the amount the bidder is willing to buy. If this is a sell, then this is the amount the seller is willing to sell for.|
+|»» amount|number|false|none|The amount of units being sold.|
+|» asks|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed sell orders|
+|» timestamp|number|false|none|The timestamp associated for this order book|
+|» datetime|string(date-time)|false|none|The timestamp associated for this order book|
 
 <aside class="success">
 This operation does not require authentication
@@ -1427,29 +1468,31 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
 > 200 Response
 
 ```json
-{
-  "bids": [
-    {
-      "price": 0,
-      "amount": 0
-    }
-  ],
-  "asks": [
-    {
-      "price": 0,
-      "amount": 0
-    }
-  ],
-  "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z"
-}
+[
+  {
+    "bids": [
+      {
+        "price": 0,
+        "amount": 0
+      }
+    ],
+    "asks": [
+      {
+        "price": 0,
+        "amount": 0
+      }
+    ],
+    "timestamp": 0,
+    "datetime": "2019-04-22T11:15:56Z"
+  }
+]
 ```
 
 <h3 id="l2orderbook-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderBookResponse](#schemaorderbookresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -1457,6 +1500,20 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="l2orderbook-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[OrderBookResponse](#schemaorderbookresponse)]|false|none|none|
+|» bids|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed buy orders|
+|»» price|number|true|none|The price being asked for. If this is a bid, then this is the amount the bidder is willing to buy. If this is a sell, then this is the amount the seller is willing to sell for.|
+|»» amount|number|false|none|The amount of units being sold.|
+|» asks|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed sell orders|
+|» timestamp|number|false|none|The timestamp associated for this order book|
+|» datetime|string(date-time)|false|none|The timestamp associated for this order book|
 
 <aside class="success">
 This operation does not require authentication
@@ -1588,22 +1645,24 @@ Get the trades of the exchange referenced by the exchangeName, exchangeId and sy
 > 200 Response
 
 ```json
-{
-  "id": "string",
-  "info": {},
-  "timestamp": 0,
-  "symbol": "string",
-  "side": "buy",
-  "price": 0,
-  "amount": 0
-}
+[
+  {
+    "id": "string",
+    "info": {},
+    "timestamp": 0,
+    "symbol": "string",
+    "side": "buy",
+    "price": 0,
+    "amount": 0
+  }
+]
 ```
 
 <h3 id="trades-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TradeResponse](#schematraderesponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -1611,6 +1670,28 @@ Get the trades of the exchange referenced by the exchangeName, exchangeId and sy
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="trades-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[TradeResponse](#schematraderesponse)]|false|none|none|
+|» id|string|false|none|The unique identifier of the exchange for this trade|
+|» info|object|true|none|Raw trade response gotten from the exchange site's API|
+|» timestamp|number(date-time)|false|none|The timestamp of this trade|
+|» symbol|string|true|none|The currency pair of this trade|
+|» side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|» price|number|true|none|The price of this trade|
+|» amount|number|true|none|The amount of this trade|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|side|buy|
+|side|sell|
 
 <aside class="success">
 This operation does not require authentication
@@ -1743,7 +1824,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
+  "datetime": "2019-04-22T11:15:56Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1901,7 +1982,7 @@ Get the tickers of the exchange referenced by the exchangeName, exchangeId and s
   {
     "symbol": "string",
     "timestamp": 0,
-    "datetime": "2019-04-20T16:02:23Z",
+    "datetime": "2019-04-22T11:15:56Z",
     "high": 0,
     "low": 0,
     "bid": 0,
@@ -2235,28 +2316,30 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId.
 > 200 Response
 
 ```json
-{
-  "id": "string",
-  "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
-  "symbol": "string",
-  "type": "market",
-  "side": "buy",
-  "price": 0,
-  "amount": 0,
-  "cost": 0,
-  "filled": 0,
-  "remaining": 0,
-  "status": "open",
-  "info": {}
-}
+[
+  {
+    "id": "string",
+    "timestamp": 0,
+    "datetime": "2019-04-22T11:15:56Z",
+    "symbol": "string",
+    "type": "market",
+    "side": "buy",
+    "price": 0,
+    "amount": 0,
+    "cost": 0,
+    "filled": 0,
+    "remaining": 0,
+    "status": "open",
+    "info": {}
+  }
+]
 ```
 
 <h3 id="fetchorders-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -2264,6 +2347,40 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId.
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="fetchorders-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[OrderResponse](#schemaorderresponse)]|false|none|none|
+|» id|string|true|none|The unique identifier of the exchange for this order|
+|» timestamp|number|false|none|The timestamp of this order|
+|» datetime|string(date-time)|false|none|The datetime of this order|
+|» symbol|string|false|none|The currency pair of this order|
+|» type|string|false|none|Wether this is a market order or a limit order|
+|» side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|» price|number|false|none|The price of this order|
+|» amount|number|false|none|The amount of this order|
+|» cost|number|false|none|The cost of this order (i.e. price x amount)|
+|» filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
+|» remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
+|» status|string|false|none|The current status of this order|
+|» info|object|false|none|Raw order response gotten from the exchange site's API|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|type|market|
+|type|limit|
+|side|buy|
+|side|sell|
+|status|open|
+|status|closed|
+|status|canceled|
+|status|canceling|
 
 <aside class="success">
 This operation does not require authentication
@@ -2394,28 +2511,30 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 > 200 Response
 
 ```json
-{
-  "id": "string",
-  "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
-  "symbol": "string",
-  "type": "market",
-  "side": "buy",
-  "price": 0,
-  "amount": 0,
-  "cost": 0,
-  "filled": 0,
-  "remaining": 0,
-  "status": "open",
-  "info": {}
-}
+[
+  {
+    "id": "string",
+    "timestamp": 0,
+    "datetime": "2019-04-22T11:15:56Z",
+    "symbol": "string",
+    "type": "market",
+    "side": "buy",
+    "price": 0,
+    "amount": 0,
+    "cost": 0,
+    "filled": 0,
+    "remaining": 0,
+    "status": "open",
+    "info": {}
+  }
+]
 ```
 
 <h3 id="fetchopenorders-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -2423,6 +2542,40 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="fetchopenorders-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[OrderResponse](#schemaorderresponse)]|false|none|none|
+|» id|string|true|none|The unique identifier of the exchange for this order|
+|» timestamp|number|false|none|The timestamp of this order|
+|» datetime|string(date-time)|false|none|The datetime of this order|
+|» symbol|string|false|none|The currency pair of this order|
+|» type|string|false|none|Wether this is a market order or a limit order|
+|» side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|» price|number|false|none|The price of this order|
+|» amount|number|false|none|The amount of this order|
+|» cost|number|false|none|The cost of this order (i.e. price x amount)|
+|» filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
+|» remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
+|» status|string|false|none|The current status of this order|
+|» info|object|false|none|Raw order response gotten from the exchange site's API|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|type|market|
+|type|limit|
+|side|buy|
+|side|sell|
+|status|open|
+|status|closed|
+|status|canceled|
+|status|canceling|
 
 <aside class="success">
 This operation does not require authentication
@@ -2553,28 +2706,30 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 > 200 Response
 
 ```json
-{
-  "id": "string",
-  "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
-  "symbol": "string",
-  "type": "market",
-  "side": "buy",
-  "price": 0,
-  "amount": 0,
-  "cost": 0,
-  "filled": 0,
-  "remaining": 0,
-  "status": "open",
-  "info": {}
-}
+[
+  {
+    "id": "string",
+    "timestamp": 0,
+    "datetime": "2019-04-22T11:15:56Z",
+    "symbol": "string",
+    "type": "market",
+    "side": "buy",
+    "price": 0,
+    "amount": 0,
+    "cost": 0,
+    "filled": 0,
+    "remaining": 0,
+    "status": "open",
+    "info": {}
+  }
+]
 ```
 
 <h3 id="fetchclosedorders-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[OrderResponse](#schemaorderresponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -2582,6 +2737,40 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="fetchclosedorders-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[OrderResponse](#schemaorderresponse)]|false|none|none|
+|» id|string|true|none|The unique identifier of the exchange for this order|
+|» timestamp|number|false|none|The timestamp of this order|
+|» datetime|string(date-time)|false|none|The datetime of this order|
+|» symbol|string|false|none|The currency pair of this order|
+|» type|string|false|none|Wether this is a market order or a limit order|
+|» side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|» price|number|false|none|The price of this order|
+|» amount|number|false|none|The amount of this order|
+|» cost|number|false|none|The cost of this order (i.e. price x amount)|
+|» filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
+|» remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
+|» status|string|false|none|The current status of this order|
+|» info|object|false|none|Raw order response gotten from the exchange site's API|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|type|market|
+|type|limit|
+|side|buy|
+|side|sell|
+|status|open|
+|status|closed|
+|status|canceled|
+|status|canceling|
 
 <aside class="success">
 This operation does not require authentication
@@ -2712,22 +2901,24 @@ Get my trades of the exchange referenced by the exchangeName and exchangeId.
 > 200 Response
 
 ```json
-{
-  "id": "string",
-  "info": {},
-  "timestamp": 0,
-  "symbol": "string",
-  "side": "buy",
-  "price": 0,
-  "amount": 0
-}
+[
+  {
+    "id": "string",
+    "info": {},
+    "timestamp": 0,
+    "symbol": "string",
+    "side": "buy",
+    "price": 0,
+    "amount": 0
+  }
+]
 ```
 
 <h3 id="fetchmytrades-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[TradeResponse](#schematraderesponse)|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
@@ -2735,6 +2926,28 @@ Get my trades of the exchange referenced by the exchangeName and exchangeId.
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
+
+<h3 id="fetchmytrades-responseschema">Response Schema</h3>
+
+Status Code **200**
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|[[TradeResponse](#schematraderesponse)]|false|none|none|
+|» id|string|false|none|The unique identifier of the exchange for this trade|
+|» info|object|true|none|Raw trade response gotten from the exchange site's API|
+|» timestamp|number(date-time)|false|none|The timestamp of this trade|
+|» symbol|string|true|none|The currency pair of this trade|
+|» side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|» price|number|true|none|The price of this trade|
+|» amount|number|true|none|The amount of this trade|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|side|buy|
+|side|sell|
 
 <aside class="success">
 This operation does not require authentication
@@ -2897,7 +3110,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
+  "datetime": "2019-04-22T11:15:56Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3055,7 +3268,7 @@ Retrieves the information of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
+  "datetime": "2019-04-22T11:15:56Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3213,7 +3426,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
+  "datetime": "2019-04-22T11:15:56Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3873,7 +4086,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z"
+  "datetime": "2019-04-22T11:15:56Z"
 }
 
 ```
@@ -3950,7 +4163,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
+  "datetime": "2019-04-22T11:15:56Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -4040,7 +4253,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-20T16:02:23Z",
+  "datetime": "2019-04-22T11:15:56Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
