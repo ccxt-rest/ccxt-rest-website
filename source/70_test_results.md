@@ -16,6 +16,7 @@ List of exchanges in this integration test:
   * ![Binance](images/exchanges/binance.jpg)
   * ![Bitso](images/exchanges/bitso.jpg)
 
+_Note: For the other exchanges, we do run a sanity test against all the public data api of all exchanges that we support. The table you can see from <a href="#exchange-summmary">Exchange Summary</a> is the test result of our sanity tests._
 
 <iframe src="https://franz-see.github.io/ccxt-rest/test-results/" style="width:49%;height:1000px;margin-bottom:2em"></iframe>
 
