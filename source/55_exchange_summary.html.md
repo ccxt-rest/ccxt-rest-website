@@ -25,7 +25,7 @@ As part of the report, we also specify when this report was generated (_Note: Th
         <td>API is working for exchange but needs API key to be accessed</td>
     </tr>
     <tr>
-        <td><img src="https://img.shields.io/badge/Error%3A%20Not%20Supported-yellow.svg" alt="Not Supported Error"></td>
+        <td><img src="https://img.shields.io/badge/Not%20Supported-yellow.svg" alt="Not Supported"></td>
         <td>CCXT-REST does NOT support this API for this exchange. Possibly because the exchange has no corresponding API for this</td>
     </tr>
     <tr>
