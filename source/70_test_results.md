@@ -13,7 +13,7 @@ _**Note: We are currenlty in the process of adding more integration tests. If yo
 
 [![Bug Report](https://img.shields.io/badge/Create%20New%20Issue-Bug%20Report-red.svg)](https://github.com/franz-see/ccxt-rest/issues/new?template=integration_test_request.md)
 
-<iframe src="https://franz-see.github.io/ccxt-rest/" style="width:49%;height:1000px;margin-bottom:2em"></iframe>
+<iframe src="https://franz-see.github.io/ccxt-rest/test-results/" style="width:49%;height:1000px;margin-bottom:2em"></iframe>
 
 [![Feature Request](https://img.shields.io/badge/Create%20New%20Issue-Feature%20Request-green.svg)](https://github.com/franz-see/ccxt-rest/issues/new?template=integration_test_request.md)
 
