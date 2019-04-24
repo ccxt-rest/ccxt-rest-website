@@ -1,9 +1,10 @@
 # Exchange Summmary
 
+This section contains the list of all supported exchanges by `ccxt-rest` and the statuses of their APIs. It has two subsections - the "Legends" subsection which explains the statuses, and the "Exchange API Statuses" which contains the actual report.
 
-The following table contains all the list of supported exchanges, and the statuses of their APIs. Note: All supported apis are listed below, but not all of their supported APIs are shown. We are still working on adding more of their APIs and their statuses
+The report below comes from `ccxt-rest`'s sanity tests which is executed on every build (_and at least once a day_). The sanity test goes through all supported exchanges by `ccxt-rest` and executes their APIs in order to figure out whether the API is working, or needs authentication, or is broken, etc.
 
-<p id="lastUpdateDate" style="width:50%"></p>
+As part of the report, we also specify when this report was generated (_Note: This date changes at least once a day because the sanity tests are executed at least once a day. Sometimes, several times in a singel day_).
 
 ## Legends
 
@@ -51,6 +52,10 @@ The following table contains all the list of supported exchanges, and the status
 </table>
 
 ## Exchange API Statuses
+
+_Note: All supported exchanges are listed below, but not all of their supported APIs are shown. We are still working on adding more of their APIs and their statuses_
+
+<p id="lastUpdateDate" style="width:50%"></p>
 
 <p id="exchangeSummary" style="width:50%"></p>
 
