@@ -8,3 +8,5 @@
 [![Supported Exchanges](https://img.shields.io/badge/exchanges-134-blue.svg)](https://github.com/ccxt/ccxt/wiki/Exchange-Markets)
 
 CCXT-REST provides a Unified REST APIs to allow clients access to retrieve data (ticker, order book, trades, your order, your trades, balances, etc) and to create and cancel orders from over 100 cryptocurrency exhange sites. And it is built on top of the popular open source project [CCXT](https://github.com/ccxt/ccxt/)
+
+For a list of all support exchanges and the statuses of their APIs, checkout the <a href="#exchange-summmary">Exchange Summary Section</a>
