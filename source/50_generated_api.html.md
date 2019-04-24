@@ -541,18 +541,7 @@ Creates an instance of the exchange
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
 |exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|body|body|object|false|The exchange to create.|
-|» id|body|string|true|The unique identifier for this exchange. This would be used as the 'exchangeId' of the other API calls|
-|» apiKey|body|string|false|The API key you got from the exchange itself. This with the secret is what will allow you to access the exchange|
-|» secret|body|string|false|The Secret key you got from the exchange itself. This with the apiKey is what will allow you to access the exchange|
-|» enableRateLimit|body|boolean|false|Whether to enable the built in rate limiter or not. The built in rate limiter is an approximation of the actual exchange's limit. To have a more accurate rate limiting, set this to false and implement the rate limiter on your client|
-
-#### Enumerated Values
-
-|Parameter|Value|
-|---|---|
-|» enableRateLimit|true|
-|» enableRateLimit|false|
+|body|body|[exchangeConfig](#schemaexchangeconfig)|true|The exchange to create.|
 
 > Example responses
 
@@ -1153,13 +1142,13 @@ Status Code **200**
 |» quote|string|true|none|The quote currency. Given 'BTC/USD', the quote is 'USD'|
 |» info|object|true|none|Raw market response gotten from the exchange site's API|
 |» lot|number|true|none|When placing an order, its amount must be divisible by this lot value|
-|» limits|object|true|none|none|
-|»» amount|object|true|none|none|
+|» limits|[Limits](#schemalimits)|true|none|none|
+|»» amount|[Limit](#schemalimit)|true|none|none|
 |»»» min|number|true|none|The minimum allowable value|
 |»»» max|number|true|none|The maximum allowable value|
-|»» price|object|true|none|none|
-|»» cost|object|true|none|none|
-|» precision|object|true|none|none|
+|»» price|[Limit](#schemalimit)|true|none|none|
+|»» cost|[Limit](#schemalimit)|true|none|none|
+|» precision|[Precision](#schemaprecision)|true|none|none|
 |»» amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
 |»» price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
 
@@ -1307,7 +1296,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
       }
     ],
     "timestamp": 0,
-    "datetime": "2019-04-24T11:08:09Z"
+    "datetime": "2019-04-24T12:11:41Z"
   }
 ]
 ```
@@ -1483,7 +1472,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
       }
     ],
     "timestamp": 0,
-    "datetime": "2019-04-24T11:08:09Z"
+    "datetime": "2019-04-24T12:11:41Z"
   }
 ]
 ```
@@ -1824,7 +1813,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z",
+  "datetime": "2019-04-24T12:11:41Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1982,7 +1971,7 @@ Get the tickers of the exchange referenced by the exchangeName, exchangeId and s
   {
     "symbol": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T11:08:09Z",
+    "datetime": "2019-04-24T12:11:41Z",
     "high": 0,
     "low": 0,
     "bid": 0,
@@ -2320,7 +2309,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId.
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T11:08:09Z",
+    "datetime": "2019-04-24T12:11:41Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -2515,7 +2504,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T11:08:09Z",
+    "datetime": "2019-04-24T12:11:41Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -2710,7 +2699,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T11:08:09Z",
+    "datetime": "2019-04-24T12:11:41Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -3085,22 +3074,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 |---|---|---|---|---|
 |exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
 |exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|body|body|object|false|The order to place.|
-|» symbol|body|string|true|The currency pair (base/quote) of the order to be created|
-|» type|body|string|true|Whether this is a 'market' order or a 'limit' order|
-|» side|body|string|true|whether we are buying or selling the base|
-|» amount|body|number|true|The amount of currency pair's base that we want to buy or sell|
-|» price|body|number|false|The buying price or the selling price in terms of the quote. Price is needed for market orders and ignored in limit orders|
-|» params|body|object|false|Exchange specific parameters|
-
-#### Enumerated Values
-
-|Parameter|Value|
-|---|---|
-|» type|market|
-|» type|limit|
-|» side|buy|
-|» side|sell|
+|body|body|[orderPlacement](#schemaorderplacement)|false|The order to place.|
 
 > Example responses
 
@@ -3110,7 +3084,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z",
+  "datetime": "2019-04-24T12:11:41Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3268,7 +3242,7 @@ Retrieves the information of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z",
+  "datetime": "2019-04-24T12:11:41Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3426,7 +3400,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z",
+  "datetime": "2019-04-24T12:11:41Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3470,7 +3444,7 @@ APIs that may be useful but are in experimental stage. Some of these APIs may po
 ```shell
 # You can also use wget
 curl -X POST http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName} \
-  -H 'Content-Type: text/plain' \
+  -H 'Content-Type: application/json' \
   -H 'Accept: application/json'
 
 ```
@@ -3486,7 +3460,7 @@ import (
 func main() {
 
     headers := map[string][]string{
-        "Content-Type": []string{"text/plain"},
+        "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
         
     }
@@ -3521,7 +3495,7 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Content-Type':'text/plain',
+  'Content-Type':'application/json',
   'Accept':'application/json'
 
 };
@@ -3541,7 +3515,7 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Content-Type': 'text/plain',
+  'Content-Type': 'application/json',
   'Accept': 'application/json'
 }
 
@@ -3558,7 +3532,7 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Content-Type' => 'text/plain',
+  'Content-Type' => 'application/json',
   'Accept' => 'application/json'
 }
 
@@ -3576,6 +3550,10 @@ Invokes a ccxt javascript object's method call directly
 
 > Body parameter
 
+```json
+[]
+```
+
 <h3 id="directcall-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
@@ -3583,7 +3561,7 @@ Invokes a ccxt javascript object's method call directly
 |exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
 |exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
 |methodName|path|string|true|The method name of the exchange that would be invoked directly|
-|body|body|string|false|The stringified array of values that would be passed as parameters to the direct method call|
+|body|body|array|false|The array of values that would be passed as parameters to the direct method call|
 
 > Example responses
 
@@ -3614,12 +3592,191 @@ This operation does not require authentication
 
 # Schemas
 
-<h2 id="tocSexchangecapability">ExchangeCapability</h2>
+<h2 id="tocSorderbooklevel">OrderBookLevel</h2>
 
-<a id="schemaexchangecapability"></a>
+<a id="schemaorderbooklevel"></a>
 
 ```json
-"true"
+{
+  "price": 0,
+  "amount": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|price|number|true|none|The price being asked for. If this is a bid, then this is the amount the bidder is willing to buy. If this is a sell, then this is the amount the seller is willing to sell for.|
+|amount|number|false|none|The amount of units being sold.|
+
+<h2 id="tocSbalanceinfo">BalanceInfo</h2>
+
+<a id="schemabalanceinfo"></a>
+
+```json
+{
+  "currency": "string",
+  "free": 0,
+  "used": 0,
+  "total": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|currency|string|true|none|The currency at which this balance refers to|
+|free|number|true|none|The amount of currency that is free to used|
+|used|number|true|none|The amount of currency that is currently used|
+|total|number|true|none|The total amount of currency (free + used)|
+
+<h2 id="tocSmarketresponse">MarketResponse</h2>
+
+<a id="schemamarketresponse"></a>
+
+```json
+{
+  "id": "string",
+  "symbol": "string",
+  "base": "string",
+  "quote": "string",
+  "info": {},
+  "lot": 0,
+  "limits": {
+    "amount": {
+      "min": 0,
+      "max": 0
+    },
+    "price": {
+      "min": 0,
+      "max": 0
+    },
+    "cost": {
+      "min": 0,
+      "max": 0
+    }
+  },
+  "precision": {
+    "amount": 0,
+    "price": 0
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|The unique identifier for this market|
+|symbol|string|true|none|A unified way of referencing this Market. When a symbol parameter is needed in one of the APIs, this iis where you will get it.|
+|base|string|true|none|The base currency. Given 'BTC/USD', the base is 'BTC'|
+|quote|string|true|none|The quote currency. Given 'BTC/USD', the quote is 'USD'|
+|info|object|true|none|Raw market response gotten from the exchange site's API|
+|lot|number|true|none|When placing an order, its amount must be divisible by this lot value|
+|limits|[Limits](#schemalimits)|true|none|none|
+|precision|[Precision](#schemaprecision)|true|none|none|
+
+<h2 id="tocStraderesponse">TradeResponse</h2>
+
+<a id="schematraderesponse"></a>
+
+```json
+{
+  "id": "string",
+  "info": {},
+  "timestamp": 0,
+  "symbol": "string",
+  "side": "buy",
+  "price": 0,
+  "amount": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|false|none|The unique identifier of the exchange for this trade|
+|info|object|true|none|Raw trade response gotten from the exchange site's API|
+|timestamp|number(date-time)|false|none|The timestamp of this trade|
+|symbol|string|true|none|The currency pair of this trade|
+|side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|price|number|true|none|The price of this trade|
+|amount|number|true|none|The amount of this trade|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|side|buy|
+|side|sell|
+
+<h2 id="tocSorderresponse">OrderResponse</h2>
+
+<a id="schemaorderresponse"></a>
+
+```json
+{
+  "id": "string",
+  "timestamp": 0,
+  "datetime": "2019-04-24T12:11:41Z",
+  "symbol": "string",
+  "type": "market",
+  "side": "buy",
+  "price": 0,
+  "amount": 0,
+  "cost": 0,
+  "filled": 0,
+  "remaining": 0,
+  "status": "open",
+  "info": {}
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|id|string|true|none|The unique identifier of the exchange for this order|
+|timestamp|number|false|none|The timestamp of this order|
+|datetime|string(date-time)|false|none|The datetime of this order|
+|symbol|string|false|none|The currency pair of this order|
+|type|string|false|none|Wether this is a market order or a limit order|
+|side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|price|number|false|none|The price of this order|
+|amount|number|false|none|The amount of this order|
+|cost|number|false|none|The cost of this order (i.e. price x amount)|
+|filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
+|remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
+|status|string|false|none|The current status of this order|
+|info|object|false|none|Raw order response gotten from the exchange site's API|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|type|market|
+|type|limit|
+|side|buy|
+|side|sell|
+|status|open|
+|status|closed|
+|status|canceled|
+|status|canceling|
+
+<h2 id="tocSside">Side</h2>
+
+<a id="schemaside"></a>
+
+```json
+"buy"
 
 ```
 
@@ -3633,16 +3790,30 @@ This operation does not require authentication
 
 |Property|Value|
 |---|---|
-|*anonymous*|true|
-|*anonymous*|false|
-|*anonymous*|emulated|
+|*anonymous*|buy|
+|*anonymous*|sell|
 
-<h2 id="tocSordertype">OrderType</h2>
+<h2 id="tocSorderbookresponse">OrderBookResponse</h2>
 
-<a id="schemaordertype"></a>
+<a id="schemaorderbookresponse"></a>
 
 ```json
-"market"
+{
+  "bids": [
+    {
+      "price": 0,
+      "amount": 0
+    }
+  ],
+  "asks": [
+    {
+      "price": 0,
+      "amount": 0
+    }
+  ],
+  "timestamp": 0,
+  "datetime": "2019-04-24T12:11:41Z"
+}
 
 ```
 
@@ -3650,14 +3821,10 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|*anonymous*|market|
-|*anonymous*|limit|
+|bids|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed buy orders|
+|asks|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed sell orders|
+|timestamp|number|false|none|The timestamp associated for this order book|
+|datetime|string(date-time)|false|none|The timestamp associated for this order book|
 
 <h2 id="tocSorderstatus">OrderStatus</h2>
 
@@ -3683,12 +3850,12 @@ This operation does not require authentication
 |*anonymous*|canceled|
 |*anonymous*|canceling|
 
-<h2 id="tocSside">Side</h2>
+<h2 id="tocSordertype">OrderType</h2>
 
-<a id="schemaside"></a>
+<a id="schemaordertype"></a>
 
 ```json
-"buy"
+"market"
 
 ```
 
@@ -3702,8 +3869,83 @@ This operation does not require authentication
 
 |Property|Value|
 |---|---|
-|*anonymous*|buy|
-|*anonymous*|sell|
+|*anonymous*|market|
+|*anonymous*|limit|
+
+<h2 id="tocSlimits">Limits</h2>
+
+<a id="schemalimits"></a>
+
+```json
+{
+  "amount": {
+    "min": 0,
+    "max": 0
+  },
+  "price": {
+    "min": 0,
+    "max": 0
+  },
+  "cost": {
+    "min": 0,
+    "max": 0
+  }
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|amount|[Limit](#schemalimit)|true|none|none|
+|price|[Limit](#schemalimit)|true|none|none|
+|cost|[Limit](#schemalimit)|true|none|none|
+
+<h2 id="tocSbalanceresponse">BalanceResponse</h2>
+
+<a id="schemabalanceresponse"></a>
+
+```json
+{
+  "info": {},
+  "balances": [
+    {
+      "currency": "string",
+      "free": 0,
+      "used": 0,
+      "total": 0
+    }
+  ]
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|info|object|true|none|Raw balance response gotten from the exchange site's API|
+|balances|[[BalanceInfo](#schemabalanceinfo)]|true|none|List of balances per currency that you own|
+
+<h2 id="tocSprecision">Precision</h2>
+
+<a id="schemaprecision"></a>
+
+```json
+{
+  "amount": 0,
+  "price": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
+|price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
 
 <h2 id="tocSexchangeresponse">ExchangeResponse</h2>
 
@@ -3765,17 +4007,91 @@ This operation does not require authentication
 |countries|[string]|true|none|The list of countries where this exchange is a member of|
 |rateLimit|integer|false|none|A request rate limit in milliseconds. Specifies the required minimal delay between two consequent HTTP requests to the same exchange. If enableRateLimit is set to false, this would be ignored.|
 |twofa|boolean|false|none|Whether to enable two factor authentication or not|
-|has|[ExchangeHasCapabilities](#schemaexchangehascapabilities)|false|none|List of capabilities this exchange has|
+|has|[ExchangeHasCapabilities](#schemaexchangehascapabilities)|false|none|none|
 |urls|object|false|none|Collection of URLs this exchange has|
+
+<h2 id="tocStickerresponse">TickerResponse</h2>
+
+<a id="schematickerresponse"></a>
+
+```json
+{
+  "symbol": "string",
+  "timestamp": 0,
+  "datetime": "2019-04-24T12:11:41Z",
+  "high": 0,
+  "low": 0,
+  "bid": 0,
+  "ask": 0,
+  "vwap": 0,
+  "close": 0,
+  "last": 0,
+  "baseVolume": 0,
+  "quoteVolume": 0,
+  "info": {}
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|symbol|string|true|none|The currency pair of this tick|
+|timestamp|number|true|none|The timestamp of this tick|
+|datetime|string(date-time)|true|none|The datetime of this tick|
+|high|number|true|none|The higest price of this tick|
+|low|number|true|none|The lowest price of this tick|
+|bid|number|true|none|The current bid price of this tick|
+|ask|number|true|none|The current ask price of this tick|
+|vwap|number|true|none|The volume weighted average price of this tick|
+|close|number|true|none|The closing price of this tick|
+|last|number|true|none|The last price of this tick|
+|baseVolume|number|true|none|The volume of the base currency of this tick|
+|quoteVolume|number|true|none|The volume of the quote currency of this tick|
+|info|object|true|none|Raw ticker response gotten from the exchange site's API|
+
+<h2 id="tocSlimit">Limit</h2>
+
+<a id="schemalimit"></a>
+
+```json
+{
+  "min": 0,
+  "max": 0
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|min|number|true|none|The minimum allowable value|
+|max|number|true|none|The maximum allowable value|
+
+<h2 id="tocSexchangecapability">ExchangeCapability</h2>
+
+<a id="schemaexchangecapability"></a>
+
+```json
+"true"
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|none|
 
 #### Enumerated Values
 
 |Property|Value|
 |---|---|
-|enableRateLimit|true|
-|enableRateLimit|false|
-|twofa|true|
-|twofa|false|
+|*anonymous*|true|
+|*anonymous*|false|
+|*anonymous*|emulated|
 
 <h2 id="tocSexchangehascapabilities">ExchangeHasCapabilities</h2>
 
@@ -3952,186 +4268,16 @@ This operation does not require authentication
 |withdraw|false|
 |withdraw|emulated|
 
-<h2 id="tocSmarketresponse">MarketResponse</h2>
+<h2 id="tocSexchangeconfig">exchangeConfig</h2>
 
-<a id="schemamarketresponse"></a>
-
-```json
-{
-  "id": "string",
-  "symbol": "string",
-  "base": "string",
-  "quote": "string",
-  "info": {},
-  "lot": 0,
-  "limits": {
-    "amount": {
-      "min": 0,
-      "max": 0
-    },
-    "price": {
-      "min": 0,
-      "max": 0
-    },
-    "cost": {
-      "min": 0,
-      "max": 0
-    }
-  },
-  "precision": {
-    "amount": 0,
-    "price": 0
-  }
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|id|string|true|none|The unique identifier for this market|
-|symbol|string|true|none|A unified way of referencing this Market. When a symbol parameter is needed in one of the APIs, this iis where you will get it.|
-|base|string|true|none|The base currency. Given 'BTC/USD', the base is 'BTC'|
-|quote|string|true|none|The quote currency. Given 'BTC/USD', the quote is 'USD'|
-|info|object|true|none|Raw market response gotten from the exchange site's API|
-|lot|number|true|none|When placing an order, its amount must be divisible by this lot value|
-|limits|[Limits](#schemalimits)|true|none|The limits associated to this exchange|
-|precision|[Precision](#schemaprecision)|true|none|The precision of the values of this exchange|
-
-<h2 id="tocSlimits">Limits</h2>
-
-<a id="schemalimits"></a>
-
-```json
-{
-  "amount": {
-    "min": 0,
-    "max": 0
-  },
-  "price": {
-    "min": 0,
-    "max": 0
-  },
-  "cost": {
-    "min": 0,
-    "max": 0
-  }
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|amount|[Limit](#schemalimit)|true|none|The mininum and maximum allowable amount when placing an order|
-|price|[Limit](#schemalimit)|true|none|The mininum and maximum allowable price when placing an order|
-|cost|[Limit](#schemalimit)|true|none|The mininum and maximum allowable cost when placing an order (note: cost is amount x price)|
-
-<h2 id="tocSlimit">Limit</h2>
-
-<a id="schemalimit"></a>
-
-```json
-{
-  "min": 0,
-  "max": 0
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|min|number|true|none|The minimum allowable value|
-|max|number|true|none|The maximum allowable value|
-
-<h2 id="tocSprecision">Precision</h2>
-
-<a id="schemaprecision"></a>
-
-```json
-{
-  "amount": 0,
-  "price": 0
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
-|price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
-
-<h2 id="tocSorderbookresponse">OrderBookResponse</h2>
-
-<a id="schemaorderbookresponse"></a>
-
-```json
-{
-  "bids": [
-    {
-      "price": 0,
-      "amount": 0
-    }
-  ],
-  "asks": [
-    {
-      "price": 0,
-      "amount": 0
-    }
-  ],
-  "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|bids|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed buy orders|
-|asks|[[OrderBookLevel](#schemaorderbooklevel)]|true|none|The publicly listed sell orders|
-|timestamp|number|false|none|The timestamp associated for this order book|
-|datetime|string(date-time)|false|none|The timestamp associated for this order book|
-
-<h2 id="tocSorderbooklevel">OrderBookLevel</h2>
-
-<a id="schemaorderbooklevel"></a>
-
-```json
-{
-  "price": 0,
-  "amount": 0
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|price|number|true|none|The price being asked for. If this is a bid, then this is the amount the bidder is willing to buy. If this is a sell, then this is the amount the seller is willing to sell for.|
-|amount|number|false|none|The amount of units being sold.|
-
-<h2 id="tocStraderesponse">TradeResponse</h2>
-
-<a id="schematraderesponse"></a>
+<a id="schemaexchangeconfig"></a>
 
 ```json
 {
   "id": "string",
-  "info": {},
-  "timestamp": 0,
-  "symbol": "string",
-  "side": "buy",
-  "price": 0,
-  "amount": 0
+  "apiKey": "string",
+  "secret": "string",
+  "enableRateLimit": true
 }
 
 ```
@@ -4140,130 +4286,23 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string|false|none|The unique identifier of the exchange for this trade|
-|info|object|true|none|Raw trade response gotten from the exchange site's API|
-|timestamp|number(date-time)|false|none|The timestamp of this trade|
-|symbol|string|true|none|The currency pair of this trade|
-|side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
-|price|number|true|none|The price of this trade|
-|amount|number|true|none|The amount of this trade|
+|id|string|true|none|The unique identifier for this exchange. This would be used as the 'exchangeId' of the other API calls|
+|apiKey|string|false|none|The API key you got from the exchange itself. This with the secret is what will allow you to access the exchange|
+|secret|string|false|none|The Secret key you got from the exchange itself. This with the apiKey is what will allow you to access the exchange|
+|enableRateLimit|boolean|false|none|Whether to enable the built in rate limiter or not. The built in rate limiter is an approximation of the actual exchange's limit. To have a more accurate rate limiting, set this to false and implement the rate limiter on your client|
 
-#### Enumerated Values
+<h2 id="tocSorderplacement">orderPlacement</h2>
 
-|Property|Value|
-|---|---|
-|side|buy|
-|side|sell|
-
-<h2 id="tocStickerresponse">TickerResponse</h2>
-
-<a id="schematickerresponse"></a>
+<a id="schemaorderplacement"></a>
 
 ```json
 {
-  "symbol": "string",
-  "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z",
-  "high": 0,
-  "low": 0,
-  "bid": 0,
-  "ask": 0,
-  "vwap": 0,
-  "close": 0,
-  "last": 0,
-  "baseVolume": 0,
-  "quoteVolume": 0,
-  "info": {}
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|symbol|string|true|none|The currency pair of this tick|
-|timestamp|number|true|none|The timestamp of this tick|
-|datetime|string(date-time)|true|none|The datetime of this tick|
-|high|number|true|none|The higest price of this tick|
-|low|number|true|none|The lowest price of this tick|
-|bid|number|true|none|The current bid price of this tick|
-|ask|number|true|none|The current ask price of this tick|
-|vwap|number|true|none|The volume weighted average price of this tick|
-|close|number|true|none|The closing price of this tick|
-|last|number|true|none|The last price of this tick|
-|baseVolume|number|true|none|The volume of the base currency of this tick|
-|quoteVolume|number|true|none|The volume of the quote currency of this tick|
-|info|object|true|none|Raw ticker response gotten from the exchange site's API|
-
-<h2 id="tocSbalanceresponse">BalanceResponse</h2>
-
-<a id="schemabalanceresponse"></a>
-
-```json
-{
-  "info": {},
-  "balances": [
-    {
-      "currency": "string",
-      "free": 0,
-      "used": 0,
-      "total": 0
-    }
-  ]
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|info|object|true|none|Raw balance response gotten from the exchange site's API|
-|balances|[[BalanceInfo](#schemabalanceinfo)]|true|none|List of balances per currency that you own|
-
-<h2 id="tocSbalanceinfo">BalanceInfo</h2>
-
-<a id="schemabalanceinfo"></a>
-
-```json
-{
-  "currency": "string",
-  "free": 0,
-  "used": 0,
-  "total": 0
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|currency|string|true|none|The currency at which this balance refers to|
-|free|number|true|none|The amount of currency that is free to used|
-|used|number|true|none|The amount of currency that is currently used|
-|total|number|true|none|The total amount of currency (free + used)|
-
-<h2 id="tocSorderresponse">OrderResponse</h2>
-
-<a id="schemaorderresponse"></a>
-
-```json
-{
-  "id": "string",
-  "timestamp": 0,
-  "datetime": "2019-04-24T11:08:09Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
-  "price": 0,
   "amount": 0,
-  "cost": 0,
-  "filled": 0,
-  "remaining": 0,
-  "status": "open",
-  "info": {}
+  "price": 0,
+  "params": {}
 }
 
 ```
@@ -4272,19 +4311,12 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string|true|none|The unique identifier of the exchange for this order|
-|timestamp|number|false|none|The timestamp of this order|
-|datetime|string(date-time)|false|none|The datetime of this order|
-|symbol|string|false|none|The currency pair of this order|
-|type|string|false|none|Wether this is a market order or a limit order|
-|side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
-|price|number|false|none|The price of this order|
-|amount|number|false|none|The amount of this order|
-|cost|number|false|none|The cost of this order (i.e. price x amount)|
-|filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
-|remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
-|status|string|false|none|The current status of this order|
-|info|object|false|none|Raw order response gotten from the exchange site's API|
+|symbol|string|true|none|The currency pair (base/quote) of the order to be created|
+|type|string|true|none|Whether this is a 'market' order or a 'limit' order|
+|side|string|true|none|whether we are buying or selling the base|
+|amount|number|true|none|The amount of currency pair's base that we want to buy or sell|
+|price|number|false|none|The buying price or the selling price in terms of the quote. Price is needed for market orders and ignored in limit orders|
+|params|object|false|none|Exchange specific parameters|
 
 #### Enumerated Values
 
@@ -4294,8 +4326,4 @@ This operation does not require authentication
 |type|limit|
 |side|buy|
 |side|sell|
-|status|open|
-|status|closed|
-|status|canceled|
-|status|canceling|
 
