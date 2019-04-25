@@ -1,11 +1,967 @@
 
+<h1 id="ccxt-rest-authentication-api">Authentication API</h1>
+
+APIs that manage [creation](/#createPrivateConnection) / [deletion](/#deletePrivateConnection) / [retrieving](/#getone) of exchange connections. 
+
+Most [Public Data APIs](/#ccxt-rest-public-data-api) by most exchanges can be used without providing the API Key and Secret. 
+
+For example, you get retrieve the market of binance by doing `GET:/exchange/binance/market` directly and would be able to get the markets of binance. 
+
+But some exchanges though would require you to use an API Key and Secret even when accessing their Public Data API. For  example, for cointiger, if you want to retrieve its market and you do `GET:/exchange/cointiger/market`, you will a `403` error (_i.e. meaning you were unauthorized to access it_). Thus, to use that api of continger, you would first have to provide your API Key and Secret to continger via `POST:/exchange/continger -d {"id":"myCoinTiger","apiKey":"My-COINTIGER-KEY","secret":"s3cret"}`. From there, you will get a response `{"token":"xxx.yyy.zzz"}`. That `"xxx.yyy.zzz"` would then what you will use to connect to coiniger - i.e. `GET:/exchange/cointiger/market -H "Authorization: Bearer xxx.yyy.zzz"` and this time, your request will push  through and would be able to get cointiger's market.
+
+Furthemore, all [Private Data APIs](/#ccxt-rest-private-data-api) of all exchanges would require API Key and Secret. Thus, although `GET:/exchange/binance/market` would work, doing `GET:/exchange/binance/balances` will not. You'd have to provide first binance your API Key and Secret like `POST:/exchange/binance -d {"id":"myBinance","apiKey":"binance-key","secret":"s3cret"}`, to get something like `{"token":"aaa.bbb.ccc"}`, which you can then use to execute  `GET:/exchange/binance/balances -H "Authorization: Bearer aaa.bbb.ccc"` which would finally get your balances.
+
+## getConnection
+
+<a id="opIdgetConnection"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET http://localhost:3000/exchange/{exchangeName} \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```javascript
+var headers = {
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
+
+};
+
+$.ajax({
+  url: 'http://localhost:3000/exchange/{exchangeName}',
+  method: 'get',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
+}
+
+r = requests.get('http://localhost:3000/exchange/{exchangeName}', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
+}
+
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+`GET /exchange/{exchangeName}`
+
+Retreives the current exchange connection details given the {exchangeName} and access token in the header
+
+<h3 id="getconnection-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "private": true,
+  "enableRateLimit": true,
+  "countries": [
+    "string"
+  ],
+  "rateLimit": 0,
+  "twofa": false,
+  "has": {
+    "CORS": "true",
+    "publicAPI": "true",
+    "privateAPI": "true",
+    "cancelOrder": "true",
+    "cancelOrders": "true",
+    "createDepositAddress": "true",
+    "createOrder": "true",
+    "createMarketOrder": "true",
+    "createLimitOrder": "true",
+    "editOrder": "true",
+    "fetchBalance": "true",
+    "fetchBidsAsks": "true",
+    "fetchClosedOrders": "true",
+    "fetchCurrencies": "true",
+    "fetchDepositAddress": "true",
+    "fetchFundingFees": "true",
+    "fetchL2OrderBook": "true",
+    "fetchMarkets": "true",
+    "fetchMyTrades": "true",
+    "fetchOHLCV": "true",
+    "fetchOpenOrders": "true",
+    "fetchOrder": "true",
+    "fetchOrderBook": "true",
+    "fetchOrderBooks": "true",
+    "fetchOrders": "true",
+    "fetchTicker": "true",
+    "fetchTickers": "true",
+    "fetchTrades": "true",
+    "fetchTradingFees": "true",
+    "fetchTradingLimits": "true",
+    "withdraw": "true"
+  },
+  "urls": {}
+}
+```
+
+<h3 id="getconnection-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
+</aside>
+
+## createPrivateConnection
+
+<a id="opIdcreatePrivateConnection"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST http://localhost:3000/exchange/{exchangeName} \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("POST");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```javascript
+var headers = {
+  'Content-Type':'application/json',
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
+
+};
+
+$.ajax({
+  url: 'http://localhost:3000/exchange/{exchangeName}',
+  method: 'post',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
+}
+
+r = requests.post('http://localhost:3000/exchange/{exchangeName}', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Content-Type' => 'application/json',
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
+}
+
+result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+`POST /exchange/{exchangeName}`
+
+Creates a private connection to the exchange referenced in {exchangeName}
+
+> Body parameter
+
+```json
+{
+  "id": "string",
+  "apiKey": "string",
+  "secret": "string",
+  "enableRateLimit": true
+}
+```
+
+<h3 id="createprivateconnection-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|body|body|[exchangeConfig](#schemaexchangeconfig)|true|The exchange to create.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "token": "string"
+}
+```
+
+<h3 id="createprivateconnection-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[AccessToken](#schemaaccesstoken)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|503|[Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4)|Support for exchange is currently broken|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
+</aside>
+
+## deletePrivateConnection
+
+<a id="opIddeletePrivateConnection"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE http://localhost:3000/exchange/{exchangeName} \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
+        
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/exchange/{exchangeName}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+```java
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("DELETE");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```javascript
+var headers = {
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
+
+};
+
+$.ajax({
+  url: 'http://localhost:3000/exchange/{exchangeName}',
+  method: 'delete',
+
+  headers: headers,
+  success: function(data) {
+    console.log(JSON.stringify(data));
+  }
+})
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
+}
+
+r = requests.delete('http://localhost:3000/exchange/{exchangeName}', params={
+
+}, headers = headers)
+
+print r.json()
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
+}
+
+result = RestClient.delete 'http://localhost:3000/exchange/{exchangeName}',
+  params: {
+  }, headers: headers
+
+p JSON.parse(result)
+
+```
+
+`DELETE /exchange/{exchangeName}`
+
+Delete the exchange connection referenced by access token in the header
+
+<h3 id="deleteprivateconnection-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "id": "string",
+  "name": "string",
+  "private": true,
+  "enableRateLimit": true,
+  "countries": [
+    "string"
+  ],
+  "rateLimit": 0,
+  "twofa": false,
+  "has": {
+    "CORS": "true",
+    "publicAPI": "true",
+    "privateAPI": "true",
+    "cancelOrder": "true",
+    "cancelOrders": "true",
+    "createDepositAddress": "true",
+    "createOrder": "true",
+    "createMarketOrder": "true",
+    "createLimitOrder": "true",
+    "editOrder": "true",
+    "fetchBalance": "true",
+    "fetchBidsAsks": "true",
+    "fetchClosedOrders": "true",
+    "fetchCurrencies": "true",
+    "fetchDepositAddress": "true",
+    "fetchFundingFees": "true",
+    "fetchL2OrderBook": "true",
+    "fetchMarkets": "true",
+    "fetchMyTrades": "true",
+    "fetchOHLCV": "true",
+    "fetchOpenOrders": "true",
+    "fetchOrder": "true",
+    "fetchOrderBook": "true",
+    "fetchOrderBooks": "true",
+    "fetchOrders": "true",
+    "fetchTicker": "true",
+    "fetchTickers": "true",
+    "fetchTrades": "true",
+    "fetchTradingFees": "true",
+    "fetchTradingLimits": "true",
+    "withdraw": "true"
+  },
+  "urls": {}
+}
+```
+
+<h3 id="deleteprivateconnection-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
+|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
+</aside>
+
 <h1 id="ccxt-rest-exchange-management-api">Exchange Management API</h1>
 
-APIs that manage [creation](#createexchange) / [deletion](#deleteexchange) / [listing](#listids) / [retrieving](#getone) of exchange instances. 
-
-Before you start using the [Public](#ccxt-rest-public-data-api) and [Private](#ccxt-rest-private-data-api) Data APIs, you would need to create first an exchange instance.  You do this by selecting which exchange you want to create an exchange instance of (you can see the list of supported from [`GET:/exchanges`](#list)), and then using that  exchange name as part of the path of [`POST:/exchange/{exchangeName}`](#createexchange) in order to create an exchange instance. The body to the API call contains  `exchangeId` (_any name you want to use to identify this exchange instance of_), the `apiKey` and `secret` that you got from that exchange's website.
-
-Once you have an exchange instance, you can then start using that exchange instance to invoke the [Public](#ccxt-rest-public-data-api) and  [Private](#ccxt-rest-private-data-api) Data API calls which roughly has a format of `/exchange/{exchangeName}/{exchangeId}/X/Y/Z`.
+APIs for retrieving supported exchanges
 
 ## list
 
@@ -268,693 +1224,11 @@ List all support exchanges by this server
 
 <h3 id="list-responseschema">Response Schema</h3>
 
-<aside class="success">
-This operation does not require authentication
-</aside>
+Status Code **200**
 
-## listIds
-
-<a id="opIdlistIds"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName} \
-  -H 'Accept: application/json'
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```javascript
-var headers = {
-  'Accept':'application/json'
-
-};
-
-$.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get('http://localhost:3000/exchange/{exchangeName}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-`GET /exchange/{exchangeName}`
-
-List all exchange instance ids for this exchange
-
-<h3 id="listids-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
+|Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-
-> Example responses
-
-> 200 Response
-
-```json
-[
-  "myBitsoInstance",
-  "myBinanceInstance",
-  "someRandomNameIGaveToAnInstance"
-]
-```
-
-<h3 id="listids-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
-
-<h3 id="listids-responseschema">Response Schema</h3>
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-## createExchange
-
-<a id="opIdcreateExchange"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X POST http://localhost:3000/exchange/{exchangeName} \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Content-Type": []string{"application/json"},
-        "Accept": []string{"application/json"},
-        
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("POST");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```javascript
-var headers = {
-  'Content-Type':'application/json',
-  'Accept':'application/json'
-
-};
-
-$.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}',
-  method: 'post',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```python
-import requests
-headers = {
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-r = requests.post('http://localhost:3000/exchange/{exchangeName}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
-}
-
-result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-`POST /exchange/{exchangeName}`
-
-Creates an instance of the exchange
-
-> Body parameter
-
-```json
-{
-  "id": "string",
-  "apiKey": "string",
-  "secret": "string",
-  "enableRateLimit": true
-}
-```
-
-<h3 id="createexchange-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|body|body|[exchangeConfig](#schemaexchangeconfig)|true|The exchange to create.|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "name": "string",
-  "enableRateLimit": true,
-  "countries": [
-    "string"
-  ],
-  "rateLimit": 0,
-  "twofa": false,
-  "has": {
-    "CORS": "true",
-    "publicAPI": "true",
-    "privateAPI": "true",
-    "cancelOrder": "true",
-    "cancelOrders": "true",
-    "createDepositAddress": "true",
-    "createOrder": "true",
-    "createMarketOrder": "true",
-    "createLimitOrder": "true",
-    "editOrder": "true",
-    "fetchBalance": "true",
-    "fetchBidsAsks": "true",
-    "fetchClosedOrders": "true",
-    "fetchCurrencies": "true",
-    "fetchDepositAddress": "true",
-    "fetchFundingFees": "true",
-    "fetchL2OrderBook": "true",
-    "fetchMarkets": "true",
-    "fetchMyTrades": "true",
-    "fetchOHLCV": "true",
-    "fetchOpenOrders": "true",
-    "fetchOrder": "true",
-    "fetchOrderBook": "true",
-    "fetchOrderBooks": "true",
-    "fetchOrders": "true",
-    "fetchTicker": "true",
-    "fetchTickers": "true",
-    "fetchTrades": "true",
-    "fetchTradingFees": "true",
-    "fetchTradingLimits": "true",
-    "withdraw": "true"
-  },
-  "urls": {}
-}
-```
-
-<h3 id="createexchange-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
-|503|[Service Unavailable](https://tools.ietf.org/html/rfc7231#section-6.6.4)|Support for exchange is currently broken|None|
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-## getOne
-
-<a id="opIdgetOne"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId} \
-  -H 'Accept: application/json'
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```javascript
-var headers = {
-  'Accept':'application/json'
-
-};
-
-$.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
-  method: 'get',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-`GET /exchange/{exchangeName}/{exchangeId}`
-
-Get the exchange details given the exchangeName and exchangeId
-
-<h3 id="getone-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "name": "string",
-  "enableRateLimit": true,
-  "countries": [
-    "string"
-  ],
-  "rateLimit": 0,
-  "twofa": false,
-  "has": {
-    "CORS": "true",
-    "publicAPI": "true",
-    "privateAPI": "true",
-    "cancelOrder": "true",
-    "cancelOrders": "true",
-    "createDepositAddress": "true",
-    "createOrder": "true",
-    "createMarketOrder": "true",
-    "createLimitOrder": "true",
-    "editOrder": "true",
-    "fetchBalance": "true",
-    "fetchBidsAsks": "true",
-    "fetchClosedOrders": "true",
-    "fetchCurrencies": "true",
-    "fetchDepositAddress": "true",
-    "fetchFundingFees": "true",
-    "fetchL2OrderBook": "true",
-    "fetchMarkets": "true",
-    "fetchMyTrades": "true",
-    "fetchOHLCV": "true",
-    "fetchOpenOrders": "true",
-    "fetchOrder": "true",
-    "fetchOrderBook": "true",
-    "fetchOrderBooks": "true",
-    "fetchOrders": "true",
-    "fetchTicker": "true",
-    "fetchTickers": "true",
-    "fetchTrades": "true",
-    "fetchTradingFees": "true",
-    "fetchTradingLimits": "true",
-    "withdraw": "true"
-  },
-  "urls": {}
-}
-```
-
-<h3 id="getone-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
-
-<aside class="success">
-This operation does not require authentication
-</aside>
-
-## deleteExchange
-
-<a id="opIddeleteExchange"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X DELETE http://localhost:3000/exchange/{exchangeName}/{exchangeId} \
-  -H 'Accept: application/json'
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-        
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("DELETE");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```javascript
-var headers = {
-  'Accept':'application/json'
-
-};
-
-$.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
-  method: 'delete',
-
-  headers: headers,
-  success: function(data) {
-    console.log(JSON.stringify(data));
-  }
-})
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.delete('http://localhost:3000/exchange/{exchangeName}/{exchangeId}', params={
-
-}, headers = headers)
-
-print r.json()
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.delete 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}',
-  params: {
-  }, headers: headers
-
-p JSON.parse(result)
-
-```
-
-`DELETE /exchange/{exchangeName}/{exchangeId}`
-
-Delete the exchange details referenced by the exchangeName and exchangeId
-
-<h3 id="deleteexchange-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "name": "string",
-  "enableRateLimit": true,
-  "countries": [
-    "string"
-  ],
-  "rateLimit": 0,
-  "twofa": false,
-  "has": {
-    "CORS": "true",
-    "publicAPI": "true",
-    "privateAPI": "true",
-    "cancelOrder": "true",
-    "cancelOrders": "true",
-    "createDepositAddress": "true",
-    "createOrder": "true",
-    "createMarketOrder": "true",
-    "createLimitOrder": "true",
-    "editOrder": "true",
-    "fetchBalance": "true",
-    "fetchBidsAsks": "true",
-    "fetchClosedOrders": "true",
-    "fetchCurrencies": "true",
-    "fetchDepositAddress": "true",
-    "fetchFundingFees": "true",
-    "fetchL2OrderBook": "true",
-    "fetchMarkets": "true",
-    "fetchMyTrades": "true",
-    "fetchOHLCV": "true",
-    "fetchOpenOrders": "true",
-    "fetchOrder": "true",
-    "fetchOrderBook": "true",
-    "fetchOrderBooks": "true",
-    "fetchOrders": "true",
-    "fetchTicker": "true",
-    "fetchTickers": "true",
-    "fetchTrades": "true",
-    "fetchTradingFees": "true",
-    "fetchTradingLimits": "true",
-    "withdraw": "true"
-  },
-  "urls": {}
-}
-```
-
-<h3 id="deleteexchange-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|[ExchangeResponse](#schemaexchangeresponse)|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
-|500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
+|*anonymous*|[[Exchange](#schemaexchange)]|false|none|none|
 
 <aside class="success">
 This operation does not require authentication
@@ -972,8 +1246,9 @@ APIs that retrieve public data (like ticker, order books, trades, etc)
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/markets \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -989,11 +1264,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/markets", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1004,7 +1280,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/markets");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1022,12 +1298,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets',
+  url: 'http://localhost:3000/exchange/{exchangeName}/markets',
   method: 'get',
 
   headers: headers,
@@ -1041,10 +1318,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/markets', params={
 
 }, headers = headers)
 
@@ -1057,10 +1335,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/markets',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/markets',
   params: {
   }, headers: headers
 
@@ -1068,9 +1347,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/markets`
+`GET /exchange/{exchangeName}/markets`
 
-Get the markets of the exchange referenced by the exchangeName and exchangeId. 
+Get the markets of the exchange referenced by the {exchangeName}.
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -1078,8 +1357,147 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -1124,7 +1542,7 @@ Get the markets of the exchange referenced by the exchangeName and exchangeId.
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -1152,8 +1570,9 @@ Status Code **200**
 |»» amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
 |»» price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## orderBook
@@ -1164,8 +1583,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook?symbol=string \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/orderBook?symbol=string \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -1181,11 +1601,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/orderBook", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1196,7 +1617,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/orderBook?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1214,12 +1635,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook',
+  url: 'http://localhost:3000/exchange/{exchangeName}/orderBook',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1233,10 +1655,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/orderBook', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1249,10 +1672,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orderBook',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/orderBook',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1261,9 +1685,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/orderBook`
+`GET /exchange/{exchangeName}/orderBook`
 
-Get the order book of the exchange referenced by the exchangeName, exchangeId and symbol. 
+Get the order book of the exchange referenced by the {exchangeName} and `?symbol=`. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -1271,10 +1695,149 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |limit|query|number|false|The limit of the exchange's order book to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -1296,7 +1859,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
       }
     ],
     "timestamp": 0,
-    "datetime": "2019-04-24T12:11:41Z"
+    "datetime": "2019-04-25T18:17:25Z"
   }
 ]
 ```
@@ -1309,7 +1872,7 @@ Get the order book of the exchange referenced by the exchangeName, exchangeId an
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -1328,8 +1891,9 @@ Status Code **200**
 |» timestamp|number|false|none|The timestamp associated for this order book|
 |» datetime|string(date-time)|false|none|The timestamp associated for this order book|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## l2OrderBook
@@ -1340,8 +1904,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook?symbol=string \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/l2OrderBook?symbol=string \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -1357,11 +1922,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/l2OrderBook", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1372,7 +1938,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/l2OrderBook?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1390,12 +1956,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook',
+  url: 'http://localhost:3000/exchange/{exchangeName}/l2OrderBook',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1409,10 +1976,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/l2OrderBook', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1425,10 +1993,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/l2OrderBook',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/l2OrderBook',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1437,9 +2006,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/l2OrderBook`
+`GET /exchange/{exchangeName}/l2OrderBook`
 
-Get the Level 2 Order Book of the exchange referenced by the exchangeName, exchangeId and symbol. 
+Get the Level 2 Order Book of the exchange referenced by the {exchangeName} and `?symbol=`.
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -1447,10 +2016,149 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |limit|query|number|false|The limit of the exchange's order book to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -1472,7 +2180,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
       }
     ],
     "timestamp": 0,
-    "datetime": "2019-04-24T12:11:41Z"
+    "datetime": "2019-04-25T18:17:25Z"
   }
 ]
 ```
@@ -1485,7 +2193,7 @@ Get the Level 2 Order Book of the exchange referenced by the exchangeName, excha
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -1504,8 +2212,9 @@ Status Code **200**
 |» timestamp|number|false|none|The timestamp associated for this order book|
 |» datetime|string(date-time)|false|none|The timestamp associated for this order book|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## trades
@@ -1516,8 +2225,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades?symbol=string \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/trades?symbol=string \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -1533,11 +2243,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/trades", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1548,7 +2259,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/trades?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1566,12 +2277,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades',
+  url: 'http://localhost:3000/exchange/{exchangeName}/trades',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1585,10 +2297,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/trades', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1601,10 +2314,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/trades',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1613,9 +2327,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/trades`
+`GET /exchange/{exchangeName}/trades`
 
-Get the trades of the exchange referenced by the exchangeName, exchangeId and symbol. 
+Get the trades of the exchange referenced by the {exchangeName} and `?symbol=`.
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -1623,11 +2337,150 @@ Get the trades of the exchange referenced by the exchangeName, exchangeId and sy
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |since|query|string|false|Retrieve the trades starting from 'since'|
 |limit|query|number|false|The limit of the exchange's trades to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -1655,7 +2508,7 @@ Get the trades of the exchange referenced by the exchangeName, exchangeId and sy
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -1671,7 +2524,7 @@ Status Code **200**
 |» info|object|true|none|Raw trade response gotten from the exchange site's API|
 |» timestamp|number(date-time)|false|none|The timestamp of this trade|
 |» symbol|string|true|none|The currency pair of this trade|
-|» side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|» side|[Side](#schemaside)|true|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |» price|number|true|none|The price of this trade|
 |» amount|number|true|none|The amount of this trade|
 
@@ -1682,8 +2535,9 @@ Status Code **200**
 |side|buy|
 |side|sell|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## ticker
@@ -1694,8 +2548,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker?symbol=string \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/ticker?symbol=string \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -1711,11 +2566,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/ticker", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1726,7 +2582,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker?symbol=string");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/ticker?symbol=string");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1744,12 +2600,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker',
+  url: 'http://localhost:3000/exchange/{exchangeName}/ticker',
   method: 'get',
   data: '?symbol=string',
   headers: headers,
@@ -1763,10 +2620,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/ticker', params={
   'symbol': 'string'
 }, headers = headers)
 
@@ -1779,10 +2637,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/ticker',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/ticker',
   params: {
   'symbol' => 'string'
 }, headers: headers
@@ -1791,9 +2650,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/ticker`
+`GET /exchange/{exchangeName}/ticker`
 
-Get the ticker of the exchange referenced by the exchangeName, exchangeId and symbol. 
+Get the ticker of the exchange referenced by the {exchangeName} and `?symbol=`.
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -1801,9 +2660,148 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|true|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -1813,7 +2811,7 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z",
+  "datetime": "2019-04-25T18:17:25Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -1835,13 +2833,14 @@ Get the ticker of the exchange referenced by the exchangeName, exchangeId and sy
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## tickers
@@ -1852,8 +2851,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/tickers \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -1869,11 +2869,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/tickers", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -1884,7 +2885,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/tickers");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1902,12 +2903,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers',
+  url: 'http://localhost:3000/exchange/{exchangeName}/tickers',
   method: 'get',
 
   headers: headers,
@@ -1921,10 +2923,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/tickers', params={
 
 }, headers = headers)
 
@@ -1937,10 +2940,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/tickers',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/tickers',
   params: {
   }, headers: headers
 
@@ -1948,9 +2952,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/tickers`
+`GET /exchange/{exchangeName}/tickers`
 
-Get the tickers of the exchange referenced by the exchangeName, exchangeId and symbol. 
+Get the tickers of the exchange referenced by the {exchangeName} and `?symbol=`.
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -1958,9 +2962,148 @@ Get the tickers of the exchange referenced by the exchangeName, exchangeId and s
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -1971,7 +3114,7 @@ Get the tickers of the exchange referenced by the exchangeName, exchangeId and s
   {
     "symbol": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T12:11:41Z",
+    "datetime": "2019-04-25T18:17:25Z",
     "high": 0,
     "low": 0,
     "bid": 0,
@@ -1994,7 +3137,7 @@ Get the tickers of the exchange referenced by the exchangeName, exchangeId and s
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -2020,8 +3163,9 @@ Status Code **200**
 |» quoteVolume|number|true|none|The volume of the quote currency of this tick|
 |» info|object|true|none|Raw ticker response gotten from the exchange site's API|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 <h1 id="ccxt-rest-private-data-api">Private Data API</h1>
@@ -2036,8 +3180,9 @@ APIs that retrieve private data (like your balances, your open orders, your clos
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/balances \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -2053,11 +3198,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/balances", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2068,7 +3214,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/balances");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2086,12 +3232,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances',
+  url: 'http://localhost:3000/exchange/{exchangeName}/balances',
   method: 'get',
 
   headers: headers,
@@ -2105,10 +3252,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/balances', params={
 
 }, headers = headers)
 
@@ -2121,10 +3269,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/balances',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/balances',
   params: {
   }, headers: headers
 
@@ -2132,9 +3281,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/balances`
+`GET /exchange/{exchangeName}/balances`
 
-Get the balances of the exchange referenced by the exchangeName and exchangeId. 
+Get the balances of the exchange referenced by the {exchangeName}. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -2142,8 +3291,147 @@ Get the balances of the exchange referenced by the exchangeName and exchangeId.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -2171,13 +3459,14 @@ Get the balances of the exchange referenced by the exchangeName and exchangeId.
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## fetchOrders
@@ -2188,8 +3477,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/orders \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -2205,11 +3495,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/orders", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2220,7 +3511,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/orders");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2238,12 +3529,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders',
+  url: 'http://localhost:3000/exchange/{exchangeName}/orders',
   method: 'get',
 
   headers: headers,
@@ -2257,10 +3549,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/orders', params={
 
 }, headers = headers)
 
@@ -2273,10 +3566,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/orders',
   params: {
   }, headers: headers
 
@@ -2284,9 +3578,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/orders`
+`GET /exchange/{exchangeName}/orders`
 
-Get the orders of the exchange referenced by the exchangeName and exchangeId. 
+Get the orders of the exchange referenced by the {exchangeName}. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -2294,11 +3588,150 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |since|query|string|false|Retrieve the orders starting from 'since'|
 |limit|query|number|false|The limit of the exchange's orders to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -2309,7 +3742,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId.
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T12:11:41Z",
+    "datetime": "2019-04-25T18:17:25Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -2332,7 +3765,7 @@ Get the orders of the exchange referenced by the exchangeName and exchangeId.
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -2348,14 +3781,14 @@ Status Code **200**
 |» timestamp|number|false|none|The timestamp of this order|
 |» datetime|string(date-time)|false|none|The datetime of this order|
 |» symbol|string|false|none|The currency pair of this order|
-|» type|string|false|none|Wether this is a market order or a limit order|
-|» side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|» type|[OrderType](#schemaordertype)|false|none|Whether this is a 'market' order or a 'limit' order|
+|» side|[Side](#schemaside)|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |» price|number|false|none|The price of this order|
 |» amount|number|false|none|The amount of this order|
 |» cost|number|false|none|The cost of this order (i.e. price x amount)|
 |» filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
 |» remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
-|» status|string|false|none|The current status of this order|
+|» status|[OrderStatus](#schemaorderstatus)|false|none|The current status of this order|
 |» info|object|false|none|Raw order response gotten from the exchange site's API|
 
 #### Enumerated Values
@@ -2371,8 +3804,9 @@ Status Code **200**
 |status|canceled|
 |status|canceling|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## fetchOpenOrders
@@ -2383,8 +3817,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/orders/open \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -2400,11 +3835,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/orders/open", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2415,7 +3851,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/orders/open");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2433,12 +3869,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open',
+  url: 'http://localhost:3000/exchange/{exchangeName}/orders/open',
   method: 'get',
 
   headers: headers,
@@ -2452,10 +3889,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/orders/open', params={
 
 }, headers = headers)
 
@@ -2468,10 +3906,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/open',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/orders/open',
   params: {
   }, headers: headers
 
@@ -2479,9 +3918,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/orders/open`
+`GET /exchange/{exchangeName}/orders/open`
 
-Get the open orders of the exchange referenced by the exchangeName and exchangeId. 
+Get the open orders of the exchange referenced by the {exchangeName}. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -2489,11 +3928,150 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |since|query|string|false|Retrieve the orders starting from 'since'|
 |limit|query|number|false|The limit of the exchange's orders to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -2504,7 +4082,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T12:11:41Z",
+    "datetime": "2019-04-25T18:17:25Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -2527,7 +4105,7 @@ Get the open orders of the exchange referenced by the exchangeName and exchangeI
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -2543,14 +4121,14 @@ Status Code **200**
 |» timestamp|number|false|none|The timestamp of this order|
 |» datetime|string(date-time)|false|none|The datetime of this order|
 |» symbol|string|false|none|The currency pair of this order|
-|» type|string|false|none|Wether this is a market order or a limit order|
-|» side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|» type|[OrderType](#schemaordertype)|false|none|Whether this is a 'market' order or a 'limit' order|
+|» side|[Side](#schemaside)|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |» price|number|false|none|The price of this order|
 |» amount|number|false|none|The amount of this order|
 |» cost|number|false|none|The cost of this order (i.e. price x amount)|
 |» filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
 |» remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
-|» status|string|false|none|The current status of this order|
+|» status|[OrderStatus](#schemaorderstatus)|false|none|The current status of this order|
 |» info|object|false|none|Raw order response gotten from the exchange site's API|
 
 #### Enumerated Values
@@ -2566,8 +4144,9 @@ Status Code **200**
 |status|canceled|
 |status|canceling|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## fetchClosedOrders
@@ -2578,8 +4157,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/orders/closed \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -2595,11 +4175,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/orders/closed", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2610,7 +4191,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/orders/closed");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2628,12 +4209,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed',
+  url: 'http://localhost:3000/exchange/{exchangeName}/orders/closed',
   method: 'get',
 
   headers: headers,
@@ -2647,10 +4229,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/orders/closed', params={
 
 }, headers = headers)
 
@@ -2663,10 +4246,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/orders/closed',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/orders/closed',
   params: {
   }, headers: headers
 
@@ -2674,9 +4258,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/orders/closed`
+`GET /exchange/{exchangeName}/orders/closed`
 
-Get the closed orders of the exchange referenced by the exchangeName and exchangeId. 
+Get the closed orders of the exchange referenced by the {exchangeName}.
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -2684,11 +4268,150 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |since|query|string|false|Retrieve the orders starting from 'since'|
 |limit|query|number|false|The limit of the exchange's orders to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -2699,7 +4422,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-24T12:11:41Z",
+    "datetime": "2019-04-25T18:17:25Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -2722,7 +4445,7 @@ Get the closed orders of the exchange referenced by the exchangeName and exchang
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -2738,14 +4461,14 @@ Status Code **200**
 |» timestamp|number|false|none|The timestamp of this order|
 |» datetime|string(date-time)|false|none|The datetime of this order|
 |» symbol|string|false|none|The currency pair of this order|
-|» type|string|false|none|Wether this is a market order or a limit order|
-|» side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|» type|[OrderType](#schemaordertype)|false|none|Whether this is a 'market' order or a 'limit' order|
+|» side|[Side](#schemaside)|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |» price|number|false|none|The price of this order|
 |» amount|number|false|none|The amount of this order|
 |» cost|number|false|none|The cost of this order (i.e. price x amount)|
 |» filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
 |» remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
-|» status|string|false|none|The current status of this order|
+|» status|[OrderStatus](#schemaorderstatus)|false|none|The current status of this order|
 |» info|object|false|none|Raw order response gotten from the exchange site's API|
 
 #### Enumerated Values
@@ -2761,8 +4484,9 @@ Status Code **200**
 |status|canceled|
 |status|canceling|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## fetchMyTrades
@@ -2773,8 +4497,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/trades/mine \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -2790,11 +4515,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/trades/mine", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2805,7 +4531,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/trades/mine");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -2823,12 +4549,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine',
+  url: 'http://localhost:3000/exchange/{exchangeName}/trades/mine',
   method: 'get',
 
   headers: headers,
@@ -2842,10 +4569,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/trades/mine', params={
 
 }, headers = headers)
 
@@ -2858,10 +4586,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/trades/mine',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/trades/mine',
   params: {
   }, headers: headers
 
@@ -2869,9 +4598,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/trades/mine`
+`GET /exchange/{exchangeName}/trades/mine`
 
-Get my trades of the exchange referenced by the exchangeName and exchangeId. 
+Get my trades of the exchange referenced by the {exchangeName}. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -2879,11 +4608,150 @@ Get my trades of the exchange referenced by the exchangeName and exchangeId.
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
 |since|query|string|false|Retrieve the trades starting from 'since'|
 |limit|query|number|false|The limit of the exchange's trades to be retrieved.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -2911,7 +4779,7 @@ Get my trades of the exchange referenced by the exchangeName and exchangeId.
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
@@ -2927,7 +4795,7 @@ Status Code **200**
 |» info|object|true|none|Raw trade response gotten from the exchange site's API|
 |» timestamp|number(date-time)|false|none|The timestamp of this trade|
 |» symbol|string|true|none|The currency pair of this trade|
-|» side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|» side|[Side](#schemaside)|true|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |» price|number|true|none|The price of this trade|
 |» amount|number|true|none|The amount of this trade|
 
@@ -2938,8 +4806,9 @@ Status Code **200**
 |side|buy|
 |side|sell|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## createOrder
@@ -2950,9 +4819,10 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X POST http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order \
+curl -X POST http://localhost:3000/exchange/{exchangeName}/order \
   -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -2969,11 +4839,12 @@ func main() {
     headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order", data)
+    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}/order", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -2984,7 +4855,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/order");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -3003,12 +4874,13 @@ System.out.println(response.toString());
 ```javascript
 var headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order',
+  url: 'http://localhost:3000/exchange/{exchangeName}/order',
   method: 'post',
 
   headers: headers,
@@ -3023,10 +4895,11 @@ $.ajax({
 import requests
 headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.post('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order', params={
+r = requests.post('http://localhost:3000/exchange/{exchangeName}/order', params={
 
 }, headers = headers)
 
@@ -3040,10 +4913,11 @@ require 'json'
 
 headers = {
   'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order',
+result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}/order',
   params: {
   }, headers: headers
 
@@ -3051,9 +4925,9 @@ p JSON.parse(result)
 
 ```
 
-`POST /exchange/{exchangeName}/{exchangeId}/order`
+`POST /exchange/{exchangeName}/order`
 
-Create an order on the exchange referenced by the exchangeName and exchangeId
+Create an order on the exchange referenced by the {exchangeName}
 
 > Body parameter
 
@@ -3072,9 +4946,148 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
 |body|body|[orderPlacement](#schemaorderplacement)|false|The order to place.|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -3084,7 +5097,7 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z",
+  "datetime": "2019-04-25T18:17:25Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3106,13 +5119,14 @@ Create an order on the exchange referenced by the exchangeName and exchangeId
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## fetchOrder
@@ -3123,8 +5137,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X GET http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId} \
-  -H 'Accept: application/json'
+curl -X GET http://localhost:3000/exchange/{exchangeName}/order/{orderId} \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -3140,11 +5155,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}", data)
+    req, err := http.NewRequest("GET", "http://localhost:3000/exchange/{exchangeName}/order/{orderId}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -3155,7 +5171,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/order/{orderId}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -3173,12 +5189,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/order/{orderId}',
   method: 'get',
 
   headers: headers,
@@ -3192,10 +5209,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.get('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}', params={
+r = requests.get('http://localhost:3000/exchange/{exchangeName}/order/{orderId}', params={
 
 }, headers = headers)
 
@@ -3208,10 +5226,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+result = RestClient.get 'http://localhost:3000/exchange/{exchangeName}/order/{orderId}',
   params: {
   }, headers: headers
 
@@ -3219,9 +5238,9 @@ p JSON.parse(result)
 
 ```
 
-`GET /exchange/{exchangeName}/{exchangeId}/order/{orderId}`
+`GET /exchange/{exchangeName}/order/{orderId}`
 
-Retrieves the information of an order on the exchange referenced by the exchangeName, exchangeId and orderId. 
+Retrieves the information of an order on the exchange referenced by the {exchangeName} and {orderId}. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -3229,10 +5248,149 @@ Retrieves the information of an order on the exchange referenced by the exchange
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|orderId|path|string|true|The id of the order. Possible values are any of the result of GET:/exchange/{exchangeName}/{exchangeId}/orders.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|orderId|path|string|true|The id of the order. Possible values are any of the result of GET:/exchange/{exchangeName}/orders.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -3242,7 +5400,7 @@ Retrieves the information of an order on the exchange referenced by the exchange
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z",
+  "datetime": "2019-04-25T18:17:25Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3264,13 +5422,14 @@ Retrieves the information of an order on the exchange referenced by the exchange
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 ## cancelOrder
@@ -3281,8 +5440,9 @@ This operation does not require authentication
 
 ```shell
 # You can also use wget
-curl -X DELETE http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId} \
-  -H 'Accept: application/json'
+curl -X DELETE http://localhost:3000/exchange/{exchangeName}/order/{orderId} \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -3298,11 +5458,12 @@ func main() {
 
     headers := map[string][]string{
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("DELETE", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}", data)
+    req, err := http.NewRequest("DELETE", "http://localhost:3000/exchange/{exchangeName}/order/{orderId}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -3313,7 +5474,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/order/{orderId}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("DELETE");
 int responseCode = con.getResponseCode();
@@ -3331,12 +5492,13 @@ System.out.println(response.toString());
 
 ```javascript
 var headers = {
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/order/{orderId}',
   method: 'delete',
 
   headers: headers,
@@ -3350,10 +5512,11 @@ $.ajax({
 ```python
 import requests
 headers = {
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.delete('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}', params={
+r = requests.delete('http://localhost:3000/exchange/{exchangeName}/order/{orderId}', params={
 
 }, headers = headers)
 
@@ -3366,10 +5529,11 @@ require 'rest-client'
 require 'json'
 
 headers = {
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.delete 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/order/{orderId}',
+result = RestClient.delete 'http://localhost:3000/exchange/{exchangeName}/order/{orderId}',
   params: {
   }, headers: headers
 
@@ -3377,9 +5541,9 @@ p JSON.parse(result)
 
 ```
 
-`DELETE /exchange/{exchangeName}/{exchangeId}/order/{orderId}`
+`DELETE /exchange/{exchangeName}/order/{orderId}`
 
-Cancel an open order on the exchange referenced by the exchangeName, exchangeId and orderId. 
+Cancel an open order on the exchange referenced by the {exchangeName} and {orderId}. 
 
 <br/> *Parameters listed here are common to all exchanges. But any other parameter passed would be forwarded as well into the exchange.*
 
@@ -3387,10 +5551,149 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
-|orderId|path|string|true|The id of the order. Possible values are any of the result of GET:/exchange/{exchangeName}/{exchangeId}/orders.|
-|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/{exchangeId}/markets|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
+|orderId|path|string|true|The id of the order. Possible values are any of the result of GET:/exchange/{exchangeName}/orders.|
+|symbol|query|string|false|The symbol of the exchange's data to be retrieved. Possible values are any of symbols in GET:/exchange/{exchangeName}/markets|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -3400,7 +5703,7 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z",
+  "datetime": "2019-04-25T18:17:25Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3422,13 +5725,14 @@ Cancel an open order on the exchange referenced by the exchangeName, exchangeId 
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 <h1 id="ccxt-rest-experimental-api">Experimental API</h1>
@@ -3443,9 +5747,10 @@ APIs that may be useful but are in experimental stage. Some of these APIs may po
 
 ```shell
 # You can also use wget
-curl -X POST http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName} \
+curl -X POST http://localhost:3000/exchange/{exchangeName}/_/{methodName} \
   -H 'Content-Type: application/json' \
-  -H 'Accept: application/json'
+  -H 'Accept: application/json' \
+  -H 'Authorization: Bearer {access-token}'
 
 ```
 
@@ -3462,11 +5767,12 @@ func main() {
     headers := map[string][]string{
         "Content-Type": []string{"application/json"},
         "Accept": []string{"application/json"},
+        "Authorization": []string{"Bearer {access-token}"},
         
     }
 
     data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}", data)
+    req, err := http.NewRequest("POST", "http://localhost:3000/exchange/{exchangeName}/_/{methodName}", data)
     req.Header = headers
 
     client := &http.Client{}
@@ -3477,7 +5783,7 @@ func main() {
 ```
 
 ```java
-URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}");
+URL obj = new URL("http://localhost:3000/exchange/{exchangeName}/_/{methodName}");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("POST");
 int responseCode = con.getResponseCode();
@@ -3496,12 +5802,13 @@ System.out.println(response.toString());
 ```javascript
 var headers = {
   'Content-Type':'application/json',
-  'Accept':'application/json'
+  'Accept':'application/json',
+  'Authorization':'Bearer {access-token}'
 
 };
 
 $.ajax({
-  url: 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}',
+  url: 'http://localhost:3000/exchange/{exchangeName}/_/{methodName}',
   method: 'post',
 
   headers: headers,
@@ -3516,10 +5823,11 @@ $.ajax({
 import requests
 headers = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json'
+  'Accept': 'application/json',
+  'Authorization': 'Bearer {access-token}'
 }
 
-r = requests.post('http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}', params={
+r = requests.post('http://localhost:3000/exchange/{exchangeName}/_/{methodName}', params={
 
 }, headers = headers)
 
@@ -3533,10 +5841,11 @@ require 'json'
 
 headers = {
   'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
+  'Accept' => 'application/json',
+  'Authorization' => 'Bearer {access-token}'
 }
 
-result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}/{exchangeId}/_/{methodName}',
+result = RestClient.post 'http://localhost:3000/exchange/{exchangeName}/_/{methodName}',
   params: {
   }, headers: headers
 
@@ -3544,7 +5853,7 @@ p JSON.parse(result)
 
 ```
 
-`POST /exchange/{exchangeName}/{exchangeId}/_/{methodName}`
+`POST /exchange/{exchangeName}/_/{methodName}`
 
 Invokes a ccxt javascript object's method call directly
 
@@ -3558,10 +5867,149 @@ Invokes a ccxt javascript object's method call directly
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|exchangeName|path|string|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
-|exchangeId|path|string|true|The id of the exchange instance. Possible values are any of the result of GET:/exchange/{exchangeName}.|
+|exchangeName|path|[Exchange](#schemaexchange)|true|The name of the exchange. Possible values are any of the result of GET:/exchanges.|
 |methodName|path|string|true|The method name of the exchange that would be invoked directly|
 |body|body|array|false|The array of values that would be passed as parameters to the direct method call|
+
+#### Enumerated Values
+
+|Parameter|Value|
+|---|---|
+|exchangeName|_1btcxe|
+|exchangeName|acx|
+|exchangeName|allcoin|
+|exchangeName|anxpro|
+|exchangeName|anybits|
+|exchangeName|bcex|
+|exchangeName|bequant|
+|exchangeName|bibox|
+|exchangeName|bigone|
+|exchangeName|binance|
+|exchangeName|binanceje|
+|exchangeName|bit2c|
+|exchangeName|bitbank|
+|exchangeName|bitbay|
+|exchangeName|bitfinex|
+|exchangeName|bitfinex2|
+|exchangeName|bitflyer|
+|exchangeName|bitforex|
+|exchangeName|bithumb|
+|exchangeName|bitibu|
+|exchangeName|bitkk|
+|exchangeName|bitlish|
+|exchangeName|bitmarket|
+|exchangeName|bitmex|
+|exchangeName|bitsane|
+|exchangeName|bitso|
+|exchangeName|bitstamp|
+|exchangeName|bitstamp1|
+|exchangeName|bittrex|
+|exchangeName|bitz|
+|exchangeName|bl3p|
+|exchangeName|bleutrade|
+|exchangeName|braziliex|
+|exchangeName|btcalpha|
+|exchangeName|btcbox|
+|exchangeName|btcchina|
+|exchangeName|btcexchange|
+|exchangeName|btcmarkets|
+|exchangeName|btctradeim|
+|exchangeName|btctradeua|
+|exchangeName|btcturk|
+|exchangeName|buda|
+|exchangeName|bxinth|
+|exchangeName|ccex|
+|exchangeName|cex|
+|exchangeName|chbtc|
+|exchangeName|chilebit|
+|exchangeName|cobinhood|
+|exchangeName|coinbase|
+|exchangeName|coinbaseprime|
+|exchangeName|coinbasepro|
+|exchangeName|coincheck|
+|exchangeName|coinegg|
+|exchangeName|coinex|
+|exchangeName|coinexchange|
+|exchangeName|coinfalcon|
+|exchangeName|coinfloor|
+|exchangeName|coingi|
+|exchangeName|coinmarketcap|
+|exchangeName|coinmate|
+|exchangeName|coinnest|
+|exchangeName|coinone|
+|exchangeName|coinspot|
+|exchangeName|cointiger|
+|exchangeName|coolcoin|
+|exchangeName|coss|
+|exchangeName|crex24|
+|exchangeName|crypton|
+|exchangeName|cryptopia|
+|exchangeName|deribit|
+|exchangeName|dsx|
+|exchangeName|ethfinex|
+|exchangeName|exmo|
+|exchangeName|exx|
+|exchangeName|fcoin|
+|exchangeName|fcoinjp|
+|exchangeName|flowbtc|
+|exchangeName|foxbit|
+|exchangeName|fybse|
+|exchangeName|fybsg|
+|exchangeName|gateio|
+|exchangeName|gdax|
+|exchangeName|gemini|
+|exchangeName|getbtc|
+|exchangeName|hadax|
+|exchangeName|hitbtc|
+|exchangeName|hitbtc2|
+|exchangeName|huobipro|
+|exchangeName|huobiru|
+|exchangeName|ice3x|
+|exchangeName|independentreserve|
+|exchangeName|indodax|
+|exchangeName|itbit|
+|exchangeName|jubi|
+|exchangeName|kkex|
+|exchangeName|kraken|
+|exchangeName|kucoin|
+|exchangeName|kucoin2|
+|exchangeName|kuna|
+|exchangeName|lakebtc|
+|exchangeName|lbank|
+|exchangeName|liqui|
+|exchangeName|liquid|
+|exchangeName|livecoin|
+|exchangeName|luno|
+|exchangeName|lykke|
+|exchangeName|mandala|
+|exchangeName|mercado|
+|exchangeName|mixcoins|
+|exchangeName|negociecoins|
+|exchangeName|nova|
+|exchangeName|okcoincny|
+|exchangeName|okcoinusd|
+|exchangeName|okex|
+|exchangeName|paymium|
+|exchangeName|poloniex|
+|exchangeName|quadrigacx|
+|exchangeName|rightbtc|
+|exchangeName|southxchange|
+|exchangeName|stronghold|
+|exchangeName|surbitcoin|
+|exchangeName|theocean|
+|exchangeName|therock|
+|exchangeName|tidebit|
+|exchangeName|tidex|
+|exchangeName|uex|
+|exchangeName|upbit|
+|exchangeName|urdubit|
+|exchangeName|vaultoro|
+|exchangeName|vbtc|
+|exchangeName|virwox|
+|exchangeName|xbtce|
+|exchangeName|yobit|
+|exchangeName|zaif|
+|exchangeName|zb|
 
 > Example responses
 
@@ -3579,15 +6027,16 @@ Invokes a ccxt javascript object's method call directly
 |400|[Bad Request](https://tools.ietf.org/html/rfc7231#section-6.5.1)|If the exchange itself complained about the parameters passed|None|
 |401|[Unauthorized](https://tools.ietf.org/html/rfc7235#section-3.1)|If the exchange integration requires api key and secret for this function|None|
 |403|[Forbidden](https://tools.ietf.org/html/rfc7231#section-6.5.3)|If the exchange integration had an authentication issue (most probably nonce error)|None|
-|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported or Exchange with that id does NOT exist|None|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|Exchange with that name is NOT supported|None|
 |500|[Internal Server Error](https://tools.ietf.org/html/rfc7231#section-6.6.1)|If an unexpected error occurred|None|
 |501|[Not Implemented](https://tools.ietf.org/html/rfc7231#section-6.6.2)|If the exchange integration does NOT support this function|None|
 |504|[Gateway Time-out](https://tools.ietf.org/html/rfc7231#section-6.6.5)|If the exchange itself could not be reached because of some network error|None|
 
 <h3 id="directcall-responseschema">Response Schema</h3>
 
-<aside class="success">
-This operation does not require authentication
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+bearerAuth
 </aside>
 
 # Schemas
@@ -3706,16 +6155,9 @@ This operation does not require authentication
 |info|object|true|none|Raw trade response gotten from the exchange site's API|
 |timestamp|number(date-time)|false|none|The timestamp of this trade|
 |symbol|string|true|none|The currency pair of this trade|
-|side|string|true|none|Whether this trade was a bid or ask (i.e. buy or sell)|
+|side|[Side](#schemaside)|true|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |price|number|true|none|The price of this trade|
 |amount|number|true|none|The amount of this trade|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|side|buy|
-|side|sell|
 
 <h2 id="tocSorderresponse">OrderResponse</h2>
 
@@ -3725,7 +6167,7 @@ This operation does not require authentication
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z",
+  "datetime": "2019-04-25T18:17:25Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -3748,28 +6190,15 @@ This operation does not require authentication
 |timestamp|number|false|none|The timestamp of this order|
 |datetime|string(date-time)|false|none|The datetime of this order|
 |symbol|string|false|none|The currency pair of this order|
-|type|string|false|none|Wether this is a market order or a limit order|
-|side|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+|type|[OrderType](#schemaordertype)|false|none|Whether this is a 'market' order or a 'limit' order|
+|side|[Side](#schemaside)|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |price|number|false|none|The price of this order|
 |amount|number|false|none|The amount of this order|
 |cost|number|false|none|The cost of this order (i.e. price x amount)|
 |filled|number|false|none|The amount of this order that is currently filled (i.e. this can be less than or equal to 'amount')|
 |remaining|number|false|none|The amount of this order that is still yet to be filled (i.e. this can be less than or equal to 'amount')|
-|status|string|false|none|The current status of this order|
+|status|[OrderStatus](#schemaorderstatus)|false|none|The current status of this order|
 |info|object|false|none|Raw order response gotten from the exchange site's API|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|type|market|
-|type|limit|
-|side|buy|
-|side|sell|
-|status|open|
-|status|closed|
-|status|canceled|
-|status|canceling|
 
 <h2 id="tocSside">Side</h2>
 
@@ -3777,6 +6206,30 @@ This operation does not require authentication
 
 ```json
 "buy"
+
+```
+
+*Wether this is a bid or ask (i.e. buy or sell) order*
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|*anonymous*|string|false|none|Wether this is a bid or ask (i.e. buy or sell) order|
+
+#### Enumerated Values
+
+|Property|Value|
+|---|---|
+|*anonymous*|buy|
+|*anonymous*|sell|
+
+<h2 id="tocSexchange">Exchange</h2>
+
+<a id="schemaexchange"></a>
+
+```json
+"_1btcxe"
 
 ```
 
@@ -3790,8 +6243,141 @@ This operation does not require authentication
 
 |Property|Value|
 |---|---|
-|*anonymous*|buy|
-|*anonymous*|sell|
+|*anonymous*|_1btcxe|
+|*anonymous*|acx|
+|*anonymous*|allcoin|
+|*anonymous*|anxpro|
+|*anonymous*|anybits|
+|*anonymous*|bcex|
+|*anonymous*|bequant|
+|*anonymous*|bibox|
+|*anonymous*|bigone|
+|*anonymous*|binance|
+|*anonymous*|binanceje|
+|*anonymous*|bit2c|
+|*anonymous*|bitbank|
+|*anonymous*|bitbay|
+|*anonymous*|bitfinex|
+|*anonymous*|bitfinex2|
+|*anonymous*|bitflyer|
+|*anonymous*|bitforex|
+|*anonymous*|bithumb|
+|*anonymous*|bitibu|
+|*anonymous*|bitkk|
+|*anonymous*|bitlish|
+|*anonymous*|bitmarket|
+|*anonymous*|bitmex|
+|*anonymous*|bitsane|
+|*anonymous*|bitso|
+|*anonymous*|bitstamp|
+|*anonymous*|bitstamp1|
+|*anonymous*|bittrex|
+|*anonymous*|bitz|
+|*anonymous*|bl3p|
+|*anonymous*|bleutrade|
+|*anonymous*|braziliex|
+|*anonymous*|btcalpha|
+|*anonymous*|btcbox|
+|*anonymous*|btcchina|
+|*anonymous*|btcexchange|
+|*anonymous*|btcmarkets|
+|*anonymous*|btctradeim|
+|*anonymous*|btctradeua|
+|*anonymous*|btcturk|
+|*anonymous*|buda|
+|*anonymous*|bxinth|
+|*anonymous*|ccex|
+|*anonymous*|cex|
+|*anonymous*|chbtc|
+|*anonymous*|chilebit|
+|*anonymous*|cobinhood|
+|*anonymous*|coinbase|
+|*anonymous*|coinbaseprime|
+|*anonymous*|coinbasepro|
+|*anonymous*|coincheck|
+|*anonymous*|coinegg|
+|*anonymous*|coinex|
+|*anonymous*|coinexchange|
+|*anonymous*|coinfalcon|
+|*anonymous*|coinfloor|
+|*anonymous*|coingi|
+|*anonymous*|coinmarketcap|
+|*anonymous*|coinmate|
+|*anonymous*|coinnest|
+|*anonymous*|coinone|
+|*anonymous*|coinspot|
+|*anonymous*|cointiger|
+|*anonymous*|coolcoin|
+|*anonymous*|coss|
+|*anonymous*|crex24|
+|*anonymous*|crypton|
+|*anonymous*|cryptopia|
+|*anonymous*|deribit|
+|*anonymous*|dsx|
+|*anonymous*|ethfinex|
+|*anonymous*|exmo|
+|*anonymous*|exx|
+|*anonymous*|fcoin|
+|*anonymous*|fcoinjp|
+|*anonymous*|flowbtc|
+|*anonymous*|foxbit|
+|*anonymous*|fybse|
+|*anonymous*|fybsg|
+|*anonymous*|gateio|
+|*anonymous*|gdax|
+|*anonymous*|gemini|
+|*anonymous*|getbtc|
+|*anonymous*|hadax|
+|*anonymous*|hitbtc|
+|*anonymous*|hitbtc2|
+|*anonymous*|huobipro|
+|*anonymous*|huobiru|
+|*anonymous*|ice3x|
+|*anonymous*|independentreserve|
+|*anonymous*|indodax|
+|*anonymous*|itbit|
+|*anonymous*|jubi|
+|*anonymous*|kkex|
+|*anonymous*|kraken|
+|*anonymous*|kucoin|
+|*anonymous*|kucoin2|
+|*anonymous*|kuna|
+|*anonymous*|lakebtc|
+|*anonymous*|lbank|
+|*anonymous*|liqui|
+|*anonymous*|liquid|
+|*anonymous*|livecoin|
+|*anonymous*|luno|
+|*anonymous*|lykke|
+|*anonymous*|mandala|
+|*anonymous*|mercado|
+|*anonymous*|mixcoins|
+|*anonymous*|negociecoins|
+|*anonymous*|nova|
+|*anonymous*|okcoincny|
+|*anonymous*|okcoinusd|
+|*anonymous*|okex|
+|*anonymous*|paymium|
+|*anonymous*|poloniex|
+|*anonymous*|quadrigacx|
+|*anonymous*|rightbtc|
+|*anonymous*|southxchange|
+|*anonymous*|stronghold|
+|*anonymous*|surbitcoin|
+|*anonymous*|theocean|
+|*anonymous*|therock|
+|*anonymous*|tidebit|
+|*anonymous*|tidex|
+|*anonymous*|uex|
+|*anonymous*|upbit|
+|*anonymous*|urdubit|
+|*anonymous*|vaultoro|
+|*anonymous*|vbtc|
+|*anonymous*|virwox|
+|*anonymous*|xbtce|
+|*anonymous*|yobit|
+|*anonymous*|zaif|
+|*anonymous*|zb|
 
 <h2 id="tocSorderbookresponse">OrderBookResponse</h2>
 
@@ -3812,7 +6398,7 @@ This operation does not require authentication
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z"
+  "datetime": "2019-04-25T18:17:25Z"
 }
 
 ```
@@ -3835,11 +6421,13 @@ This operation does not require authentication
 
 ```
 
+*The current status of this order*
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|The current status of this order|
 
 #### Enumerated Values
 
@@ -3859,11 +6447,13 @@ This operation does not require authentication
 
 ```
 
+*Whether this is a 'market' order or a 'limit' order*
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|Whether this is a 'market' order or a 'limit' order|
 
 #### Enumerated Values
 
@@ -3947,13 +6537,32 @@ This operation does not require authentication
 |amount|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then an amount of 0.123 must be made either 0.12 (or 0.13)|
 |price|number|true|none|The allowable precision of the amount when placing an order. For example, given 2, then a price of 0.123 must be made either 0.12 (or 0.13)|
 
+<h2 id="tocSaccesstoken">AccessToken</h2>
+
+<a id="schemaaccesstoken"></a>
+
+```json
+{
+  "token": "string"
+}
+
+```
+
+### Properties
+
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|token|string|true|none|The JWT token that needs to be added into the 'Authorization' header with the 'Bearer ' prefix. For example, given a token of xyz, do a secured request with 'Authorization: Bearer xyz'|
+
 <h2 id="tocSexchangeresponse">ExchangeResponse</h2>
 
 <a id="schemaexchangeresponse"></a>
 
 ```json
 {
+  "id": "string",
   "name": "string",
+  "private": true,
   "enableRateLimit": true,
   "countries": [
     "string"
@@ -4002,7 +6611,9 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|name|string|true|none|The name of the exchange. When you created the exchange (via POST:/exchanges/{exhangeName}), the 'id' parameter there becomes the name here|
+|id|string|true|none|The id of the exchange. When you created the exchange (via POST:/exchanges/{exhangeName}), the 'id' parameter there becomes the name here|
+|name|string|true|none|The name of the exchange.|
+|private|boolean|true|none|Whether this exchange is private (has apiKey) or public (no apiKey)|
 |enableRateLimit|boolean|true|none|Whether to enable the built in rate limiter or not. The built in rate limiter is an approximation of the actual exchange's limit. To have a more accurate rate limiting, set this to false and implement the rate limiter on your client|
 |countries|[string]|true|none|The list of countries where this exchange is a member of|
 |rateLimit|integer|false|none|A request rate limit in milliseconds. Specifies the required minimal delay between two consequent HTTP requests to the same exchange. If enableRateLimit is set to false, this would be ignored.|
@@ -4018,7 +6629,7 @@ This operation does not require authentication
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-24T12:11:41Z",
+  "datetime": "2019-04-25T18:17:25Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -4138,135 +6749,37 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|CORS|string|true|none|none|
-|publicAPI|string|true|none|none|
-|privateAPI|string|true|none|none|
-|cancelOrder|string|true|none|none|
-|cancelOrders|string|true|none|none|
-|createDepositAddress|string|true|none|none|
-|createOrder|string|true|none|none|
-|createMarketOrder|string|true|none|none|
-|createLimitOrder|string|true|none|none|
-|editOrder|string|true|none|none|
-|fetchBalance|string|true|none|none|
-|fetchBidsAsks|string|true|none|none|
-|fetchClosedOrders|string|true|none|none|
-|fetchCurrencies|string|true|none|none|
-|fetchDepositAddress|string|true|none|none|
-|fetchFundingFees|string|true|none|none|
-|fetchL2OrderBook|string|true|none|none|
-|fetchMarkets|string|true|none|none|
-|fetchMyTrades|string|true|none|none|
-|fetchOHLCV|string|true|none|none|
-|fetchOpenOrders|string|true|none|none|
-|fetchOrder|string|true|none|none|
-|fetchOrderBook|string|true|none|none|
-|fetchOrderBooks|string|true|none|none|
-|fetchOrders|string|true|none|none|
-|fetchTicker|string|true|none|none|
-|fetchTickers|string|true|none|none|
-|fetchTrades|string|true|none|none|
-|fetchTradingFees|string|true|none|none|
-|fetchTradingLimits|string|true|none|none|
-|withdraw|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|CORS|true|
-|CORS|false|
-|CORS|emulated|
-|publicAPI|true|
-|publicAPI|false|
-|publicAPI|emulated|
-|privateAPI|true|
-|privateAPI|false|
-|privateAPI|emulated|
-|cancelOrder|true|
-|cancelOrder|false|
-|cancelOrder|emulated|
-|cancelOrders|true|
-|cancelOrders|false|
-|cancelOrders|emulated|
-|createDepositAddress|true|
-|createDepositAddress|false|
-|createDepositAddress|emulated|
-|createOrder|true|
-|createOrder|false|
-|createOrder|emulated|
-|createMarketOrder|true|
-|createMarketOrder|false|
-|createMarketOrder|emulated|
-|createLimitOrder|true|
-|createLimitOrder|false|
-|createLimitOrder|emulated|
-|editOrder|true|
-|editOrder|false|
-|editOrder|emulated|
-|fetchBalance|true|
-|fetchBalance|false|
-|fetchBalance|emulated|
-|fetchBidsAsks|true|
-|fetchBidsAsks|false|
-|fetchBidsAsks|emulated|
-|fetchClosedOrders|true|
-|fetchClosedOrders|false|
-|fetchClosedOrders|emulated|
-|fetchCurrencies|true|
-|fetchCurrencies|false|
-|fetchCurrencies|emulated|
-|fetchDepositAddress|true|
-|fetchDepositAddress|false|
-|fetchDepositAddress|emulated|
-|fetchFundingFees|true|
-|fetchFundingFees|false|
-|fetchFundingFees|emulated|
-|fetchL2OrderBook|true|
-|fetchL2OrderBook|false|
-|fetchL2OrderBook|emulated|
-|fetchMarkets|true|
-|fetchMarkets|false|
-|fetchMarkets|emulated|
-|fetchMyTrades|true|
-|fetchMyTrades|false|
-|fetchMyTrades|emulated|
-|fetchOHLCV|true|
-|fetchOHLCV|false|
-|fetchOHLCV|emulated|
-|fetchOpenOrders|true|
-|fetchOpenOrders|false|
-|fetchOpenOrders|emulated|
-|fetchOrder|true|
-|fetchOrder|false|
-|fetchOrder|emulated|
-|fetchOrderBook|true|
-|fetchOrderBook|false|
-|fetchOrderBook|emulated|
-|fetchOrderBooks|true|
-|fetchOrderBooks|false|
-|fetchOrderBooks|emulated|
-|fetchOrders|true|
-|fetchOrders|false|
-|fetchOrders|emulated|
-|fetchTicker|true|
-|fetchTicker|false|
-|fetchTicker|emulated|
-|fetchTickers|true|
-|fetchTickers|false|
-|fetchTickers|emulated|
-|fetchTrades|true|
-|fetchTrades|false|
-|fetchTrades|emulated|
-|fetchTradingFees|true|
-|fetchTradingFees|false|
-|fetchTradingFees|emulated|
-|fetchTradingLimits|true|
-|fetchTradingLimits|false|
-|fetchTradingLimits|emulated|
-|withdraw|true|
-|withdraw|false|
-|withdraw|emulated|
+|CORS|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|publicAPI|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|privateAPI|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|cancelOrder|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|cancelOrders|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|createDepositAddress|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|createOrder|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|createMarketOrder|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|createLimitOrder|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|editOrder|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchBalance|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchBidsAsks|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchClosedOrders|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchCurrencies|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchDepositAddress|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchFundingFees|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchL2OrderBook|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchMarkets|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchMyTrades|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchOHLCV|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchOpenOrders|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchOrder|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchOrderBook|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchOrderBooks|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchOrders|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchTicker|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchTickers|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchTrades|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchTradingFees|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|fetchTradingLimits|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
+|withdraw|[ExchangeCapability](#schemaexchangecapability)|true|none|none|
 
 <h2 id="tocSexchangeconfig">exchangeConfig</h2>
 
@@ -4286,7 +6799,7 @@ This operation does not require authentication
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|id|string|true|none|The unique identifier for this exchange. This would be used as the 'exchangeId' of the other API calls|
+|id|string|true|none|The unique identifier for this exchange.|
 |apiKey|string|false|none|The API key you got from the exchange itself. This with the secret is what will allow you to access the exchange|
 |secret|string|false|none|The Secret key you got from the exchange itself. This with the apiKey is what will allow you to access the exchange|
 |enableRateLimit|boolean|false|none|Whether to enable the built in rate limiter or not. The built in rate limiter is an approximation of the actual exchange's limit. To have a more accurate rate limiting, set this to false and implement the rate limiter on your client|
@@ -4312,18 +6825,9 @@ This operation does not require authentication
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |symbol|string|true|none|The currency pair (base/quote) of the order to be created|
-|type|string|true|none|Whether this is a 'market' order or a 'limit' order|
-|side|string|true|none|whether we are buying or selling the base|
+|type|[OrderType](#schemaordertype)|true|none|Whether this is a 'market' order or a 'limit' order|
+|side|[Side](#schemaside)|true|none|Wether this is a bid or ask (i.e. buy or sell) order|
 |amount|number|true|none|The amount of currency pair's base that we want to buy or sell|
 |price|number|false|none|The buying price or the selling price in terms of the quote. Price is needed for market orders and ignored in limit orders|
 |params|object|false|none|Exchange specific parameters|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|type|market|
-|type|limit|
-|side|buy|
-|side|sell|
 
