@@ -1,4 +1,4 @@
-# Exchange Summmary
+# Exchange Summmary Dashboard
 
 This section contains the list of all supported exchanges by `ccxt-rest` and the statuses of their APIs. It has two subsections - the "Legends" subsection which explains the statuses, and the "Exchange API Statuses" which contains the actual report.
 
