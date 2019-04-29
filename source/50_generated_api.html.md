@@ -1859,7 +1859,7 @@ Get the order book of the exchange referenced by the {exchangeName} and `?symbol
       }
     ],
     "timestamp": 0,
-    "datetime": "2019-04-25T18:17:25Z"
+    "datetime": "2019-04-29T15:00:34Z"
   }
 ]
 ```
@@ -2180,7 +2180,7 @@ Get the Level 2 Order Book of the exchange referenced by the {exchangeName} and 
       }
     ],
     "timestamp": 0,
-    "datetime": "2019-04-25T18:17:25Z"
+    "datetime": "2019-04-29T15:00:34Z"
   }
 ]
 ```
@@ -2811,7 +2811,7 @@ Get the ticker of the exchange referenced by the {exchangeName} and `?symbol=`.
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z",
+  "datetime": "2019-04-29T15:00:34Z",
   "high": 0,
   "low": 0,
   "bid": 0,
@@ -3114,7 +3114,7 @@ Get the tickers of the exchange referenced by the {exchangeName} and `?symbol=`.
   {
     "symbol": "string",
     "timestamp": 0,
-    "datetime": "2019-04-25T18:17:25Z",
+    "datetime": "2019-04-29T15:00:34Z",
     "high": 0,
     "low": 0,
     "bid": 0,
@@ -3742,7 +3742,7 @@ Get the orders of the exchange referenced by the {exchangeName}.
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-25T18:17:25Z",
+    "datetime": "2019-04-29T15:00:34Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -4082,7 +4082,7 @@ Get the open orders of the exchange referenced by the {exchangeName}.
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-25T18:17:25Z",
+    "datetime": "2019-04-29T15:00:34Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -4422,7 +4422,7 @@ Get the closed orders of the exchange referenced by the {exchangeName}.
   {
     "id": "string",
     "timestamp": 0,
-    "datetime": "2019-04-25T18:17:25Z",
+    "datetime": "2019-04-29T15:00:34Z",
     "symbol": "string",
     "type": "market",
     "side": "buy",
@@ -5097,7 +5097,7 @@ Create an order on the exchange referenced by the {exchangeName}
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z",
+  "datetime": "2019-04-29T15:00:34Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -5400,7 +5400,7 @@ Retrieves the information of an order on the exchange referenced by the {exchang
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z",
+  "datetime": "2019-04-29T15:00:34Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -5703,7 +5703,7 @@ Cancel an open order on the exchange referenced by the {exchangeName} and {order
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z",
+  "datetime": "2019-04-29T15:00:34Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -6167,7 +6167,7 @@ bearerAuth
 {
   "id": "string",
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z",
+  "datetime": "2019-04-29T15:00:34Z",
   "symbol": "string",
   "type": "market",
   "side": "buy",
@@ -6398,7 +6398,7 @@ bearerAuth
     }
   ],
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z"
+  "datetime": "2019-04-29T15:00:34Z"
 }
 
 ```
@@ -6629,7 +6629,7 @@ bearerAuth
 {
   "symbol": "string",
   "timestamp": 0,
-  "datetime": "2019-04-25T18:17:25Z",
+  "datetime": "2019-04-29T15:00:34Z",
   "high": 0,
   "low": 0,
   "bid": 0,
