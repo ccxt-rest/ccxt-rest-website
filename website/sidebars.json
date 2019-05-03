@@ -1,0 +1,8 @@
+{
+  "docs": {
+    "Quickstart": ["quickstart", "explorer"],
+    "Help": ["community", "feature_support_request"]
+  },
+  "docs-other": {
+  }
+}
