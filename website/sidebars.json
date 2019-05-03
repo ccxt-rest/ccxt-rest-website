@@ -1,8 +1,11 @@
 {
   "docs": {
-    "Quickstart": ["quickstart", "explorer"],
-    "Help": ["community", "feature_support_request"]
+    "Quickstart": ["quickstart", "explorer"]
   },
-  "docs-other": {
+  "docs-api-status": {
+    "Exchange API Status" : ["exchange_api_status"]
+  },
+  "docs-help": {
+    "Help": ["community", "feature_support_request"]
   }
 }

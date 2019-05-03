@@ -8,6 +8,9 @@
       "community": {
         "title": "Community"
       },
+      "exchange_api_status": {
+        "title": "Exchange API Status"
+      },
       "explorer": {
         "title": "Explorer"
       },
@@ -19,13 +22,16 @@
       }
     },
     "links": {
+      "Home": "Home",
       "Quick Start": "Quick Start",
       "API": "API",
+      "Exchange API Status": "Exchange API Status",
       "Help": "Help",
       "Blog": "Blog"
     },
     "categories": {
       "Quickstart": "Quickstart",
+      "Exchange API Status": "Exchange API Status",
       "Help": "Help"
     }
   },

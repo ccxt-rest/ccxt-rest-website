@@ -63,7 +63,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle siteConfig={siteConfig} />
           <PromoSection>
-            <Button href="#get-started">Get Started</Button>
+            <Button href={docUrl('quickstart.html')}>Get Started</Button>
           </PromoSection>
         </div>
       </SplashContainer>
@@ -74,7 +74,12 @@ class HomeSplash extends React.Component {
 class Index extends React.Component {
   render() {
     const {config: siteConfig, language = ''} = this.props;
-    const {baseUrl} = siteConfig;
+    const {baseUrl, docsUrl} = siteConfig;
+
+    const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
+    const langPart = `${language ? `${language}/` : ''}`;
+    const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
+
 
     const Block = props => (
       <Container
@@ -94,19 +99,19 @@ class Index extends React.Component {
         {[
           {
             content: 'Integrate with CCXT-REST, and you integrate with 135 exchanges!',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            image: `${baseUrl}img/restful-api.png`,
             imageAlign: 'top',
             title: 'Unified RESTFUL API',
           },
           {
             content: 'Binance, Coinspot, Gemini, Kraken, Poloniex, Quadrigacx, ...',
-            image: `${baseUrl}img/undraw_operating_system.svg`,
+            image: `${baseUrl}img/undraw_financial_data_es63.svg`,
             imageAlign: 'top',
             title: '135 Exchanges, 28k+ Markets',
           },
           {
             content: 'Community Driven, Commercially Supoprted',
-            image: `${baseUrl}img/undraw_react.svg`,
+            image: `${baseUrl}img/open-source.png`,
             imageAlign: 'top',
             title: '100% Open Source',
           },
@@ -205,8 +210,8 @@ class Index extends React.Component {
 
     const FinalCta = () => (
       <div id="finalCta">
-        <h2 class="header">Start Integration with Exchanges Now!</h2>
-        <Button extraClassName="cta" href="#get-started" >Get Started</Button>
+        <h2 className="header">Start Integration with Exchanges Now!</h2>
+        <Button extraClassName="cta" href={docUrl('quickstart.html')} >Get Started</Button>
         <img src={baseUrl + 'img/swagger.gif'} alt="CCXT-REST" />
       </div>
     );

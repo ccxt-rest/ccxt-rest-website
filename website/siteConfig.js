@@ -38,9 +38,11 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
+    {href: '/', label: 'Home'},
     {doc: 'quickstart', label: 'Quick Start'},
-    {doc: 'quickstart', label: 'API'},
-    {page: 'help', label: 'Help'},
+    {href: '/api.html', label: 'API'},
+    {doc: 'exchange_api_status', label: 'Exchange API Status'},
+    {doc: 'community', label: 'Help'},
     {blog: true, label: 'Blog'},
   ],
 
@@ -73,7 +75,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Your Name or Your Company Name`,
+  copyright: `Copyright © ${new Date().getFullYear()} CCXT-REST`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
@@ -81,7 +83,7 @@ const siteConfig = {
   },
 
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
+  scripts: ['https://buttons.github.io/buttons.js', "/js/exchange-summary-dashboard.js"],
 
   // No .html extensions for paths.
   cleanUrl: true,
