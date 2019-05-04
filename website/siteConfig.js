@@ -4,21 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-
-// See https://docusaurus.io/docs/site-config for all the possible
-// site configuration options.
-
-// List of projects/orgs using your project for the users page.
-const users = [
-  {
-    caption: 'User1',
-    // You will need to prepend the image path with your baseUrl
-    // if it is not '/', like: '/test-site/img/image.jpg'.
-    image: '/img/ccxt-rest.png',
-    infoLink: 'https://ccxt-rest.io',
-    pinned: true,
-  },
-];
+const users = [];
 
 const siteConfig = {
   title: 'CCXT-REST', // Title for your website.
@@ -46,61 +32,37 @@ const siteConfig = {
     {blog: true, label: 'Blog'},
   ],
 
-  // If you have users set above, you add it here:
   users,
 
-  /* path to images for header/footer */
   headerIcon: 'img/favicon.ico',
   footerIcon: 'img/favicon.ico',
   favicon: 'img/favicon.ico',
 
-  /* Colors for website */
   colors: {
     primaryColor: '#0b0ea9',
     secondaryColor: '#070976',
   },
 
-  /* Custom fonts for website */
-  /*
-  fonts: {
-    myFont: [
-      "Times New Roman",
-      "Serif"
-    ],
-    myOtherFont: [
-      "-apple-system",
-      "system-ui"
-    ]
-  },
-  */
-
-  // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
   copyright: `Copyright © ${new Date().getFullYear()} CCXT-REST`,
 
   highlight: {
-    // Highlight.js theme to use for syntax highlighting in code blocks.
     theme: 'default',
   },
 
-  // Add custom scripts here that would be placed in <script> tags.
   scripts: ['https://buttons.github.io/buttons.js', "/js/exchange-summary-dashboard.js"],
 
-  // No .html extensions for paths.
   cleanUrl: true,
 
-  // Open Graph and Twitter card images.
   ogImage: 'img/undraw_online.svg',
   twitterImage: 'img/undraw_tweetstorm.svg',
 
-  // Show documentation's last contributor's name.
-  // enableUpdateBy: true,
+  enableUpdateTime: true,
 
-  // Show documentation's last update time.
-  // enableUpdateTime: true,
+  repoUrl: 'https://github.com/franz-see/ccxt-rest-website',
+  mainProjectRepoUrl: 'https://github.com/franz-see/ccxt-rest',
 
-  // You may provide arbitrary config keys to be used as needed by your
-  // template. For example, if you need your repo's URL...
-  //   repoUrl: 'https://github.com/facebook/test-site',
+  numberOfExchanges : 135,
+  numberOfMarkets: '28k+'
 };
 
 module.exports = siteConfig;
