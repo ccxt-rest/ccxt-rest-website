@@ -87,7 +87,8 @@ class Index extends React.Component {
       <Container
         padding={['bottom', 'top']}
         id={props.id}
-        background={props.background}>
+        background={props.background}
+        className={props.className}>
         <GridBlock
           align="center"
           contents={props.children}
@@ -121,63 +122,104 @@ class Index extends React.Component {
       </Block>
     );
 
+    const dockerized = {
+      content: 
+        'Just run `docker run -p 3000:3000 franzsee/ccxt-rest` to get it up ' + 
+        'and running and accessible from `localhost:3000/`',
+      image: `${baseUrl}img/docker-run.gif`,
+      imageAlign: 'right',
+      title: 'Dockerized',
+    }
+
     const Dockerized = () => (
-      <Block background="light" id="dockerized">
+      <Block background="light" id="dockerized" className={'tabletAndUp'}>
         {[
-          {
-            content: 
-              'Just run `docker run -p 3000:3000 franzsee/ccxt-rest` to get it up ' + 
-              'and running and accessible from `localhost:3000/`',
-            image: `${baseUrl}img/docker-run.gif`,
-            imageAlign: 'right',
-            title: 'Dockerized',
-          },
+          dockerized
         ]}
       </Block>
     );
+
+    const DockerizedMobile = () => (
+      <Block background="light" id="dockerizedMobile" className={'mobileFriendly'}>
+        {[
+          Object.assign(dockerized, {imageAlign:'bottom'})
+        ]}
+      </Block>
+    );
+
+    const unifiedRestfulApisBaseParams = {
+        content:
+          `Use the same API for the ${numberOfExchanges} exchanges - same API, same parameters, same output formats! ` +
+          'And notice the `info` field? - yep, that\'s the raw output response from the exchange itself! ' + 
+          'So you get a common response output across the different exchanges, and you get the raw ' +
+          'exchange-specific output from each exchange as well!',
+        image: `${baseUrl}img/public-api.gif`,
+        imageAlign: 'left',
+        title: 'Unified RESTFUL APIs',
+      }
+    
 
     const UnifiedRestfulApis = () => (
-      <Block id="unifiedRestfulApis">
+      <Block id="unifiedRestfulApis" className={'tabletAndUp'}>
         {[
-          {
-            content:
-              `Use the same API for the ${numberOfExchanges} exchanges - same API, same parameters, same output formats! ` +
-              'And notice the `info` field? - yep, that\'s the raw output response from the exchange itself! ' + 
-              'So you get a common response output across the different exchanges, and you get the raw ' +
-              'exchange-specific output from each exchange as well!',
-            image: `${baseUrl}img/public-api.gif`,
-            imageAlign: 'left',
-            title: 'Unified RESTFUL APIs',
-          },
+          unifiedRestfulApisBaseParams
         ]}
       </Block>
     );
+
+    const UnifiedRestfulApisMobile = () => (
+      <Block id="unifiedRestfulApisMobile" className={'mobileFriendly'}>
+        {[
+          Object.assign(unifiedRestfulApisBaseParams, {imageAlign:'bottom'})
+        ]}
+      </Block>
+    );
+
+    const exchangeSpecificParameters = {
+      content:
+        'Need to pass in exchange-specific parameters that are not in the unified API? No Problem! ' + 
+        'Pass them anyway and `CCXT-REST` will forward it to the exchange!',
+      image: `${baseUrl}img/exchange-specific-parameters.gif`,
+      imageAlign: 'right',
+      title: 'Exchange Specific Parameters',
+    }
 
     const ExchangeSpecificParameters = () => (
-      <Block id="exchangeSpecificParameters">
+      <Block id="exchangeSpecificParameters" className={'tabletAndUp'}>
         {[
-          {
-            content:
-              'Need to pass in exchange-specific parameters that are not in the unified API? No Problem! ' + 
-              'Pass them anyway and `CCXT-REST` will forward it to the exchange!',
-            image: `${baseUrl}img/exchange-specific-parameters.gif`,
-            imageAlign: 'right',
-            title: 'Exchange Specific Parameters',
-          },
+          exchangeSpecificParameters
         ]}
       </Block>
     );
 
-    const PlaceOrders = () => (
-      <Block id="placeOrders">
+    const ExchangeSpecificParametersMobile = () => (
+      <Block id="exchangeSpecificParametersMobile" className={'mobileFriendly'}>
         {[
-          {
-            content:
-              'Use `CCXT-REST` to access private APIs like placing and viewing your orders',
-            image: `${baseUrl}img/place-order-sequence.gif`,
-            imageAlign: 'left',
-            title: 'Place Orders',
-          },
+          Object.assign(exchangeSpecificParameters, {imageAlign:'bottom'})
+        ]}
+      </Block>
+    );
+
+    const placeOrders = {
+      content:
+        'Use `CCXT-REST` to access private APIs like placing and viewing your orders',
+      image: `${baseUrl}img/place-order-sequence.gif`,
+      imageAlign: 'left',
+      title: 'Place Orders',
+    }
+
+    const PlaceOrders = () => (
+      <Block id="placeOrders" className={'tabletAndUp'}>
+        {[
+          placeOrders
+        ]}
+      </Block>
+    );
+
+    const PlaceOrdersMobile = () => (
+      <Block id="placeOrdersMobile" className={'mobileFriendly'}>
+        {[
+          Object.assign(placeOrders, {imageAlign:'bottom'})
         ]}
       </Block>
     );
@@ -238,8 +280,11 @@ class Index extends React.Component {
         <div className="mainContainer">
           <Features />
           <Dockerized />
+          <DockerizedMobile />
           <UnifiedRestfulApis />
+          <UnifiedRestfulApisMobile />
           <ExchangeSpecificParameters />
+          <ExchangeSpecificParametersMobile />
           <PlaceOrders />
           <WhyCcxtRest />
           <FinalCta />

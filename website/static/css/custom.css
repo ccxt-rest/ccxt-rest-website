@@ -84,17 +84,33 @@ a.cta:hover {
     }
 }
 
-@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+@media only screen and (min-device-width: 360px) and (max-device-width: 735px) {
 }
 
-@media only screen and (max-device-width: 736px) {
+@media only screen and (max-device-width: 735px) {
     #whyCcxtRest table {
         display: none;
     }
+
+    .tabletAndUp {
+        display: none;
+    }
+
+    .mobileFriendly {
+        display: block;
+    }
 }
 
-@media only screen and (min-width: 737px) {
+@media only screen and (min-width: 736px) {
     #whyCcxtRest ul {
+        display: none;
+    }
+
+    .tabletAndUp {
+        display: block;
+    }
+
+    .mobileFriendly {
         display: none;
     }
 }
