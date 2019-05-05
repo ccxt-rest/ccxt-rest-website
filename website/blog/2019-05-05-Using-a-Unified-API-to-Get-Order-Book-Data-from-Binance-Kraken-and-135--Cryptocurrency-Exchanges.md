@@ -1,13 +1,9 @@
-﻿
 ---
 title: Using a Unified API to Get Order Book Data from Binance, Kraken and 135+ Cryptocurrency Exchanges
 author: JP Yao
 authorURL: https://www.linkedin.com/in/jpyao
 authorFBID: 1213715817
-
 ---
-
-
 
 # Using a Unified API to Get Order Book Data from Binance, Kraken and 135+ Cryptocurrency Exchanges
 
