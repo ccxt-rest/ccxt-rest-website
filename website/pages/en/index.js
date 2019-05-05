@@ -79,6 +79,8 @@ class Index extends React.Component {
     const docsPart = `${docsUrl ? `${docsUrl}/` : ''}`;
     const langPart = `${language ? `${language}/` : ''}`;
     const docUrl = doc => `${baseUrl}${docsPart}${langPart}${doc}`;
+    const numberOfExchanges = siteConfig.numberOfExchanges;
+    const numberOfMarkets = siteConfig.numberOfMarkets;
 
 
     const Block = props => (
@@ -98,7 +100,7 @@ class Index extends React.Component {
       <Block layout="fourColumn">
         {[
           {
-            content: 'Integrate with CCXT-REST, and you integrate with 135 exchanges!',
+            content: `Integrate with CCXT-REST, and you integrate with ${numberOfExchanges} exchanges!`,
             image: `${baseUrl}img/restful-api.png`,
             imageAlign: 'top',
             title: 'Unified RESTFUL API',
@@ -107,7 +109,7 @@ class Index extends React.Component {
             content: 'Binance, Coinspot, Gemini, Kraken, Poloniex, Quadrigacx, ...',
             image: `${baseUrl}img/undraw_financial_data_es63.svg`,
             imageAlign: 'top',
-            title: '135 Exchanges, 28k+ Markets',
+            title: `${numberOfExchanges} Exchanges, ${numberOfMarkets} Markets`,
           },
           {
             content: 'Community Driven, Commercially Supoprted',
@@ -139,7 +141,7 @@ class Index extends React.Component {
         {[
           {
             content:
-              'Use the same API for the 135 exchanges - same API, same parameters, same output formats! ' +
+              `Use the same API for the ${numberOfExchanges} exchanges - same API, same parameters, same output formats! ` +
               'And notice the `info` field? - yep, that\'s the raw output response from the exchange itself! ' + 
               'So you get a common response output across the different exchanges, and you get the raw ' +
               'exchange-specific output from each exchange as well!',
