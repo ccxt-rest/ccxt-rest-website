@@ -45,7 +45,7 @@ a.cta {
     font-size: 2em;
     margin-top: 1em;
     margin-bottom: 1em;
-    padding: 0.5em 4em 0.5em 4em;
+    padding: 0.5em 2em 0.5em 2em;
     color: #76C6D2;
     background-color: #0b0ea9;
     border-radius: 20px;
@@ -56,10 +56,6 @@ a.cta:hover {
     background-color: #76C6D2;
 }
 
-#finalCta img {
-    width:50%;
-}
-
 .post article p img {
     display: inline;
 }
@@ -68,7 +64,33 @@ a.cta:hover {
     padding-top: 50px;
 }
 
+@media only screen and (min-width: 360px) {
+    #finalCta img {
+        min-width:360px;
+        width:50%;
+    }
+    
+}
+
+@media only screen and (max-width: 360px) {
+    #finalCta img {
+        width:100%
+    }
+}
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (max-device-width: 736px) {
+    #whyCcxtRest table {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 737px) {
+    #whyCcxtRest ul {
+        display: none;
+    }
 }
 
 @media only screen and (min-width: 1024px) {

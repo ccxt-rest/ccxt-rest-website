@@ -194,6 +194,13 @@ class Index extends React.Component {
               '| `https://api.kraken.com/0/public/Ticker?pair=ETHXBT` | `{"result":{"XETHXXBT":{"h":["0.02961600"]}}` |\n' +
               '| `https://poloniex.com/public?command=returnTicker` |`{"BTC_ETH":{"highestBid":"0.02961600"}}` |\n' + 
               '\n' + 
+              ' * `https://api.binance.com` `/api/v1/ticker/24hr?symbol=ETHBTC` \n' +
+              '    * `{"highPrice":"0.02961600"}` \n' +
+              ' * `https://api.kraken.com` `/0/public/Ticker?pair=ETHXBT` \n' +
+              '    * `{"result":{"XETHXXBT":{"h":["0.02961600"]}}` \n' +
+              ' * `https://poloniex.com` `/public?command=returnTicker` \n' +
+              '    * `{"BTC_ETH":{"highestBid":"0.02961600"}}` \n' +
+              '\n' + 
               '<br/>\n' + 
               '`CCXT-REST` greatly simplifies this by providing a common API with a common response schema:\n' + 
               '| URL | Response |\n' +
@@ -201,6 +208,13 @@ class Index extends React.Component {
               '| `https://<your-ccxt-rest>/exchange/binance/ticker?symbol=ETH/BTC` | `{"high":0.02961600}` |\n' +
               '| `https://<your-ccxt-rest>/exchange/kraken/ticker?symbol=ETH/BTC` | `{"high":0.02961600}` |\n' +
               '| `https://<your-ccxt-rest>/exchange/poloniex/ticker?symbol=ETH/BTC` | `{"high":0.02961600}` |\n' +
+              '\n' + 
+              ' * `https://<your-ccxt-rest>` `/exchange/binance/ticker?symbol=ETH/BTC` \n' +
+              '    * `{"high":0.02961600}` \n' +
+              ' * `https://<your-ccxt-rest>` `/exchange/kraken/ticker?symbol=ETH/BTC` \n' +
+              '    * `{"high":0.02961600}` \n' +
+              ' * `https://<your-ccxt-rest>` `/exchange/poloniex/ticker?symbol=ETH/BTC` \n' +
+              '    * `{"high":0.02961600}` \n' +
               '',
             image: `${baseUrl}img/ccxt-rest-full.png`,
             imageAlign: 'right',
