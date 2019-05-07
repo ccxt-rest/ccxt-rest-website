@@ -1,15 +1,21 @@
 /* your custom css */
 
 div.fixedHeaderContainer {
-    background:#76C6D2
+    background:#2a7778;
 }
 
 div.homeSplashFade {
-    background:#C9F4FA
+    background:#c8f3fa;
 }
 
 div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSlider a  {
-    color:#010002
+/*    
+    color:#010002 
+*/
+}
+
+#whyCcxtRest {
+    background: #475b63;
 }
 
 #whyCcxtRest table tr:nth-child(2n) {
@@ -18,6 +24,10 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
 
 #whyCcxtRest .blockImage {
     margin-top:5em;
+}
+
+.darkBackground code {
+    color: lightcyan;
 }
 
 #dockerized .alignCenter, #unifiedRestfulApis .alignCenter, #exchangeSpecificParameters .alignCenter, #placeOrders .alignCenter, #whyCcxtRest .alignCenter {
@@ -32,8 +42,8 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
     text-align: center;
     padding-top:5em;
     padding-bottom:10em;
-    background:#C9F4FA;
-    color: #0b0ea9;
+    background:#c8f3fa;
+    color: #2a7778;
 }
 
 #finalCta .header {
@@ -47,12 +57,12 @@ a.cta {
     margin-bottom: 1em;
     padding: 0.5em 2em 0.5em 2em;
     color: #76C6D2;
-    background-color: #0b0ea9;
+    background-color: #2a7778;
     border-radius: 20px;
 }
 
 a.cta:hover {
-    color: #0b0ea9;
+    color: #2a7778;
     background-color: #76C6D2;
 }
 
@@ -75,6 +85,13 @@ a.cta:hover {
 @media only screen and (max-width: 360px) {
     #finalCta img {
         width:100%
+    }
+}
+
+@media only screen and (min-width: 480px) {
+    .projectTitle {
+        font-size: 300%;
+        line-height: 1.25;
     }
 }
 
@@ -120,7 +137,7 @@ a.cta:hover {
 
 @media only screen and (max-width: 1023px) {
     .navigationSlider .slidingNav ul {
-        background:#40EABD;
+        background:#1f4247;
     }
     
     div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSlider .siteNavGroupActive.siteNavItemActive a {

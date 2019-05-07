@@ -107,13 +107,13 @@ class Index extends React.Component {
             title: 'Unified RESTFUL API',
           },
           {
-            content: 'Binance, Coinspot, Gemini, Kraken, Poloniex, Quadrigacx, ...',
+            content: 'Binance, Coinspot, Gemini, Kraken, Poloniex and more!',
             image: `${baseUrl}img/undraw_financial_data_es63.svg`,
             imageAlign: 'top',
             title: `${numberOfExchanges} Exchanges, ${numberOfMarkets} Markets`,
           },
           {
-            content: 'Community Driven, Commercially Supoprted',
+            content: 'Community Driven, Commercially Supported',
             image: `${baseUrl}img/open-source.png`,
             imageAlign: 'top',
             title: '100% Open Source',
@@ -258,7 +258,7 @@ class Index extends React.Component {
               ' * `https://<your-ccxt-rest>` `/exchange/poloniex/ticker?symbol=ETH/BTC` \n' +
               '    * `{"high":0.02961600}` \n' +
               '',
-            image: `${baseUrl}img/ccxt-rest-full.png`,
+            //image: `${baseUrl}img/ccxt-rest-full.png`,
             imageAlign: 'right',
             title: 'Why CCXT-REST?',
           },
