@@ -107,7 +107,7 @@ class Index extends React.Component {
           },
           {
             content: 'Binance, Coinspot, Gemini, Kraken, Poloniex and more!',
-            image: `${baseUrl}img/undraw_financial_data_es63.svg`,
+            image: `${baseUrl}img/ccxt-rest-markets.png`,
             imageAlign: 'top',
             title: `${numberOfExchanges} Exchanges, ${numberOfMarkets} Markets`,
           },

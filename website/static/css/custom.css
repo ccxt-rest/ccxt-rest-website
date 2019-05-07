@@ -9,9 +9,7 @@ div.homeSplashFade {
 }
 
 div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSlider a  {
-/*    
-    color:#010002 
-*/
+    color:white; 
 }
 
 #whyCcxtRest {
@@ -141,6 +139,9 @@ a.cta:hover {
 }
 
 @media only screen and (min-width: 1024px) {
+    .navigationSlider .slidingNav ul li a {
+        font-weight: 400;
+    }
 }
 
 @media only screen and (max-width: 1023px) {
@@ -149,7 +150,7 @@ a.cta:hover {
     }
     
     div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSlider .siteNavGroupActive.siteNavItemActive a {
-        color:white;
+        color: white;
     }
 }
 
