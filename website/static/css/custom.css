@@ -26,6 +26,10 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
     margin-top:5em;
 }
 
+#whyCcxtRest .blockContent {
+    color: lightblue;
+}
+
 .darkBackground code {
     color: lightcyan;
 }
@@ -36,6 +40,10 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
 
 .mainContainer {
     padding-bottom: 0;
+}
+
+.blockContent {
+    color: slategray;
 }
 
 #finalCta {
