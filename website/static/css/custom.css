@@ -5,7 +5,22 @@ div.fixedHeaderContainer {
 }
 
 div.homeSplashFade {
-    background:#c8f3fa;
+/*    background:#c8f3fa; */
+    background: #333333;
+}
+
+div.promoSection .promoRow .pluginRowBlock .pluginWrapper a{
+    border-radius: 8px;
+    border-width: 2px;
+    color: #cccccc;
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: 24px;
+    padding: 18px 36px;
+}
+
+.projectTitle {
+    color: #cccccc;
 }
 
 div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSlider a  {
@@ -13,7 +28,7 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
 }
 
 #whyCcxtRest {
-    background: #475b63;
+    background: #333333;
 }
 
 #whyCcxtRest table tr:nth-child(2n) {
@@ -42,6 +57,10 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
 
 .blockContent {
     color: slategray;
+}
+
+.blockContent p {
+    font-size: 140%;
 }
 
 #finalCta {
@@ -80,6 +99,10 @@ a.cta:hover {
     padding-top: 50px;
 }
 
+#footer {
+    background: #333333;
+}
+
 @media only screen and (min-width: 360px) {
     #finalCta img {
         min-width:360px;
@@ -96,8 +119,9 @@ a.cta:hover {
 
 @media only screen and (min-width: 480px) {
     .projectTitle {
-        font-size: 450%;
-        line-height: 1.25;
+        color: #cccccc;
+        font-size: 350%;
+        line-height: 1.4;
     }
 }
 
