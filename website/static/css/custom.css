@@ -21,6 +21,7 @@ div.promoSection .promoRow .pluginRowBlock .pluginWrapper a{
 
 .projectTitle {
     color: #cccccc;
+    line-height: 1.4;
 }
 
 div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSlider a  {
@@ -29,6 +30,10 @@ div.fixedHeaderContainer header a, div.fixedHeaderContainer header .navigationSl
 
 #whyCcxtRest {
     background: #333333;
+}
+
+#whyCcxtRest table{
+    display: inline-table;
 }
 
 #whyCcxtRest table tr:nth-child(2n) {
@@ -121,7 +126,6 @@ a.cta:hover {
     .projectTitle {
         color: #cccccc;
         font-size: 350%;
-        line-height: 1.4;
     }
 }
 
