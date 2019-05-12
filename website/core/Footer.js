@@ -46,7 +46,7 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>Community</h5>
-            <a href="https://https://github.com/franz-see/ccxt-rest">GitHub</a>
+            <a href="https://github.com/franz-see/ccxt-rest">GitHub</a>
             <a href="https://gitter.im/ccxt-rest/community">Project Chat</a>
             <a href="https://hub.docker.com/r/franzsee/ccxt-rest">Docker</a>
             <a href="https://npmjs.com/package/ccxt-rest">NPM</a>

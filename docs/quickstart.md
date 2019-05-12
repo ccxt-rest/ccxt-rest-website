@@ -9,7 +9,7 @@ title: Quick Start
 [![Docker Pulls](https://img.shields.io/docker/pulls/franzsee/ccxt-rest.svg)](https://img.shields.io/docker/pulls/franzsee/ccxt-rest.svgt)
 [![Supported Exchanges](https://img.shields.io/badge/exchanges-135-blue.svg)](https://github.com/ccxt/ccxt/wiki/Exchange-Markets)
 
-CCXT-REST provides a Unified REST APIs to allow clients access to retrieve data (ticker, order book, trades, your order, your trades, balances, etc) and to create and cancel orders from over 100 cryptocurrency exhange sites. And it is built on top of the popular open source project [CCXT](https://github.com/ccxt/ccxt/)
+CCXT-REST provides a unified REST API to allow clients access to retrieve data (ticker, order book, trades, your order, your trades, balances, etc) and to create and cancel orders from over 100 cryptocurrency exhange sites. And it is built on top of the popular open source project [CCXT](https://github.com/ccxt/ccxt/)
 
 ## Installation
 
