@@ -9,6 +9,7 @@ const users = [];
 const siteConfig = {
   title: 'CCXT-REST', // Title for your website.
   tagline: 'Unified Crypto API',
+  headline: 'CCXT-REST makes integration with 135+ cryptocurrency exchanges easy.',
   url: 'https://ccxt-rest.io', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:

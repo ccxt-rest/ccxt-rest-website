@@ -44,8 +44,7 @@ class HomeSplash extends React.Component {
 
     const ProjectTitle = () => (
       <h2 className="projectTitle">
-        {siteConfig.title}
-        <small>{siteConfig.tagline}</small>
+        {siteConfig.headline}
       </h2>
     );
 
@@ -103,7 +102,7 @@ class Index extends React.Component {
             content: `Integrate with CCXT-REST, and you integrate with ${numberOfExchanges} exchanges!`,
             image: `${baseUrl}img/restful-api.png`,
             imageAlign: 'top',
-            title: 'Unified RESTFUL API',
+            title: 'Unified RESTful API',
           },
           {
             content: 'Binance, Coinspot, Gemini, Kraken, Poloniex and more!',
@@ -112,7 +111,7 @@ class Index extends React.Component {
             title: `${numberOfExchanges} Exchanges, ${numberOfMarkets} Markets`,
           },
           {
-            content: 'Community Driven, Commercially Supported',
+            content: 'Community-driven, commercially-supported',
             image: `${baseUrl}img/open-source.png`,
             imageAlign: 'top',
             title: '100% Open Source',
@@ -176,7 +175,7 @@ class Index extends React.Component {
 
     const exchangeSpecificParameters = {
       content:
-        'Need to pass in exchange-specific parameters that are not in the unified API? No Problem! ' + 
+        'Need to pass on exchange-specific parameters that are not in the unified API? No problem! ' + 
         'Pass them anyway and `CCXT-REST` will forward it to the exchange!',
       image: `${baseUrl}img/exchange-specific-parameters.gif`,
       imageAlign: 'right',
