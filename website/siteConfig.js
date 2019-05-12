@@ -61,7 +61,7 @@ const siteConfig = {
   repoUrl: 'https://github.com/franz-see/ccxt-rest-website',
   mainProjectRepoUrl: 'https://github.com/franz-see/ccxt-rest',
 
-  numberOfExchanges : 135,
+  numberOfExchanges : 133,
   numberOfMarkets: '28k+',
 
   gaTrackingId: process.env.GA_TRACKING_ID
