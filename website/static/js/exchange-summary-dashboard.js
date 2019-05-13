@@ -17,7 +17,7 @@
         
             };
         
-            xhr.open('GET', 'https://franz-see.github.io/ccxt-rest/exchanges/');
+            xhr.open('GET', 'https://ccxt-rest.github.io/ccxt-rest/exchanges/');
             xhr.send();
         } else {
             setTimeout(loadExchangeSummaryDashboard, 1000);

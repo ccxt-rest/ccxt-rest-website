@@ -61,8 +61,8 @@ const siteConfig = {
 
   enableUpdateTime: true,
 
-  repoUrl: 'https://github.com/franz-see/ccxt-rest-website',
-  mainProjectRepoUrl: 'https://github.com/franz-see/ccxt-rest',
+  repoUrl: 'https://github.com/ccxt-rest/ccxt-rest-website',
+  mainProjectRepoUrl: 'https://github.com/ccxt-rest/ccxt-rest',
 
   numberOfExchanges : numberOfExchanges,
   numberOfMarkets: '28k+',

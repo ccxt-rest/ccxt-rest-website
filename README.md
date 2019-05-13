@@ -1,6 +1,6 @@
 # CCXT REST Website
 
-[![Build Status](https://travis-ci.org/franz-see/ccxt-rest.svg)](https://travis-ci.org/franz-see/ccxt-rest-website)
+[![Build Status](https://travis-ci.org/ccxt-rest/ccxt-rest.svg)](https://travis-ci.org/ccxt-rest/ccxt-rest-website)
 
 [![Gitter](https://img.shields.io/gitter/room/ccxt-rest/community.svg)](https://gitter.im/ccxt-rest/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
@@ -21,4 +21,4 @@ npm run build
 ```
 
 ## Note(s)
- * `./website/static/api.html` was generated from the [ccxt-rest](https://github.com/franz-see/ccxt-rest) project.
+ * `./website/static/api.html` was generated from the [ccxt-rest](https://github.com/ccxt-rest/ccxt-rest) project.

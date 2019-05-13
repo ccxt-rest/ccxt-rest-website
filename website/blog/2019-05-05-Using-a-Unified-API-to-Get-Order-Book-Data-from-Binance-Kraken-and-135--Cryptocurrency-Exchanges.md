@@ -301,7 +301,7 @@ CCXT-REST can be installed using *docker* or with *Node.js package manager*.
 
 ### Installation with docker:
 
-    docker run -p 3000:3000 franzsee/ccxt-rest
+    docker run -p 3000:3000 ccxtrest/ccxt-rest
     
 ### Installation with npm:
 

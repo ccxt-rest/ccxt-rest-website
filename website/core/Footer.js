@@ -46,9 +46,9 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>Community</h5>
-            <a href="https://github.com/franz-see/ccxt-rest">GitHub</a>
+            <a href="https://github.com/ccxt-rest/ccxt-rest">GitHub</a>
             <a href="https://gitter.im/ccxt-rest/community">Project Chat</a>
-            <a href="https://hub.docker.com/r/franzsee/ccxt-rest">Docker</a>
+            <a href="https://hub.docker.com/r/ccxtrest/ccxt-rest">Docker</a>
             <a href="https://npmjs.com/package/ccxt-rest">NPM</a>
           </div>
           <div>
@@ -60,7 +60,7 @@ class Footer extends React.Component {
               className="github-button"
               href={this.props.config.mainProjectRepoUrl}
               data-icon="octicon-star"
-              data-count-href="/franz-see/ccxt-rest/stargazers"
+              data-count-href="/ccxt-rest/ccxt-rest/stargazers"
               data-show-count="true"
               data-count-aria-label="# stargazers on GitHub"
               aria-label="Star this project on GitHub">

@@ -122,7 +122,7 @@ class Index extends React.Component {
 
     const dockerized = {
       content: 
-        'Just run `docker run -p 3000:3000 franzsee/ccxt-rest` to get it up ' + 
+        'Just run `docker run -p 3000:3000 ccxtrest/ccxt-rest` to get it up ' + 
         'and running and accessible from `localhost:3000/`',
       image: `${baseUrl}img/docker-run.gif`,
       imageAlign: 'right',
