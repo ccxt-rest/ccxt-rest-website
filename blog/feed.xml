@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>CCXT-REST Blog</title>
+        <link>https://ccxt-rest.io/blog</link>
+        <description>The best place to stay up-to-date with the latest CCXT-REST news and events.</description>
+        <lastBuildDate>Sun, 05 May 2019 06:00:00 GMT</lastBuildDate>
+        <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+        <generator>Feed for Node.js</generator>
+        <image>
+            <title>CCXT-REST Blog</title>
+            <url>https://ccxt-rest.io/img/favicon.ico</url>
+            <link>https://ccxt-rest.io/blog</link>
+        </image>
+        <copyright>Copyright © 2020 CCXT-REST</copyright>
+        <item>
+            <title><![CDATA[Using a Unified API to Get Order Book Data from Binance, Kraken and 135+ Cryptocurrency Exchanges]]></title>
+            <link>https://ccxt-rest.io/blog/2019/05/05/Using-a-Unified-API-to-Get-Order-Book-Data-from-Binance-Kraken-and-135--Cryptocurrency-Exchanges.html</link>
+            <guid>https://ccxt-rest.io/blog/2019/05/05/Using-a-Unified-API-to-Get-Order-Book-Data-from-Binance-Kraken-and-135--Cryptocurrency-Exchanges.html</guid>
+            <pubDate>Sun, 05 May 2019 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p><img src="https://cdn-images-1.medium.com/max/1600/1*tMcmxA39RCyOfUJP3NNNuA.png" alt></p> <p><em>CCXT-REST allows client applications to connect to 135+ cryptocurrency exchanges using a unified REST API which allows for the retrieval of ticker, order, and order book data, as well as the creation and cancellation of orders. The project is built ...</em></p>]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Hello World]]></title>
+            <link>https://ccxt-rest.io/blog/2019/05/04/hello-world.html</link>
+            <guid>https://ccxt-rest.io/blog/2019/05/04/hello-world.html</guid>
+            <pubDate>Sat, 04 May 2019 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Hello World! We are currently revamping our website :) Stay tuned!</p> ]]></description>
+        </item>
+    </channel>
+</rss>

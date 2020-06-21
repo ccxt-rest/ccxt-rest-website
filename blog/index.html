@@ -1,0 +1,851 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Blog · CCXT-REST</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Unified Crypto API"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Blog · CCXT-REST"/><meta property="og:type" content="website"/><meta property="og:url" content="https://ccxt-rest.io/"/><meta property="og:description" content="Unified Crypto API"/><meta property="og:image" content="https://ccxt-rest.io/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://ccxt-rest.io/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><link rel="alternate" type="application/atom+xml" href="https://ccxt-rest.io/blog/atom.xml" title="CCXT-REST Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="https://ccxt-rest.io/blog/feed.xml" title="CCXT-REST Blog RSS Feed"/><script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-139547930-1', 'auto');
+              ga('send', 'pageview');
+            </script><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script type="text/javascript" src="/js/exchange-summary-dashboard.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="blog"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/favicon.ico" alt="CCXT-REST"/><h2 class="headerTitleWithLogo">CCXT-REST</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/" target="_self">Home</a></li><li class=""><a href="/docs/quickstart" target="_self">Quick Start</a></li><li class=""><a href="/api.html" target="_self">API</a></li><li class=""><a href="/docs/exchange_api_status" target="_self">Exchange API Status</a></li><li class=""><a href="/docs/community" target="_self">Help</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/blog/" target="_self">Blog</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Recent Posts</span></h2></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Recent Posts</h3><ul class=""><li class="navListItem"><a class="navItem" href="/blog/2019/05/05/Using-a-Unified-API-to-Get-Order-Book-Data-from-Binance-Kraken-and-135--Cryptocurrency-Exchanges">Using a Unified API to Get Order Book Data from Binance, Kraken and 135+ Cryptocurrency Exchanges</a></li><li class="navListItem"><a class="navItem" href="/blog/2019/05/04/hello-world">Hello World</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer postContainer blogContainer"><div class="wrapper"><div class="posts"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2019/05/05/Using-a-Unified-API-to-Get-Order-Book-Data-from-Binance-Kraken-and-135--Cryptocurrency-Exchanges">Using a Unified API to Get Order Book Data from Binance, Kraken and 135+ Cryptocurrency Exchanges</a></h1><p class="post-meta">May 5, 2019</p><div class="authorBlock"><p class="post-authorName"><a href="https://www.linkedin.com/in/jpyao" target="_blank" rel="noreferrer noopener">JP Yao</a></p><div class="authorPhoto"><a href="https://www.linkedin.com/in/jpyao" target="_blank" rel="noreferrer noopener"><img src="https://scontent.fyvr3-1.fna.fbcdn.net/v/t1.0-9/10646627_10205255398763868_8202042721802555726_n.jpg?_nc_cat=104&amp;_nc_ht=scontent.fyvr3-1.fna&amp;oh=09e5cb5fdd139a9f551dcca6a852cf57&amp;oe=5D297E55" alt="JP Yao"/></a></div></div></header><article class="post-content"><div><span><p><img src="https://cdn-images-1.medium.com/max/1600/1*tMcmxA39RCyOfUJP3NNNuA.png" alt=""></p>
+<p><em>CCXT-REST allows client applications to connect to 135+ cryptocurrency exchanges using a unified REST API which allows for the retrieval of ticker, order, and order book data, as well as the creation and cancellation of orders. The project is built on top of the popular open source project CCXT.</em></p>
+<p><strong>In this post, we will be connecting to Binance and Kraken to retrieve order books for Ethereum-Bitcoin pairs.</strong></p>
+<h2><a class="anchor" aria-hidden="true" id="doing-things-manually"></a><a href="#doing-things-manually" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Doing things manually</h2>
+<p>Both Binance and Kraken do not require API keys for querying supported asset pairs and order book data on their exchanges. Both exchanges, however, will require their own response handling due to the variances in structures returned by their APIs.</p>
+<h3><a class="anchor" aria-hidden="true" id="binance"></a><a href="#binance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Binance</h3>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*MpaVdRmLUsjWhRnYpzJ1-Q.png" alt=""></p>
+<p>To find out what asset pairs are supported on Binance, we can use its public endpoint <a href="https://api.binance.com/api/v1/exchangeInfo">exchangeInfo</a> to get a complete list of symbols.</p>
+<pre><code class="hljs">https://api.binance.com/api/v1/exchangeInfo
+</code></pre>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"timezone"</span>: <span class="hljs-string">"UTC"</span>,
+    <span class="hljs-attr">"serverTime"</span>: <span class="hljs-number">1556741474070</span>,
+    <span class="hljs-attr">"rateLimits"</span>: [],
+    <span class="hljs-attr">"exchangeFilters"</span>: [],
+    <span class="hljs-attr">"symbols"</span>: [{
+        <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"ETHBTC"</span>,
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"TRADING"</span>,
+        <span class="hljs-attr">"baseAsset"</span>: <span class="hljs-string">"ETH"</span>,
+        <span class="hljs-attr">"baseAssetPrecision"</span>: <span class="hljs-number">8</span>,
+        <span class="hljs-attr">"quoteAsset"</span>: <span class="hljs-string">"BTC"</span>,
+        <span class="hljs-attr">"quotePrecision"</span>: <span class="hljs-number">8</span>,
+        <span class="hljs-attr">"orderTypes"</span>: [
+            <span class="hljs-string">"LIMIT"</span>,
+            <span class="hljs-string">"LIMIT_MAKER"</span>,
+            <span class="hljs-string">"MARKET"</span>,
+            <span class="hljs-string">"STOP_LOSS_LIMIT"</span>,
+            <span class="hljs-string">"TAKE_PROFIT_LIMIT"</span>
+        ],
+        <span class="hljs-attr">"icebergAllowed"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">"isSpotTradingAllowed"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">"isMarginTradingAllowed"</span>: <span class="hljs-literal">true</span>,
+        <span class="hljs-attr">"filters"</span>: [{
+                <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"PRICE_FILTER"</span>,
+                <span class="hljs-attr">"minPrice"</span>: <span class="hljs-string">"0.00000000"</span>,
+                <span class="hljs-attr">"maxPrice"</span>: <span class="hljs-string">"0.00000000"</span>,
+                <span class="hljs-attr">"tickSize"</span>: <span class="hljs-string">"0.00000100"</span>
+            },
+            {
+                <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"PERCENT_PRICE"</span>,
+                <span class="hljs-attr">"multiplierUp"</span>: <span class="hljs-string">"10"</span>,
+                <span class="hljs-attr">"multiplierDown"</span>: <span class="hljs-string">"0.1"</span>,
+                <span class="hljs-attr">"avgPriceMins"</span>: <span class="hljs-number">5</span>
+            },
+            {
+                <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"LOT_SIZE"</span>,
+                <span class="hljs-attr">"minQty"</span>: <span class="hljs-string">"0.00100000"</span>,
+                <span class="hljs-attr">"maxQty"</span>: <span class="hljs-string">"100000.00000000"</span>,
+                <span class="hljs-attr">"stepSize"</span>: <span class="hljs-string">"0.00100000"</span>
+            },
+            {
+                <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"MIN_NOTIONAL"</span>,
+                <span class="hljs-attr">"minNotional"</span>: <span class="hljs-string">"0.00100000"</span>,
+                <span class="hljs-attr">"applyToMarket"</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">"avgPriceMins"</span>: <span class="hljs-number">5</span>
+            },
+            {
+                <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"ICEBERG_PARTS"</span>,
+                <span class="hljs-attr">"limit"</span>: <span class="hljs-number">10</span>
+            },
+            {
+                <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"MAX_NUM_ALGO_ORDERS"</span>,
+                <span class="hljs-attr">"maxNumAlgoOrders"</span>: <span class="hljs-number">5</span>
+            }
+        ]
+    }]
+}
+</code></pre>
+<p>From the response above, we have determined that Binance uses <em>ETHBTC</em> as its symbol for Ethereum-Bitcoin trading.</p>
+<p>The next step is to <a href="https://api.binance.com/api/v1/depth?symbol=ETHBTC&amp;limit=5">retrieve the order book</a> for <em>ETHBTC</em>.</p>
+<pre><code class="hljs">https://api.binance.com/api/v1/depth?symbol=ETHBTC&amp;limit=5
+</code></pre>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"lastUpdateId"</span>: <span class="hljs-number">528915796</span>,
+    <span class="hljs-attr">"bids"</span>: [
+        [
+            <span class="hljs-string">"0.02969000"</span>,
+            <span class="hljs-string">"1.97400000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02968500"</span>,
+            <span class="hljs-string">"5.96500000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02968200"</span>,
+            <span class="hljs-string">"1.71400000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02968100"</span>,
+            <span class="hljs-string">"0.14700000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02968000"</span>,
+            <span class="hljs-string">"2.00000000"</span>
+        ]
+    ],
+    <span class="hljs-attr">"asks"</span>: [
+        [
+            <span class="hljs-string">"0.02969400"</span>,
+            <span class="hljs-string">"7.93900000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02969600"</span>,
+            <span class="hljs-string">"2.87900000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02970500"</span>,
+            <span class="hljs-string">"16.84300000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02970600"</span>,
+            <span class="hljs-string">"2.00000000"</span>
+        ],
+        [
+            <span class="hljs-string">"0.02970700"</span>,
+            <span class="hljs-string">"10.00000000"</span>
+        ]
+    ]
+}
+</code></pre>
+<p>Now that we know the bids and the asks for <em>ETHBTC</em> on Binance, let’s go check out Kraken.</p>
+<h3><a class="anchor" aria-hidden="true" id="kraken"></a><a href="#kraken" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kraken</h3>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*bJPIoyukfGlWRT3zgyjyug.png" alt=""></p>
+<p>Kraken provides the publicly available endpoint <a href="https://api.kraken.com/0/public/AssetPairs">AssetPairs</a> to get a complete list of supported symbols.</p>
+<pre><code class="hljs">https://api.kraken.com/0/public/AssetPairs
+</code></pre>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"error"</span>: [],
+    <span class="hljs-attr">"result"</span>: {
+        <span class="hljs-attr">"XETCZUSD"</span>: {
+            <span class="hljs-attr">"altname"</span>: <span class="hljs-string">"ETCUSD"</span>,
+            <span class="hljs-attr">"wsname"</span>: <span class="hljs-string">"ETC/USD"</span>,
+            <span class="hljs-attr">"aclass_base"</span>: <span class="hljs-string">"currency"</span>,
+            <span class="hljs-attr">"base"</span>: <span class="hljs-string">"XETC"</span>,
+            <span class="hljs-attr">"aclass_quote"</span>: <span class="hljs-string">"currency"</span>,
+            <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"ZUSD"</span>,
+            <span class="hljs-attr">"lot"</span>: <span class="hljs-string">"unit"</span>,
+            <span class="hljs-attr">"pair_decimals"</span>: <span class="hljs-number">3</span>,
+            <span class="hljs-attr">"lot_decimals"</span>: <span class="hljs-number">8</span>,
+            <span class="hljs-attr">"lot_multiplier"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"fee_volume_currency"</span>: <span class="hljs-string">"ZUSD"</span>,
+            <span class="hljs-attr">"margin_call"</span>: <span class="hljs-number">80</span>,
+            <span class="hljs-attr">"margin_stop"</span>: <span class="hljs-number">40</span>
+        },
+        <span class="hljs-attr">"XETHXXBT"</span>: {
+            <span class="hljs-attr">"altname"</span>: <span class="hljs-string">"ETHXBT"</span>,
+            <span class="hljs-attr">"wsname"</span>: <span class="hljs-string">"ETH/XBT"</span>,
+            <span class="hljs-attr">"aclass_base"</span>: <span class="hljs-string">"currency"</span>,
+            <span class="hljs-attr">"base"</span>: <span class="hljs-string">"XETH"</span>,
+            <span class="hljs-attr">"aclass_quote"</span>: <span class="hljs-string">"currency"</span>,
+            <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"XXBT"</span>,
+            <span class="hljs-attr">"lot"</span>: <span class="hljs-string">"unit"</span>,
+            <span class="hljs-attr">"pair_decimals"</span>: <span class="hljs-number">5</span>,
+            <span class="hljs-attr">"lot_decimals"</span>: <span class="hljs-number">8</span>,
+            <span class="hljs-attr">"lot_multiplier"</span>: <span class="hljs-number">1</span>,
+            <span class="hljs-attr">"fee_volume_currency"</span>: <span class="hljs-string">"ZUSD"</span>,
+            <span class="hljs-attr">"margin_call"</span>: <span class="hljs-number">80</span>,
+            <span class="hljs-attr">"margin_stop"</span>: <span class="hljs-number">40</span>
+        }
+    }
+}
+</code></pre>
+<p>From the response above, Kraken uses <em>ETHXBT</em> as the symbol for Ethereum-Bitcoin trading. (<em>XBT</em> is the symbol for Bitcoin used only by a couple of exchanges. Most exchanges will use <em>BTC</em>)</p>
+<p>The next step is to <a href="https://api.kraken.com/0/public/Depth?pair=ETHXBT&amp;count=5">retrieve the order book</a> for <em>ETHXBT</em>.</p>
+<pre><code class="hljs">https://api.kraken.com/0/public/Depth?pair=ETHXBT&amp;count=5
+</code></pre>
+<pre><code class="hljs">{
+    <span class="hljs-attr">"error"</span>: [],
+    <span class="hljs-attr">"result"</span>: {
+        <span class="hljs-attr">"XETHXXBT"</span>: {
+            <span class="hljs-attr">"asks"</span>: [
+                [
+                    <span class="hljs-string">"0.029680"</span>,
+                    <span class="hljs-string">"1.073"</span>,
+                    <span class="hljs-number">1556747672</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029690"</span>,
+                    <span class="hljs-string">"32.050"</span>,
+                    <span class="hljs-number">1556747668</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029700"</span>,
+                    <span class="hljs-string">"250.315"</span>,
+                    <span class="hljs-number">1556747673</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029710"</span>,
+                    <span class="hljs-string">"9.736"</span>,
+                    <span class="hljs-number">1556747594</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029720"</span>,
+                    <span class="hljs-string">"24.300"</span>,
+                    <span class="hljs-number">1556747594</span>
+                ]
+            ],
+            <span class="hljs-attr">"bids"</span>: [
+                [
+                    <span class="hljs-string">"0.029650"</span>,
+                    <span class="hljs-string">"0.028"</span>,
+                    <span class="hljs-number">1556747668</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029640"</span>,
+                    <span class="hljs-string">"269.524"</span>,
+                    <span class="hljs-number">1556747669</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029610"</span>,
+                    <span class="hljs-string">"9.636"</span>,
+                    <span class="hljs-number">1556747671</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029600"</span>,
+                    <span class="hljs-string">"65.158"</span>,
+                    <span class="hljs-number">1556747669</span>
+                ],
+                [
+                    <span class="hljs-string">"0.029590"</span>,
+                    <span class="hljs-string">"154.906"</span>,
+                    <span class="hljs-number">1556747650</span>
+                ]
+            ]
+        }
+    }
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="the-problem-with-the-standard-approach"></a><a href="#the-problem-with-the-standard-approach" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The problem with the standard approach</h2>
+<p>In the previous section, we were able to retrieve the Ethereum-Bitcoin trading symbol and order books from both Binance and Kraken using 4 different API endpoints.</p>
+<h3><a class="anchor" aria-hidden="true" id="binance-1"></a><a href="#binance-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Binance</h3>
+<pre><code class="hljs"><span class="hljs-builtin-name">GET</span> /api/v1/exchangeInfo
+</code></pre>
+<pre><code class="hljs"><span class="hljs-builtin-name">GET</span> /api/v1/depth
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="kraken-1"></a><a href="#kraken-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kraken</h3>
+<pre><code class="hljs">GET /<span class="hljs-number">0</span>/<span class="hljs-keyword">public</span>/AssetPairs
+</code></pre>
+<pre><code class="hljs">GET /<span class="hljs-number">0</span>/<span class="hljs-keyword">public</span>/Depth
+</code></pre>
+<p>We would have designed our applications to handle 4 different API responses — 2 for each exchange.</p>
+<p>What if we needed to perform the same tasks on 10 additional exchanges?</p>
+<p>That would mean at least 20 more different API request-response sets developers have to code for and handle.</p>
+<h2><a class="anchor" aria-hidden="true" id="one-api-to-connect-to-all-of-the-major-exchanges"></a><a href="#one-api-to-connect-to-all-of-the-major-exchanges" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>One API to connect to all of the major exchanges</h2>
+<p>CCXT-REST attempts to boost developer productivity by reducing the lines of code needed to manage the connectivity with support for over a hundred cryptocurrency exchanges.</p>
+<p>CCXT-REST can be installed using <em>docker</em> or with <em>Node.js package manager</em>.</p>
+<h3><a class="anchor" aria-hidden="true" id="installation-with-docker"></a><a href="#installation-with-docker" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation with docker:</h3>
+<pre><code class="hljs">docker run -p 3000:3000 ccxtrest/ccxt-rest
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="installation-with-npm"></a><a href="#installation-with-npm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation with npm:</h3>
+<pre><code class="hljs">npm install -g ccxt-rest
+ccxt-rest
+</code></pre>
+<p>To confirm that we have CCXT-REST up and running, try accessing the <a href="http://localhost:3000/explorer">link</a> below on your browser.</p>
+<pre><code class="hljs">http://localhost:3000/explorer
+</code></pre>
+<p><img src="https://cdn-images-1.medium.com/max/1600/1*c96fSbpw6gNoQSNPNpbM7w.png" alt=""></p>
+<p>Let's use CCXT-REST to do the following on Binance and Kraken:</p>
+<ol>
+<li><p>Get the available trading pairs and identify the symbol used for
+Ethereum-Bitcoin trading using CCXT-REST's <em>markets</em> endpoint.</p>
+<p><code>GET /exchange/{exchangeName}/markets</code></p></li>
+<li><p>Retrieve order books for that symbol using CCXT-REST's <em>orderBook</em>   <br>
+endpoint.</p>
+<p><code>GET /exchange/{exchangeName}/orderBook</code></p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="binance-2"></a><a href="#binance-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Binance</h3>
+<pre><code class="hljs">http://localhost:3000/exchange/binance/markets
+</code></pre>
+<pre><code class="hljs">[
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ETHBTC"</span>,
+    <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"ETH/BTC"</span>,
+    <span class="hljs-attr">"base"</span>: <span class="hljs-string">"ETH"</span>,
+    <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"BTC"</span>,
+    <span class="hljs-attr">"info"</span>: {
+      <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"ETHBTC"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"TRADING"</span>,
+      <span class="hljs-attr">"baseAsset"</span>: <span class="hljs-string">"ETH"</span>,
+      <span class="hljs-attr">"baseAssetPrecision"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"quoteAsset"</span>: <span class="hljs-string">"BTC"</span>,
+      <span class="hljs-attr">"quotePrecision"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"orderTypes"</span>: [
+        <span class="hljs-string">"LIMIT"</span>,
+        <span class="hljs-string">"LIMIT_MAKER"</span>,
+        <span class="hljs-string">"MARKET"</span>,
+        <span class="hljs-string">"STOP_LOSS_LIMIT"</span>,
+        <span class="hljs-string">"TAKE_PROFIT_LIMIT"</span>
+      ],
+      <span class="hljs-attr">"icebergAllowed"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isSpotTradingAllowed"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isMarginTradingAllowed"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"filters"</span>: [
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"PRICE_FILTER"</span>,
+          <span class="hljs-attr">"minPrice"</span>: <span class="hljs-string">"0.00000000"</span>,
+          <span class="hljs-attr">"maxPrice"</span>: <span class="hljs-string">"0.00000000"</span>,
+          <span class="hljs-attr">"tickSize"</span>: <span class="hljs-string">"0.00000100"</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"PERCENT_PRICE"</span>,
+          <span class="hljs-attr">"multiplierUp"</span>: <span class="hljs-string">"10"</span>,
+          <span class="hljs-attr">"multiplierDown"</span>: <span class="hljs-string">"0.1"</span>,
+          <span class="hljs-attr">"avgPriceMins"</span>: <span class="hljs-number">5</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"LOT_SIZE"</span>,
+          <span class="hljs-attr">"minQty"</span>: <span class="hljs-string">"0.00100000"</span>,
+          <span class="hljs-attr">"maxQty"</span>: <span class="hljs-string">"100000.00000000"</span>,
+          <span class="hljs-attr">"stepSize"</span>: <span class="hljs-string">"0.00100000"</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"MIN_NOTIONAL"</span>,
+          <span class="hljs-attr">"minNotional"</span>: <span class="hljs-string">"0.00100000"</span>,
+          <span class="hljs-attr">"applyToMarket"</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">"avgPriceMins"</span>: <span class="hljs-number">5</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"ICEBERG_PARTS"</span>,
+          <span class="hljs-attr">"limit"</span>: <span class="hljs-number">10</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"MAX_NUM_ALGO_ORDERS"</span>,
+          <span class="hljs-attr">"maxNumAlgoOrders"</span>: <span class="hljs-number">5</span>
+        }
+      ]
+    },
+    <span class="hljs-attr">"limits"</span>: {
+      <span class="hljs-attr">"amount"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.001</span>,
+        <span class="hljs-attr">"max"</span>: <span class="hljs-number">100000</span>
+      },
+      <span class="hljs-attr">"price"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0</span>
+      },
+      <span class="hljs-attr">"cost"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.001</span>
+      }
+    },
+    <span class="hljs-attr">"precision"</span>: {
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">3</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">6</span>
+    }
+  },
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"LTCBTC"</span>,
+    <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"LTC/BTC"</span>,
+    <span class="hljs-attr">"base"</span>: <span class="hljs-string">"LTC"</span>,
+    <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"BTC"</span>,
+    <span class="hljs-attr">"info"</span>: {
+      <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"LTCBTC"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"TRADING"</span>,
+      <span class="hljs-attr">"baseAsset"</span>: <span class="hljs-string">"LTC"</span>,
+      <span class="hljs-attr">"baseAssetPrecision"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"quoteAsset"</span>: <span class="hljs-string">"BTC"</span>,
+      <span class="hljs-attr">"quotePrecision"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"orderTypes"</span>: [
+        <span class="hljs-string">"LIMIT"</span>,
+        <span class="hljs-string">"LIMIT_MAKER"</span>,
+        <span class="hljs-string">"MARKET"</span>,
+        <span class="hljs-string">"STOP_LOSS_LIMIT"</span>,
+        <span class="hljs-string">"TAKE_PROFIT_LIMIT"</span>
+      ],
+      <span class="hljs-attr">"icebergAllowed"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isSpotTradingAllowed"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isMarginTradingAllowed"</span>: <span class="hljs-literal">false</span>,
+      <span class="hljs-attr">"filters"</span>: [
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"PRICE_FILTER"</span>,
+          <span class="hljs-attr">"minPrice"</span>: <span class="hljs-string">"0.00000000"</span>,
+          <span class="hljs-attr">"maxPrice"</span>: <span class="hljs-string">"0.00000000"</span>,
+          <span class="hljs-attr">"tickSize"</span>: <span class="hljs-string">"0.00000100"</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"PERCENT_PRICE"</span>,
+          <span class="hljs-attr">"multiplierUp"</span>: <span class="hljs-string">"10"</span>,
+          <span class="hljs-attr">"multiplierDown"</span>: <span class="hljs-string">"0.1"</span>,
+          <span class="hljs-attr">"avgPriceMins"</span>: <span class="hljs-number">5</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"LOT_SIZE"</span>,
+          <span class="hljs-attr">"minQty"</span>: <span class="hljs-string">"0.01000000"</span>,
+          <span class="hljs-attr">"maxQty"</span>: <span class="hljs-string">"100000.00000000"</span>,
+          <span class="hljs-attr">"stepSize"</span>: <span class="hljs-string">"0.01000000"</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"MIN_NOTIONAL"</span>,
+          <span class="hljs-attr">"minNotional"</span>: <span class="hljs-string">"0.00100000"</span>,
+          <span class="hljs-attr">"applyToMarket"</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">"avgPriceMins"</span>: <span class="hljs-number">5</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"ICEBERG_PARTS"</span>,
+          <span class="hljs-attr">"limit"</span>: <span class="hljs-number">10</span>
+        },
+        {
+          <span class="hljs-attr">"filterType"</span>: <span class="hljs-string">"MAX_NUM_ALGO_ORDERS"</span>,
+          <span class="hljs-attr">"maxNumAlgoOrders"</span>: <span class="hljs-number">5</span>
+        }
+      ]
+    },
+    <span class="hljs-attr">"limits"</span>: {
+      <span class="hljs-attr">"amount"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.01</span>,
+        <span class="hljs-attr">"max"</span>: <span class="hljs-number">100000</span>
+      },
+      <span class="hljs-attr">"price"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0</span>
+      },
+      <span class="hljs-attr">"cost"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.001</span>
+      }
+    },
+    <span class="hljs-attr">"precision"</span>: {
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">6</span>
+    }
+  }
+]
+</code></pre>
+<p>Through CCXT-REST’s <em>markets</em> endpoint, we find out that Binance supports <strong>ETH/BTC</strong>.</p>
+<p>The next step is retrieving the order book for <strong>ETH/BTC</strong> using the <em>orderBook</em> endpoint.</p>
+<pre><code class="hljs">http://localhost:3000/exchange/binance/orderBook?symbol=ETH%2FBTC&amp;limit=5
+</code></pre>
+<pre><code class="hljs">{
+  <span class="hljs-attr">"bids"</span>: [
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028657</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">17.038</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028653</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">0.134</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028652</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">3.873</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028651</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">9.157</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02865</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">20.295</span>
+    }
+  ],
+  <span class="hljs-attr">"asks"</span>: [
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028668</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">0.257</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028669</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">2.995</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02867</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">1.48</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028673</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">0.554</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.028674</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">6</span>
+    }
+  ]
+}
+</code></pre>
+<p>Now that we have the <strong>ETH/BTC</strong> order book from Binance, let’s see how to repeat the same steps on Kraken.</p>
+<h3><a class="anchor" aria-hidden="true" id="kraken-2"></a><a href="#kraken-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Kraken</h3>
+<pre><code class="hljs">http://localhost:3000/exchange/kraken/markets
+</code></pre>
+<pre><code class="hljs">[
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"ADACAD"</span>,
+    <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"ADA/CAD"</span>,
+    <span class="hljs-attr">"base"</span>: <span class="hljs-string">"ADA"</span>,
+    <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"CAD"</span>,
+    <span class="hljs-attr">"info"</span>: {
+      <span class="hljs-attr">"altname"</span>: <span class="hljs-string">"ADACAD"</span>,
+      <span class="hljs-attr">"wsname"</span>: <span class="hljs-string">"ADA/CAD"</span>,
+      <span class="hljs-attr">"aclass_base"</span>: <span class="hljs-string">"currency"</span>,
+      <span class="hljs-attr">"base"</span>: <span class="hljs-string">"ADA"</span>,
+      <span class="hljs-attr">"aclass_quote"</span>: <span class="hljs-string">"currency"</span>,
+      <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"ZCAD"</span>,
+      <span class="hljs-attr">"lot"</span>: <span class="hljs-string">"unit"</span>,
+      <span class="hljs-attr">"pair_decimals"</span>: <span class="hljs-number">6</span>,
+      <span class="hljs-attr">"lot_decimals"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"lot_multiplier"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">"leverage_buy"</span>: [],
+      <span class="hljs-attr">"leverage_sell"</span>: [],
+      <span class="hljs-attr">"fees"</span>: [
+        [
+          <span class="hljs-number">0</span>,
+          <span class="hljs-number">0.26</span>
+        ],
+        [
+          <span class="hljs-number">50000</span>,
+          <span class="hljs-number">0.24</span>
+        ],
+        [
+          <span class="hljs-number">100000</span>,
+          <span class="hljs-number">0.22</span>
+        ],
+        [
+          <span class="hljs-number">250000</span>,
+          <span class="hljs-number">0.2</span>
+        ],
+        [
+          <span class="hljs-number">500000</span>,
+          <span class="hljs-number">0.18</span>
+        ],
+        [
+          <span class="hljs-number">1000000</span>,
+          <span class="hljs-number">0.16</span>
+        ],
+        [
+          <span class="hljs-number">2500000</span>,
+          <span class="hljs-number">0.14</span>
+        ],
+        [
+          <span class="hljs-number">5000000</span>,
+          <span class="hljs-number">0.12</span>
+        ],
+        [
+          <span class="hljs-number">10000000</span>,
+          <span class="hljs-number">0.1</span>
+        ]
+      ],
+      <span class="hljs-attr">"fees_maker"</span>: [
+        [
+          <span class="hljs-number">0</span>,
+          <span class="hljs-number">0.16</span>
+        ],
+        [
+          <span class="hljs-number">50000</span>,
+          <span class="hljs-number">0.14</span>
+        ],
+        [
+          <span class="hljs-number">100000</span>,
+          <span class="hljs-number">0.12</span>
+        ],
+        [
+          <span class="hljs-number">250000</span>,
+          <span class="hljs-number">0.1</span>
+        ],
+        [
+          <span class="hljs-number">500000</span>,
+          <span class="hljs-number">0.08</span>
+        ],
+        [
+          <span class="hljs-number">1000000</span>,
+          <span class="hljs-number">0.06</span>
+        ],
+        [
+          <span class="hljs-number">2500000</span>,
+          <span class="hljs-number">0.04</span>
+        ],
+        [
+          <span class="hljs-number">5000000</span>,
+          <span class="hljs-number">0.02</span>
+        ],
+        [
+          <span class="hljs-number">10000000</span>,
+          <span class="hljs-number">0</span>
+        ]
+      ],
+      <span class="hljs-attr">"fee_volume_currency"</span>: <span class="hljs-string">"ZUSD"</span>,
+      <span class="hljs-attr">"margin_call"</span>: <span class="hljs-number">80</span>,
+      <span class="hljs-attr">"margin_stop"</span>: <span class="hljs-number">40</span>
+    },
+    <span class="hljs-attr">"limits"</span>: {
+      <span class="hljs-attr">"amount"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">1</span>,
+        <span class="hljs-attr">"max"</span>: <span class="hljs-number">100000000</span>
+      },
+      <span class="hljs-attr">"price"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.000001</span>
+      },
+      <span class="hljs-attr">"cost"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0</span>
+      }
+    },
+    <span class="hljs-attr">"precision"</span>: {
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">6</span>
+    }
+  },
+  {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"XETHXXBT"</span>,
+    <span class="hljs-attr">"symbol"</span>: <span class="hljs-string">"ETH/BTC"</span>,
+    <span class="hljs-attr">"base"</span>: <span class="hljs-string">"ETH"</span>,
+    <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"BTC"</span>,
+    <span class="hljs-attr">"info"</span>: {
+      <span class="hljs-attr">"altname"</span>: <span class="hljs-string">"ETHXBT"</span>,
+      <span class="hljs-attr">"wsname"</span>: <span class="hljs-string">"ETH/XBT"</span>,
+      <span class="hljs-attr">"aclass_base"</span>: <span class="hljs-string">"currency"</span>,
+      <span class="hljs-attr">"base"</span>: <span class="hljs-string">"XETH"</span>,
+      <span class="hljs-attr">"aclass_quote"</span>: <span class="hljs-string">"currency"</span>,
+      <span class="hljs-attr">"quote"</span>: <span class="hljs-string">"XXBT"</span>,
+      <span class="hljs-attr">"lot"</span>: <span class="hljs-string">"unit"</span>,
+      <span class="hljs-attr">"pair_decimals"</span>: <span class="hljs-number">5</span>,
+      <span class="hljs-attr">"lot_decimals"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"lot_multiplier"</span>: <span class="hljs-number">1</span>,
+      <span class="hljs-attr">"leverage_buy"</span>: [
+        <span class="hljs-number">2</span>,
+        <span class="hljs-number">3</span>,
+        <span class="hljs-number">4</span>,
+        <span class="hljs-number">5</span>
+      ],
+      <span class="hljs-attr">"leverage_sell"</span>: [
+        <span class="hljs-number">2</span>,
+        <span class="hljs-number">3</span>,
+        <span class="hljs-number">4</span>,
+        <span class="hljs-number">5</span>
+      ],
+      <span class="hljs-attr">"fees"</span>: [
+        [
+          <span class="hljs-number">0</span>,
+          <span class="hljs-number">0.26</span>
+        ],
+        [
+          <span class="hljs-number">50000</span>,
+          <span class="hljs-number">0.24</span>
+        ],
+        [
+          <span class="hljs-number">100000</span>,
+          <span class="hljs-number">0.22</span>
+        ],
+        [
+          <span class="hljs-number">250000</span>,
+          <span class="hljs-number">0.2</span>
+        ],
+        [
+          <span class="hljs-number">500000</span>,
+          <span class="hljs-number">0.18</span>
+        ],
+        [
+          <span class="hljs-number">1000000</span>,
+          <span class="hljs-number">0.16</span>
+        ],
+        [
+          <span class="hljs-number">2500000</span>,
+          <span class="hljs-number">0.14</span>
+        ],
+        [
+          <span class="hljs-number">5000000</span>,
+          <span class="hljs-number">0.12</span>
+        ],
+        [
+          <span class="hljs-number">10000000</span>,
+          <span class="hljs-number">0.1</span>
+        ]
+      ],
+      <span class="hljs-attr">"fees_maker"</span>: [
+        [
+          <span class="hljs-number">0</span>,
+          <span class="hljs-number">0.16</span>
+        ],
+        [
+          <span class="hljs-number">50000</span>,
+          <span class="hljs-number">0.14</span>
+        ],
+        [
+          <span class="hljs-number">100000</span>,
+          <span class="hljs-number">0.12</span>
+        ],
+        [
+          <span class="hljs-number">250000</span>,
+          <span class="hljs-number">0.1</span>
+        ],
+        [
+          <span class="hljs-number">500000</span>,
+          <span class="hljs-number">0.08</span>
+        ],
+        [
+          <span class="hljs-number">1000000</span>,
+          <span class="hljs-number">0.06</span>
+        ],
+        [
+          <span class="hljs-number">2500000</span>,
+          <span class="hljs-number">0.04</span>
+        ],
+        [
+          <span class="hljs-number">5000000</span>,
+          <span class="hljs-number">0.02</span>
+        ],
+        [
+          <span class="hljs-number">10000000</span>,
+          <span class="hljs-number">0</span>
+        ]
+      ],
+      <span class="hljs-attr">"fee_volume_currency"</span>: <span class="hljs-string">"ZUSD"</span>,
+      <span class="hljs-attr">"margin_call"</span>: <span class="hljs-number">80</span>,
+      <span class="hljs-attr">"margin_stop"</span>: <span class="hljs-number">40</span>
+    },
+    <span class="hljs-attr">"limits"</span>: {
+      <span class="hljs-attr">"amount"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.02</span>,
+        <span class="hljs-attr">"max"</span>: <span class="hljs-number">100000000</span>
+      },
+      <span class="hljs-attr">"price"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0.00001</span>
+      },
+      <span class="hljs-attr">"cost"</span>: {
+        <span class="hljs-attr">"min"</span>: <span class="hljs-number">0</span>
+      }
+    },
+    <span class="hljs-attr">"precision"</span>: {
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">8</span>,
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">5</span>
+    }
+  }
+]
+</code></pre>
+<pre><code class="hljs">http://localhost:3000/exchange/kraken/orderBook?symbol=ETH%2FBTC&amp;limit=5
+</code></pre>
+<pre><code class="hljs">{
+  <span class="hljs-attr">"bids"</span>: [
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02866</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">207.065</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02865</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">4.551</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02864</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">0.999</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02863</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">1.071</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02862</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">0.932</span>
+    }
+  ],
+  <span class="hljs-attr">"asks"</span>: [
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02868</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">16</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02869</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">124.643</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02871</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">9.738</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02873</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">37.638</span>
+    },
+    {
+      <span class="hljs-attr">"price"</span>: <span class="hljs-number">0.02874</span>,
+      <span class="hljs-attr">"amount"</span>: <span class="hljs-number">162.903</span>
+    }
+  ]
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="impact-on-developer-productivity"></a><a href="#impact-on-developer-productivity" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Impact on developer productivity</h2>
+<p>To get the order books from Binance and Kraken using the manual, fully native approach, developers had to:</p>
+<ul>
+<li><p>Learn and code for a total of 4 API endpoints (and their supported query parameters), and</p></li>
+<li><p>Learn different nomenclature for what is essentially the same symbol.</p>
+<table>
+<thead>
+<tr><th>Exchange</th><th style="text-align:center">Native APIs</th><th style="text-align:center">CCXT-REST</th></tr>
+</thead>
+<tbody>
+<tr><td>Binance</td><td style="text-align:center">ETHBTC</td><td style="text-align:center">ETH/BTC</td></tr>
+<tr><td>Kraken</td><td style="text-align:center">ETHXBT</td><td style="text-align:center">ETH/BTC</td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p>Using CCXT-REST, developers can:</p>
+<ul>
+<li>Reduce the total API endpoints they have to connect to in half, and</li>
+<li>Get order book data, execute and cancel orders using the same symbols for asset pairs across different exchanges, without having to worry about nomenclature.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="where-to-go-from-here"></a><a href="#where-to-go-from-here" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Where to go from here</h2>
+<p>CCXT-REST makes integration with 135+ cryptocurrency exchanges seamless for developers looking to write software to get real-time pricing, identify arbitrage opportunities, or perform automated trading with bots.</p>
+<p>Learn about what the <a href="https://ccxt-rest.io">CCXT-REST</a> team has been up to.</p>
+</span></div></article></div><div class="post"><header class="postHeader"><h1 class="postHeaderTitle"><a href="/blog/2019/05/04/hello-world">Hello World</a></h1><p class="post-meta">May 4, 2019</p><div class="authorBlock"><p class="post-authorName"><a href="https://www.linkedin.com/in/ccxtrest" target="_blank" rel="noreferrer noopener">Franz See</a></p><div class="authorPhoto"><a href="https://www.linkedin.com/in/ccxtrest" target="_blank" rel="noreferrer noopener"><img src="https://graph.facebook.com/562399303/picture/?height=200&amp;width=200" alt="Franz See"/></a></div></div></header><article class="post-content"><div><span><p>Hello World! We are currently revamping our website :) Stay tuned!</p>
+</span></div></article></div><div class="docs-prevnext"></div></div></div></div></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/favicon.ico" alt="CCXT-REST" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/quickstart.html">Getting Started</a><a href="/api.html">API</a></div><div><h5>Community</h5><a href="https://github.com/ccxt-rest/ccxt-rest">GitHub</a><a href="https://gitter.im/ccxt-rest/community">Project Chat</a><a href="https://hub.docker.com/r/ccxtrest/ccxt-rest">Docker</a><a href="https://npmjs.com/package/ccxt-rest">NPM</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/ccxt-rest/ccxt-rest">GitHub</a><a href="https://github.com/ccxt/ccxt">CCXT</a><a class="github-button" href="https://github.com/ccxt-rest/ccxt-rest" data-icon="octicon-star" data-count-href="/ccxt-rest/ccxt-rest/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 CCXT-REST</section></footer></div></body></html>

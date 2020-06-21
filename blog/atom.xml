@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://ccxt-rest.io/blog</id>
+    <title>CCXT-REST Blog</title>
+    <updated>2019-05-05T06:00:00Z</updated>
+    <generator>Feed for Node.js</generator>
+    <link rel="alternate" href="https://ccxt-rest.io/blog"/>
+    <subtitle>The best place to stay up-to-date with the latest CCXT-REST news and events.</subtitle>
+    <logo>https://ccxt-rest.io/img/favicon.ico</logo>
+    <rights>Copyright © 2020 CCXT-REST</rights>
+    <entry>
+        <title type="html"><![CDATA[Using a Unified API to Get Order Book Data from Binance, Kraken and 135+ Cryptocurrency Exchanges]]></title>
+        <id>https://ccxt-rest.io/blog/2019/05/05/Using-a-Unified-API-to-Get-Order-Book-Data-from-Binance-Kraken-and-135--Cryptocurrency-Exchanges.html</id>
+        <link href="https://ccxt-rest.io/blog/2019/05/05/Using-a-Unified-API-to-Get-Order-Book-Data-from-Binance-Kraken-and-135--Cryptocurrency-Exchanges.html">
+        </link>
+        <updated>2019-05-05T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p><img src="https://cdn-images-1.medium.com/max/1600/1*tMcmxA39RCyOfUJP3NNNuA.png" alt></p> <p><em>CCXT-REST allows client applications to connect to 135+ cryptocurrency exchanges using a unified REST API which allows for the retrieval of ticker, order, and order book data, as well as the creation and cancellation of orders. The project is built ...</em></p>]]></summary>
+        <author>
+            <name>JP Yao</name>
+            <uri>https://www.linkedin.com/in/jpyao</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello World]]></title>
+        <id>https://ccxt-rest.io/blog/2019/05/04/hello-world.html</id>
+        <link href="https://ccxt-rest.io/blog/2019/05/04/hello-world.html">
+        </link>
+        <updated>2019-05-04T06:00:00Z</updated>
+        <summary type="html"><![CDATA[<p>Hello World! We are currently revamping our website :) Stay tuned!</p> ]]></summary>
+        <author>
+            <name>Franz See</name>
+            <uri>https://www.linkedin.com/in/ccxtrest</uri>
+        </author>
+    </entry>
+</feed>
