@@ -6,7 +6,7 @@
  */
 const users = [];
 
-const numberOfExchanges = 133
+const numberOfExchanges = 124
 
 const siteConfig = {
   title: 'CCXT-REST', // Title for your website.
